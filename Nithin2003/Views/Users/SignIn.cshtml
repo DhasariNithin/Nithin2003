@@ -1,0 +1,135 @@
+﻿@model MySignIn
+@{
+    ViewData["Title"] = "SignIn";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+@*<h1>Sign In</h1>
+<form action="/Users/SignIn" method="post">
+<div class="mb-3">
+    <label class="form-label">User Name </label>
+    <input type="text" asp-for="@Model.Username" class="form-control" />
+        <span asp-validation-for="@Model.Username" class="text-danger"> </span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">User Password </label>
+    <input type="password" asp-for="@Model.Password" class="form-control" />
+    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+</div>
+    <input type="submit" name="btnsubmit" value="SignIn" />
+    <a asp-controller="Users" asp-action="Index" class="button" type="button">Back To Home</a>
+    <div class="buttonn"><a asp-controller="Users" asp-action="AddDetails" type="button"><p class="p">Sign Up</p> </a></div>
+
+    
+</form>
+<style>
+    .button{
+        border:2px solid black;
+        padding:5px;        
+    } 
+    .buttonn{
+        text-align: right;        
+    }
+   .p{
+        border:2px solid black;
+        padding:2px;
+    }
+   
+</style>*@
+
+
+<!-- Main content -->
+<div class="main-content">
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+        <div class="container">
+            <div class="header-body text-center mb-7">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+                        <h1 class="text-white">Welcome To Sign In!</h1>
+                       @* <p class="text-lead text-white"> To Sign In </p>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="card bg-secondary border-0 mb-0">
+                    <div class="card-header bg-transparent pb-5">
+                        @*<div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
+                        <div class="btn-wrapper text-center">
+                            <a href="#" class="btn btn-neutral btn-icon">
+                                <span class="btn-inner--icon"><img src="../assets/img/icons/common/github.svg"></span>
+                                <span class="btn-inner--text">Github</span>
+                            </a>
+                            <a href="#" class="btn btn-neutral btn-icon">
+                                <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
+                                <span class="btn-inner--text">Google</span>
+                            </a>
+                        </div>
+                    </div>*@
+                    <div class="card-body px-lg-5 py-lg-5">
+                        <div class="text-center text-muted mb-4">
+                            <small> Sign in with credentials</small>
+                        </div>
+                            <form action="/Users/SignIn" method="post">
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                        <input class="form-control" asp-for="@Model.Username" placeholder="Enter User Name" type="text">
+                                        <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                                       
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                        <input class="form-control" asp-for="@Model.Password" placeholder="Enter Password" type="password">
+                                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                       
+                                </div>
+                            </div>
+                            @*<div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                                <label class="custom-control-label" for=" customCheckLogin">
+                                    <span class="text-muted">Remember me</span>
+                                </label>
+                            </div>*@
+                            <div class="text-center">
+                                    @*<button type="button" class="btn btn-primary my-4">Sign in</button>*@
+                                    <input type="submit" class="btn btn-primary my-4" name="btnsubmit" value="Sign In" />                                    
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary my-4" type="button">Back To Home</a>
+                                    <h5 class="text-Black">Don't Have An Account ? Click On Sign Up</h5>
+                                    <a asp-controller="Users" asp-action="AddDetails" type="button" class="btn btn-primary my-4"> Sign Up</a>
+                            </div>
+                                
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a href="#" class="text-light"><small>Forgot password?</small></a>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a href="#" class="text-light"><small>Create new account</small></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Footer -->

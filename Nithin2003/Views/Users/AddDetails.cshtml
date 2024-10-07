@@ -1,0 +1,293 @@
+﻿@model MyUser
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+@*<h1>Add User Details</h1>
+<form action="/Users/AddDetails" method="post">
+    <div class="mb-3">
+        <label class="form-label">User Name </label>
+        <input type="text" asp-for="@Model.Username" class="form-control"/>
+        <span asp-validation-for="@Model.Username" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">User Password </label>
+        <input type="password" asp-for="@Model.Password" class="form-control" />
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Firstname</label>
+        <input type="text" asp-for="@Model.Firstname" class="form-control"/>
+        <span asp-validation-for="@Model.Firstname" class="text-danger"></span>
+
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Lastname </label>
+        <input type="text" asp-for="@Model.Lastname" class="form-control"/>
+        <span asp-validation-for="@Model.Lastname" class="text-danger"></span>
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">Mobile No </label>
+        <input type="text" pattern="[6789][0-9]{9}" title="Please enter valid Mobile number" asp-for="@Model.Mobile" class="form-control" />
+        <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
+
+
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label"> User City</label>
+        @*<input type="DropDownList" asp-for="@Model.City" class="form-control" />*@
+       @* @Html.DropDownList("City", new List<SelectListItem>
+        {
+        new SelectListItem { Text = "Nizamabad", Value = "Nizamabad", Selected=true},
+        new SelectListItem { Text = "Karimagar", Value = "Karimagar"},
+        new SelectListItem { Text = "Hyderabad", Value = "Hyderabad"},
+        new SelectListItem { Text = "Warangal", Value = "Warangal"},
+        new SelectListItem { Text = "Nalgonda", Value = "Nalgonda"},
+        }, "Select City", new { @class = "form-control" })
+        <span asp-validation-for="@Model.City" class="text-danger"></span>
+
+    </div>
+
+
+    <div class="mb-3">
+           <label >Indian</label>
+          <input type="checkbox" id="Indian" asp-for=" @Model.Nationality" /><br>
+        <span asp-validation-for="@Model.Nationality" class="text-danger"></span>
+    </div>    
+
+    <div class="mb-3">
+            <label class="form-label"> User Age</label>
+            <input type="datetime-local" asp-for="@Model.Age" class="form-control" />
+        <span asp-validation-for="@Model.Age" class="text-danger"></span>
+     </div>
+
+    <div class="mb-3">
+        <label class="form-label">Account Number </label>
+        <input type="number" asp-for="@Model.AccountBalance" class="form-control" />
+        <span asp-validation-for="@Model.AccountBalance" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">User Status </label>
+        <input type="text" asp-for="@Model.UsersStatus" class="form-control" />
+        <span asp-validation-for="@Model.UsersStatus" class="text-danger"></span>
+
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">User Email </label>
+        <input type="text" asp-for="@Model.Email" class="form-control">
+        <td>@Html.ValidationMessageFor(m => @Model.Email, "", new { @class = "text-danger" })</td>
+
+
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">User EmailVerification </label>
+        <input type="text" asp-for="@Model.EmailVerification" class="form-control" />
+        <span asp-validation-for="@Model.EmailVerification" class="text-danger"></span>
+
+    </div>
+    <input type="submit" name="btnsubmit" value="submit"/><a asp-controller="Users" asp-action="Index" type="button">Back To Users Details</a>
+</form>
+*@
+
+
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html>
+
+
+
+<body class="bg-default">  
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+            <div class="container">
+                <div class="header-body text-center mb-7">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+                            <h1 class="text-white">Welcome!</h1>
+                            <p class="text-lead text-white"> Enter Below Details To Sign Up</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator separator-bottom separator-skew zindex-100">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+        <!-- Page content -->
+        <div class="container mt--8 pb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7">
+                    <div class="card bg-secondary border-0 mb-0">
+                        @*<div class="card-header bg-transparent pb-5">
+                            <div class="text-muted text-center mt-2 mb-3"><small>Sign Up</small></div>
+                            <div class="btn-wrapper text-center">
+                                <a href="#" class="btn btn-neutral btn-icon">
+                                    <span class="btn-inner--icon"><img src="../assets/img/icons/common/github.svg"></span>
+                                    <span class="btn-inner--text">Github</span>
+                                </a>
+                                <a href="#" class="btn btn-neutral btn-icon">
+                                    <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
+                                    <span class="btn-inner--text">Google</span>
+                                </a>
+                            </div>
+                        </div>*@
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <div class="text-center text-muted mb-4">
+                                <strong>Sign Up</strong>
+                            </div>
+                            <form action="/Users/AddDetails" method="post">
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            @*<span class="input-group-text"><i class="ni ni-email-83"></i></span>*@
+                                        </div>                                        
+                                        
+                                        <input type="text" asp-for="@Model.Username" placeholder="Enter User Name" class="form-control" />
+                                        <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">                                        
+
+                                        <input type="Password" asp-for="@Model.Password" placeholder="Enter Password" class="form-control" />
+                                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+
+                                        <input type="text" asp-for="@Model.Firstname" placeholder="First Name" class="form-control" />
+                                        <span asp-validation-for="@Model.Firstname" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+
+                                        <input type="text" asp-for="@Model.Lastname" placeholder="Last Name" class="form-control" />
+                                        <span asp-validation-for="@Model.Lastname" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+
+                                        <input type="text" asp-for="@Model.Mobile" pattern="[6789][0-9]{9}" title="Please enter valid Mobile number" placeholder=" Mobile Number" class="form-control" />
+                                        <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        
+                                         @Html.DropDownList("City", new List<SelectListItem>
+                                        {
+                                        new SelectListItem { Text = "Nizamabad", Value = "Nizamabad"},
+                                        new SelectListItem { Text = "Karimagar", Value = "Karimagar"},
+                                        new SelectListItem { Text = "Hyderabad", Value = "Hyderabad"},
+                                        new SelectListItem { Text = "Warangal", Value = "Warangal"},
+                                        new SelectListItem { Text = "Nalgonda", Value = "Nalgonda"},
+                                        }, "Select City", new { @class = "form-control" })
+                                        <span asp-validation-for="@Model.City" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <h1 class="form-control">Indian</h1>
+                                        <input type="checkbox" id="Indian" asp-for="@Model.Nationality" /><br>
+                                       @* <h1 class="text-white">Nationality</h1>
+                                        <input type="checkbox" asp-for=" @Model.Nationality" placeholder="Indian" value="Indian" /><br>*@
+                                        <span asp-validation-for="@Model.Nationality" class="text-danger"></span>                                        
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+
+                                        <input type="datetime-local" asp-for="@Model.Age" placeholder="Age" class="form-control" />
+                                        <span asp-validation-for="@Model.Age" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                
+                               
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+
+                                        <input type="text" asp-for="@Model.Email" placeholder="Email" class="form-control" />                                        
+                                        <td>@Html.ValidationMessageFor(m => @Model.Email, "", new { @class = "text-danger" })</td>
+                                    </div>
+                                </div>                                
+                               
+                                <div class="text-center">                                    
+                                    <input type="submit" class="btn btn-primary my-4" name="btnsubmit" value="Sign Up" />
+                                    <a asp-controller="Users" asp-action="SignIn" class="btn btn-primary my-4" type="button">Back To Home</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+   @* <!-- Footer -->
+    <footer class="py-5" id="footer-main">
+        <div class="container">
+            <div class="row align-items-center justify-content-xl-between">
+                <div class="col-xl-6">
+                    <div class="copyright text-center text-xl-left text-muted">
+                        &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                        <li class="nav-item">
+                            <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>*@
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <!-- Argon JS -->
+    <script src="../assets/js/argon.js?v=1.2.0"></script>
+</body>
+
+</html>
+

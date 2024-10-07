@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MyUser>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>User Details</h1>
+<div>
+    <span> <a  asp-controller="Users" asp-action="AddDetails" type="button">add User details</a></span>
+    </div>
+
+
+<table>
+    <tr>
+        <th>User Name</th>
+        <th>Password</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Mobile</th>
+        <th>City</th>
+        <th>Nationality</th>
+        <th>Age</th>
+        <th>Account Balance</th>
+        <th>User Status</th>
+        <th>Admin</th>
+        <th>User Email</th>
+        <th>User Email Verification</th>
+        <th>Last Modified Date</th>
+
+
+
+    </tr>
+    @foreach(var user in Model)
+    {
+        <tr>
+            <td>@user.Username</td>
+            <td>@user.Password</td>
+            <td>@user.Firstname</td>
+            <td>@user.Lastname</td>
+            <td>@user.Mobile</td>
+            <td>@user.City</td>
+            <td>@user.Nationality</td>            
+            <td>
+                @{
+                    int age = DateTime.Now.Year - user.Age.Year;
+                }
+                @age years
+            </td>
+            <td>@user.AccountBalance</td>
+            <td>@user.UserStatus</td>
+            <td>@user.Admin</td>
+            <td>@user.Email</td>
+            <td>@user.EmailVerification</td>
+            <td>@user.LastModifiedDate</td>
+
+            <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails" asp-route-Username="@user.Username">Edit</a></div></td>
+            <td><div class="btn"> <a asp-controller="Users" asp-action="deleteDetails" asp-route-Username="@user.Username">Delete</a></div></td>
+        </tr>
+    }
+</table>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+
