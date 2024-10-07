@@ -12,7 +12,7 @@ namespace Nithin2003.Controllers
         {
             _db = db;
         }
-        //Read User Details
+        
         public IActionResult Index()
         {
             try
