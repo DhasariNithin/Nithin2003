@@ -4,6 +4,7 @@ namespace Nithin2003.Controllers
 {
     public class AdminController : Controller
     {
+        // this is for Master admin page
         public IActionResult Index()
         {
             try
