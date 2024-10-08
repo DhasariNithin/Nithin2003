@@ -10,7 +10,7 @@ namespace Nithin2003.Controllers
             {
                 return View();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
             }
