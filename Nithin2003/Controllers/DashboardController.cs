@@ -81,6 +81,31 @@ namespace Nithin2003.Controllers
             }
 
         }
+        public IActionResult MoneyRequest()
+        {
+            try
+            {
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+        [HttpPost]
+        public IActionResult MoneyRequest(MyMoneyRequest myMoneyRequest)
+        {
+            try
+            {
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
 
     }
 }
