@@ -250,6 +250,8 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
+      // validating the user with credentials
         [HttpPost]
         public IActionResult SignIn(MySignIn mySignIn)
         {
