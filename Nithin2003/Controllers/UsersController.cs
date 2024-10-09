@@ -317,8 +317,24 @@ namespace Nithin2003.Controllers
             }
         }
 
+        // testing GIT merge
+        public IActionResult SignOut1()
+        {
+            try
+            {
+                HttpContext.Session.SetString("Username", "");
+                HttpContext.Session.SetString("SignIn", "False");
+                HttpContext.Session.SetString("Admin", "False");
+                return RedirectToAction("SignIn", "Users");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
 
-      
+
+
 
 
     }
