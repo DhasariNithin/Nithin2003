@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nithin2003.Database;
+using Nithin2003.Models;
 
 namespace Nithin2003.Controllers
 {
     public class AdminController : Controller
     {
-        // this is for Master admin page
         public IActionResult Index()
         {
             try
             {
-                return View();
+                IEnumerable<MyUser> users = _db.Users;
+                return View(users);
+               
             }
             catch(Exception ex)
             {

@@ -308,6 +308,7 @@ namespace Nithin2003.Controllers
             {
                 HttpContext.Session.SetString("Username", "");
                 HttpContext.Session.SetString("SignIn", "False");
+                HttpContext.Session.SetString("Admin", "False");
                 return RedirectToAction("SignIn", "Users");
             }
             catch (Exception ex)

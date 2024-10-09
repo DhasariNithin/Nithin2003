@@ -14,14 +14,14 @@ namespace Nithin2003.Models
         public bool Nationality { get; set; }
         public DateTime Age { get; set; }
         public int AccountBalance { get; set; } = 0;
-        public string UserStatus { get;set; }
+        public string UserStatus { get; set; } = "New";
         public bool Admin { get; set; } = false;
 
         [Required(ErrorMessage = "Email is required.")]
         [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Invalid Email Address.")] 
         public string Email { get; set; }
         public string EmailVerification { get; set; } = "Not Verified";
-        public DateTime LastModifiedDate { get; set; }= DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
 
     }
 }

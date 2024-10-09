@@ -1,20 +1,20 @@
-﻿@model MyTransferMoney
+﻿@model MyMoneyRequest
 @{
-    ViewData["Title"] = "TransferMoney";
-    Layout = "~/Views/Shared/_DashBoard.cshtml";
+    ViewData["Title"] = "MoneyRequest";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
 
-
+<!-- Main content -->
 <div class="main-content">
     <!-- Header -->
-     <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
-         <div class="container">
+    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+        <div class="container">
             <div class="header-body text-center mb-7">
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                        <h1 class="text-white">Transfer Money</h1>
-                        <p class="text-lead text-white"></p>
+                        <h1 class="text-white">Welcome To Request Money</h1>
+                        @* <p class="text-lead text-white"> To Sign In </p>*@
                     </div>
                 </div>
             </div>
@@ -25,9 +25,6 @@
             </svg>
         </div>
     </div>
-</div>
- 
-
     <!-- Page content -->
     <div class="container mt--8 pb-5">
         <div class="row justify-content-center">
@@ -45,31 +42,32 @@
                         <span class="btn-inner--text">Google</span>
                         </a>
                         </div>
-                        </div>*@
+                        </div>*@                                                  
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
-                                <small>Enter Details To Money Transfer</small>
+                                <small> Request Money</small>
                             </div>
-                            <form action="/Dashboard/TransferMoney" method="post">
+                            <form action="/Dashboard/MoneyRequest" method="post">
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                         </div>
-                                        <input class="form-control" asp-for="@Model.ToUsername" placeholder="To Whom" type="text">
-                                        <span asp-validation-for="@Model.ToUsername" class="text-danger"></span>
+                                        <input class="form-control"  placeholder="Enter Amount " type="number">
                                         
+
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group input-group-merge input-group-alternative">                                       
+                                @*<div class="form-group">
+                                    <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class=" ni ni-money-coins"></i></span>
+                                            <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                         </div>
-                                        <input class="form-control" asp-for="@Model.Amount" placeholder=" Enter Amount" type="number">
-                                        <span asp-validation-for="@Model.Amount" class="text-danger"></span>
+                                        <input class="form-control"  placeholder="Enter Password" type="password">
+                                        
+
                                     </div>
-                                </div>
+                                </div>*@
                                 @*<div class="custom-control custom-control-alternative custom-checkbox">
                                 <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
                                 <label class="custom-control-label" for=" customCheckLogin">
@@ -77,24 +75,24 @@
                                 </label>
                                 </div>*@
                                 <div class="text-center">
-                                    @*<button type="button" class="btn btn-primary my-4">Sign in</button>*@
-                                    <input type="submit" class="btn btn-primary my-4" name="btnsubmit" value="Money Transfer" />
-                                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary my-4" type="button">Back To Dashboard</a>
-                            </div>
+                                    <input type="submit" class="btn btn-primary my-4" name="btnsubmit" value="Request" />
+                                    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary my-4" type="button">Back To Dashboard</a>
+
+                                </div>
 
                             </form>
                         </div>
                     </div>
                     @*<div class="row mt-3">
-                    <div class="col-6">
-                    <a href="#" class="text-light"><small>Forgot password?</small></a>
-                    </div>
-                    <div class="col-6 text-right">
-                    <a href="#" class="text-light"><small>Create new account</small></a>
-                    </div>
+                        <div class="col-6">
+                            <a href="#" class="text-light"><small>Forgot password?</small></a>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="#" class="text-light"><small>Create new account</small></a>
+                        </div>
                     </div>*@
                 </div>
             </div>
         </div>
     </div>
-   
+</div>
