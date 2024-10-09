@@ -301,7 +301,7 @@ namespace Nithin2003.Controllers
             }
         }
 
-        // User sign-out
+        // User sign-out amd remove seesions
         public IActionResult SignOut()
         {
             try
@@ -316,6 +316,24 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
+
+        // User sign-out
+        public IActionResult SignOut2()
+        {
+            try
+            {
+                HttpContext.Session.SetString("Username", "");
+                HttpContext.Session.SetString("SignIn", "False");
+                HttpContext.Session.SetString("Admin", "False");
+                return RedirectToAction("SignIn", "Users");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+
 
     }
 }
