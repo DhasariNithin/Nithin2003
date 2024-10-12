@@ -94,12 +94,13 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     @if (Context.Session.GetString("SignIn") == "true")
-                    {                                  
-                            <li style="float:left;width:400px;height: 60px;"><a class="nav-link scrollto active" asp-controller="Dashboard" asp-action="Index">Dashboard </a></li>
+                    {
+                        @*style = "float:left;width:400px;height: 60px;"*@
+                    <li> <a class="nav-link scrollto active" asp-controller="Dashboard" asp-action="Index">Dashboard </a></li>
                     }
                     else
                     {
-                        <li style="float:left;width:400px;height: 60px;"><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                        <li ><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     }
                     @if (Context.Session.GetString("Admin") == "True")
                     {
@@ -110,12 +111,12 @@
                     
 
 
-                    <li><a class="nav-link scrollto">          </a></li>
+                   @* <li><a class="nav-link scrollto">          </a></li>
                     <li><a class="nav-link scrollto">         </a></li>
                     <li><a class="nav-link scrollto">          </a></li>
                     <li><a href="">        </a></li>
                     <li class="">
-                        <a><span>      </span> <i class=""></i></a>
+                        <a><span>      </span> <i class=""></i></a>*@
                         @*<ul>
                         <li><a href="#">Drop Down 1</a></li>
                         <li class="dropdown">
@@ -132,7 +133,7 @@
                         <li><a href="#">Drop Down 3</a></li>
                         <li><a href="#">Drop Down 4</a></li>
                         </ul>*@
-                    </li>
+                    @*</li>*@
 
                     <li class="">
                         <a><span></span> <i class=""></i>       </a>
