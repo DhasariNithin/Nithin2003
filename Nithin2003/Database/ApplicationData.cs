@@ -10,7 +10,8 @@ namespace Nithin2003.Database
         }
         public DbSet<MyUser> Users { get; set; }
         public DbSet<MyTransferMoney> TransactionHistory { get; set; }
-        public DbSet<MyMoneyRequest> MoneyRequests { get; set; }
+
+        public DbSet<MyMoneyRequest> moneyrequest { get; set; }
         
 
     }

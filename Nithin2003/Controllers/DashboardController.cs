@@ -45,7 +45,7 @@ namespace Nithin2003.Controllers
             try
             {
 
-                var _toUserObj = _db.Users.Find(myTransferMoney.ToUsername);  // checking To Username
+                var _toUserObj = _db.Users.Find(myTransferMoney.ToUsername); // checking To Username
                 if (_toUserObj == null)
                 {
                     ModelState.AddModelError("ToUsername", "User doesn't exist, please enter valid username");
@@ -98,9 +98,14 @@ namespace Nithin2003.Controllers
         {
             try
             {
-
-                return View();
+                myMoneyRequest.RequestedUsername = HttpContext.Session.GetString("Username");
+                Random rand = new Random(1000000);
+                myMoneyRequest.LoanId = rand.Next() + myMoneyRequest.LoanAmount + rand.Next();
+                _db.moneyrequest.Add(myMoneyRequest);
+                _db.SaveChanges();
+                return RedirectToAction("Index","Dashboard");
             }
+
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
