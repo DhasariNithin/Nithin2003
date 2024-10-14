@@ -25,6 +25,8 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
+
         // Money Transfer
         public IActionResult TransferMoney()
         {
@@ -96,16 +98,28 @@ namespace Nithin2003.Controllers
         [HttpPost]
         public IActionResult MoneyRequest(MyMoneyRequest myMoneyRequest)
         {
-            try
-            {
+            //try
+            //{
                 myMoneyRequest.RequestedUsername = HttpContext.Session.GetString("Username");
                 Random rand = new Random(1000000);
                 myMoneyRequest.LoanId = rand.Next() + myMoneyRequest.LoanAmount + rand.Next();
-                _db.moneyrequest.Add(myMoneyRequest);
+                _db.mymoneyrequestt.Add(myMoneyRequest);
                 _db.SaveChanges();
-                return RedirectToAction("Index","Dashboard");
-            }
+                return RedirectToAction("Index");
+            //}
 
+            //catch (Exception ex)
+            //{
+            //    return RedirectToAction("Errors", "Home");
+            //}
+        }
+        public IActionResult LoanMoneyRequest()
+        {
+            try
+            {
+                IEnumerable<MyMoneyRequest> mymoneyrequest = _db.mymoneyrequestt;
+                return View(mymoneyrequest);
+            }
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
