@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nithin2003.Database;
 using Nithin2003.Models;
+using NuGet.Protocol.Plugins;
 
 namespace Nithin2003.Controllers
 {
@@ -98,34 +99,24 @@ namespace Nithin2003.Controllers
         [HttpPost]
         public IActionResult MoneyRequest(MyMoneyRequest myMoneyRequest)
         {
-            //try
-            //{
-                myMoneyRequest.RequestedUsername = HttpContext.Session.GetString("Username");
-                Random rand = new Random(1000000);
-                myMoneyRequest.LoanId = rand.Next() + myMoneyRequest.LoanAmount + rand.Next();
-                _db.mymoneyrequestt.Add(myMoneyRequest);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            //}
-
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Errors", "Home");
-            //}
-        }
-        public IActionResult LoanMoneyRequest()
-        {
             try
             {
-                IEnumerable<MyMoneyRequest> mymoneyrequest = _db.mymoneyrequestt;
-                return View(mymoneyrequest);
+                myMoneyRequest.RequestedUsername = HttpContext.Session.GetString("Username");
+                var rand = new Random();
+                var uid = rand.Next(100000, 1000000);
+                myMoneyRequest.LoanId = rand.Next() + myMoneyRequest.LoanAmount + rand.Next();
+                _db.LoanRequest.Add(myMoneyRequest);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
             }
+
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
             }
-        }
 
+        }
+        
     }
 }
       
