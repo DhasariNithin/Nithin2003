@@ -106,7 +106,7 @@ namespace Nithin2003.Controllers
                 Request.RequestedUsername = HttpContext.Session.GetString("Username");
 
                 Random rand = new Random(10000);
-                Request.LoanId = rand.Next()+Request.RequestedUsername;
+                Request.LoanId = rand.Next() + Request.RequestedUsername;
                 _db.LoanRequest.Add(Request);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -168,9 +168,9 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                
+
                 var _requesteduser = _db.LoanRequest.Find(LoanId);
-                
+
                 //Updating Loan Request Table
                 _requesteduser.LoanRequestStatus = "Rejected";
                 _requesteduser.LastModified = DateTime.Now;
@@ -187,10 +187,10 @@ namespace Nithin2003.Controllers
         }
     }
 }
-    
 
-    
 
-      
 
-    
+
+
+
+
