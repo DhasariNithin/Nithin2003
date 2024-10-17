@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyMoneyRequest>
+﻿@model IEnumerable<MyLoanRequest>
 @{
     ViewData["Title"] = "BalanceRequest";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
@@ -175,8 +175,7 @@
                                         <th>User Loan Id</th>
                                         <th>Requested Username</th>
                                         <th> User Loan Amount</th>
-                                        <th>Loan Requested Date</th>
-                                        <th>Last Modified </th>
+                                        
 
 
 
@@ -229,12 +228,12 @@
                                                 @users.LoanAmount
                                                 </div>
                                             </td>
-                                            <td>                                                
+                                            @*<td>                                                
                                                     <span class="">@users.LoanRequestedDate</span>                                                
                                             </td>
                                             <td>                                               
                                                     <span class="">@users.LastModified</span>                                                
-                                            </td>
+                                            </td>*@
 
                                             @*<div class="dropdown">
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -248,8 +247,9 @@
                                         </div>*@
 
 
-                                            <td><div class="btn"> <a asp-controller="" asp-action="">Approve Loan</a></div></td>
-                                            <td><div class="btn"> <a asp-controller="" asp-action="" style="color:red" >Reject Loan</a></div></td>
+                                            <td><div class="btn"> <a asp-controller="Dashboard" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
+
+                                            <td><div class="btn"> <a asp-controller="Dashboard" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
                                         </tr>
 
                                     </tbody>

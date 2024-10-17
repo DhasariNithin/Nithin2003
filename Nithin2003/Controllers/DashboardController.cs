@@ -2,6 +2,7 @@
 using Nithin2003.Database;
 using Nithin2003.Models;
 using NuGet.Protocol.Plugins;
+using System.ComponentModel;
 
 namespace Nithin2003.Controllers
 {
@@ -33,12 +34,12 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                
+
                 return View();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
-                return RedirectToAction("Errors","Home");
+                return RedirectToAction("Errors", "Home");
             }
 
         }
@@ -97,15 +98,16 @@ namespace Nithin2003.Controllers
             }
         }
         [HttpPost]
-        public IActionResult MoneyRequest(MyMoneyRequest myMoneyRequest)
+        public IActionResult MoneyRequest(MyLoanRequest Request)
         {
+
             try
             {
-                myMoneyRequest.RequestedUsername = HttpContext.Session.GetString("Username");
-                var rand = new Random();
-                var uid = rand.Next(100000, 1000000);
-                myMoneyRequest.LoanId = rand.Next() + myMoneyRequest.LoanAmount + rand.Next();
-                _db.LoanRequest.Add(myMoneyRequest);
+                Request.RequestedUsername = HttpContext.Session.GetString("Username");
+
+                Random rand = new Random(10000);
+                Request.LoanId = rand.Next()+Request.RequestedUsername;
+                _db.LoanRequest.Add(Request);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -115,27 +117,80 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
 
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Errors", "Home");
-            //}
         }
-        public IActionResult LoanMoneyRequest()
+
+        public IActionResult LoanAmountRequest()
         {
             try
             {
-                IEnumerable<MyMoneyRequest> mymoneyrequest = _db.mymoneyrequestt;
-                return View(mymoneyrequest);
+                IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;
+                return View(myloanrequest);
+
+
             }
+
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
             }
 
         }
-        
+        public IActionResult ApproveLoan(string? LoanId)
+        {
+            try
+            {
+                // fetching loan request details from Loan request table using Load ID
+                var _requesteduser = _db.LoanRequest.Find(LoanId);
+
+                // fetching user details
+                var _user = _db.Users.Find(_requesteduser.RequestedUsername);
+                _user.AccountBalance = _user.AccountBalance + _requesteduser.LoanAmount;// adding loan amount to user amount
+                _db.Users.Update(_user);
+
+                // update loan request table with status change and last modified
+                _requesteduser.LoanRequestStatus = "Approved";
+                _requesteduser.LastModified = DateTime.Now;
+                _requesteduser.AdminComment = "Loan approved";
+
+                _db.LoanRequest.Update(_requesteduser);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+        public IActionResult RejectLoan(string? LoanId)
+        {
+            try
+            {
+                
+                var _requesteduser = _db.LoanRequest.Find(LoanId);
+                
+                //Updating Loan Request Table
+                _requesteduser.LoanRequestStatus = "Rejected";
+                _requesteduser.LastModified = DateTime.Now;
+                _requesteduser.AdminComment = "Loan Rejected";
+
+                _db.LoanRequest.Update(_requesteduser);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
     }
 }
+    
+
+    
+
       
 
     
