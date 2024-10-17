@@ -115,21 +115,25 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
 
+            //catch (Exception ex)
+            //{
+            //    return RedirectToAction("Errors", "Home");
+            //}
         }
-
-        public IActionResult BalanceRequest()
+        public IActionResult LoanMoneyRequest()
         {
             try
             {
-                IEnumerable<MyMoneyRequest> mymoneyRequest = _db.LoanRequest;
-                return View(mymoneyRequest);
+                IEnumerable<MyMoneyRequest> mymoneyrequest = _db.mymoneyrequestt;
+                return View(mymoneyrequest);
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
             }
-        }
 
+        }
+        
     }
 }
       
