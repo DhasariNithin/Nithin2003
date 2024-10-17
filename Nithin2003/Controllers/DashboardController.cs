@@ -99,6 +99,7 @@ namespace Nithin2003.Controllers
         [HttpPost]
         public IActionResult MoneyRequest(MyMoneyRequest myMoneyRequest)
         {
+
             try
             {
                 myMoneyRequest.RequestedUsername = HttpContext.Session.GetString("Username");
@@ -115,18 +116,16 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
 
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Errors", "Home");
-            //}
         }
-        public IActionResult LoanMoneyRequest()
+
+        public IActionResult BalanceRequest()
         {
             try
             {
-                IEnumerable<MyMoneyRequest> mymoneyrequest = _db.mymoneyrequestt;
-                return View(mymoneyrequest);
+                IEnumerable<MyMoneyRequest> mymoneyRequest = _db.LoanRequest;
+                return View(mymoneyRequest);
             }
+
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
