@@ -102,6 +102,9 @@
                     {
                         <li ><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     }
+                    <li>
+                        <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                    </li>
                     @if (Context.Session.GetString("Admin") == "True")
                     {
                         <li>

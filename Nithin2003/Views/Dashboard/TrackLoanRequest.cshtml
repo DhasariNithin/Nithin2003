@@ -1,6 +1,7 @@
-﻿@model IEnumerable<MyLoanRequest>
+﻿
+@model IEnumerable<MyLoanRequest>
 @{
-    ViewData["Title"] = "BalanceRequest";
+    ViewData["Title"] = "TrackLoanRequest";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
@@ -24,7 +25,7 @@
     <link rel="stylesheet" href="~/Argon-assets/css/argon.css?v=1.2.0" type="text/css">
     </head>*@
 <body>
-    <!-- Sidenav -->
+    <!-- ======= Sidebar ======= -->
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
@@ -39,16 +40,33 @@
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <!-- Nav items -->
                     <ul class="navbar-nav">
+                        @*<li class="nav-item">
+                        <a asp-controller="DashBoard" asp-action="TransferMoney" class="btn btn-primary my-4" type="button">Transfer Money</a>
+                        </li>*@
+
                         <li class="nav-item">
-                            <a class="nav-link" >
-                                <i class="ni ni-tv-2 text-primary"></i>
-                                <span class="nav-link-text">Dashboard</span>
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Transfer Money</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="ni ni-planet text-orange"></i>
-                                <span class="nav-link-text">Icons</span>
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Request a Loan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TrackLoanRequest">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Track Loan Status</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link ">
+                                <i class="ni ni-tv-2 text-primary"></i>
+                                <span class="nav-link-text">Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -63,8 +81,9 @@
                                 <span class="nav-link-text">Profile</span>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link active">
+                            <a class="nav-link">
                                 <i class="ni ni-bullet-list-67 text-default"></i>
                                 <span class="nav-link-text">Tables</span>
                             </a>
@@ -121,7 +140,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active active-pro" href="upgrade.html">
+                            <a class="nav-link active active-pro" href="examples/upgrade.html">
                                 <i class="ni ni-send text-dark"></i>
                                 <span class="nav-link-text">Upgrade to PRO</span>
                             </a>
@@ -130,6 +149,7 @@
                 </div>
             </div>
         </div>
+
     </nav>
     <!-- Main content -->
     <div class="main-content" id="panel">
@@ -175,7 +195,9 @@
                                         <th>User Loan Id</th>
                                         <th>Requested Username</th>
                                         <th> User Loan Amount</th>
-                                        
+                                        <th>Last Modified</th>
+                                        <th> Loan Request Status</th>
+
 
 
 
@@ -183,7 +205,7 @@
                                 </thead>
                                 @foreach (var users in Model)
                                 {
-                                    
+
 
 
 
@@ -198,11 +220,11 @@
                                                 </div>
                                             </th>
                                             @*<td class="budget">
-                                                @{
-                                                    int age = DateTime.Now.Year - users.Age.Year;
-                                                }
-                                                @age years
-                                            </td>*@
+                                        @{
+                                        int age = DateTime.Now.Year - users.Age.Year;
+                                        }
+                                        @age years
+                                        </td>*@
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                     <i class="bg-warning"></i>
@@ -211,29 +233,29 @@
                                             </td>
                                             <td>
                                                 <div class=" ni ni-money-coins">
-                                                @*<div class="avatar-group">
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-1.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-2.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-3.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-4.jpg">
-                                            </a>
-                                            </div>*@
-                                                @users.LoanAmount
+                                                    @*<div class="avatar-group">
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-1.jpg">
+                                                </a>
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-2.jpg">
+                                                </a>
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-3.jpg">
+                                                </a>
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-4.jpg">
+                                                </a>
+                                                </div>*@
+                                                    @users.LoanAmount
                                                 </div>
                                             </td>
-                                            @*<td>                                                
-                                                    <span class="">@users.LoanRequestedDate</span>                                                
-                                            </td>
-                                            <td>                                               
-                                                    <span class="">@users.LastModified</span>                                                
-                                            </td>*@
+                                            <td>
+                                        <span class="">@users.LastModified</span>
+                                        </td>
+                                        <td>
+                                        <span class="">@users.LoanRequestStatus</span>
+                                        </td>
 
                                             @*<div class="dropdown">
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -247,9 +269,9 @@
                                         </div>*@
 
 
-                                            <td><div class="btn"> <a asp-controller="Dashboard" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
+                                            @*<td><div class="btn"> <a asp-controller="Dashboard" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
 
-                                            <td><div class="btn"> <a asp-controller="Dashboard" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
+                                            <td><div class="btn"> <a asp-controller="Dashboard" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>*@
                                         </tr>
 
                                     </tbody>
@@ -287,6 +309,31 @@
             </div>
 
             <!-- Footer -->
+            @*<footer class="footer pt-0">
+                <div class="row align-items-center justify-content-lg-between">
+                    <div class="col-lg-6">
+                        <div class="copyright text-center  text-lg-left  text-muted">
+                            &copy; 2020 <a href="" class="font-weight-bold ml-1" target="_blank">Nithin</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                            <li class="nav-item">
+                                <a href="" class="nav-link" target="_blank">Nithin</a>
+                                @*</li>
+                                <li class="nav-item">
+                                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>*@
             <footer class="footer pt-0">
                 <div class="row align-items-center justify-content-lg-between">
                     <div class="col-lg-6">

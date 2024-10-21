@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nithin2003.Database;
 using Nithin2003.Models;
-using NuGet.Protocol.Plugins;
-using System.ComponentModel;
 
 namespace Nithin2003.Controllers
 {
@@ -85,7 +83,7 @@ namespace Nithin2003.Controllers
             }
 
         }
-        public IActionResult MoneyRequest()
+        public IActionResult UserLoanRequest()
         {
             try
             {
@@ -98,15 +96,15 @@ namespace Nithin2003.Controllers
             }
         }
         [HttpPost]
-        public IActionResult MoneyRequest(MyLoanRequest Request)
+        public IActionResult UserLoanRequest(MyLoanRequest Request)
         {
 
             try
             {
                 Request.RequestedUsername = HttpContext.Session.GetString("Username");
-
-                Random rand = new Random(10000);
-                Request.LoanId = rand.Next() + Request.RequestedUsername;
+                
+                Random rand = new Random();
+                Request.LoanId = rand.Next() + Request.RequestedUsername + Request.LoanAmount;
                 _db.LoanRequest.Add(Request);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -124,6 +122,8 @@ namespace Nithin2003.Controllers
             try
             {
                 IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;
+
+                //  IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest.Where(t => t.RequestedUsername.Contains("Manu"));
                 return View(myloanrequest);
 
 
@@ -184,6 +184,33 @@ namespace Nithin2003.Controllers
             {
                 return RedirectToAction("Errors", "Home");
             }
+        }
+        public IActionResult TrackLoanRequest()
+        {
+            try
+            {   
+                IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest.Where(t => t.RequestedUsername.Contains(HttpContext.Session.GetString("Username")));
+                return View(myloanrequest);
+            }
+
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
+        }
+        public IActionResult VerifyEmail()
+        {
+            try
+            {                
+                return View();
+            }
+
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
         }
     }
 }

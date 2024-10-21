@@ -1,6 +1,6 @@
 ﻿@model MyLoanRequest
 @{
-    ViewData["Title"] = "MoneyRequest";
+    ViewData["Title"] = "UserLoanRequest";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
@@ -13,7 +13,7 @@
             <div class="header-body text-center mb-7">
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                        <h1 class="text-white">Welcome To Request Money</h1>
+                        <h1 class="text-white">Welcome To Loan Request</h1>
                         @* <p class="text-lead text-white"> To Sign In </p>*@
                     </div>
                 </div>
@@ -45,9 +45,21 @@
                         </div>*@                                                  
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
-                                <small> Request Money</small>
+                                <small> Request a Loan</small>
                             </div>
-                            <form action="/Dashboard/MoneyRequest" method="post">
+                            <form action="/Dashboard/UserLoanRequest" method="post">
+
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                                        </div>
+
+                                        <input class="form-control" asp-for="@Model.LoanAmount" placeholder="Enter Amount " type="number">
+
+
+                                    </div>
+                                </div>
 
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
@@ -60,17 +72,7 @@
 
                                     </div>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <div class="input-group input-group-merge input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
-                                        </div>
-
-                                        <input class="form-control" asp-for="@Model.LoanAmount" placeholder="Enter Amount " type="number">
-                                        
-
-                                    </div>
-                                </div>
+                                
                                 @*<div class="form-group">
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
@@ -106,6 +108,24 @@
                     </div>*@
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
+    <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6">
+                @*<div class="copyright text-center  text-lg-left  text-muted">
+                &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+                </div>*@
+            </div>
+            <div class="col-lg-6">
+                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+
+                    <li>
+                        <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </footer>
 </div>
