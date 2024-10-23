@@ -175,7 +175,7 @@
                                         <th>User Loan Id</th>
                                         <th>Requested Username</th>
                                         <th> User Loan Amount</th>
-                                        
+                                        <th>User Loan Status</th>
 
 
 
@@ -228,11 +228,11 @@
                                                 @users.LoanAmount
                                                 </div>
                                             </td>
-                                            @*<td>                                                
-                                                    <span class="">@users.LoanRequestedDate</span>                                                
+                                            <td>                                                
+                                                    <span class="">@users.LoanRequestStatus</span>                                                
                                             </td>
-                                            <td>                                               
-                                                    <span class="">@users.LastModified</span>                                                
+                                            @*<td>
+                                        <span class="">@users.LastModified</span>                                                
                                             </td>*@
 
                                             @*<div class="dropdown">
@@ -246,10 +246,14 @@
                                         </div>
                                         </div>*@
 
+                                            @if (users.LoanRequestStatus == "Pending")
+                                            {                                                
+                                                <td><div class="btn"> <a asp-controller="Dashboard" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
+                                                <td><div class="btn"> <a asp-controller="Dashboard" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
+                                            }
+                                           
 
-                                            <td><div class="btn"> <a asp-controller="Dashboard" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
-
-                                            <td><div class="btn"> <a asp-controller="Dashboard" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
+                                            
                                         </tr>
 
                                     </tbody>

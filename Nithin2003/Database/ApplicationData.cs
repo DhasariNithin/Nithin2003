@@ -13,7 +13,7 @@ namespace Nithin2003.Database
 
         public DbSet<MyLoanRequest> LoanRequest { get; set; }
         public DbSet<UserEmailVerification> EmailVerification { get; set; }
-
+        public DbSet<UserHistory> LoginHistory { get; set; }
 
     }
 }

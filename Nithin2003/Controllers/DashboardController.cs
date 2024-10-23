@@ -160,7 +160,7 @@ namespace Nithin2003.Controllers
                 _db.LoanRequest.Update(_requesteduser);
                 _db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("LoanAmountRequest");
 
 
             }
@@ -183,7 +183,7 @@ namespace Nithin2003.Controllers
 
                 _db.LoanRequest.Update(_requesteduser);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LoanAmountRequest");
             }
             catch (Exception ex)
             {
@@ -358,6 +358,17 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+        public IActionResult UserLoginDetails()
+        {
+            IEnumerable<UserHistory> userhistory = _db.LoginHistory;
+            return View(userhistory);
+        }
+        //public IActionResult UserLoginHistory(UserHistory history)
+        //{
+        //    var user = _db.Users.Find(HttpContext.Session.GetString("Username"));
+        //    history.UserName = user.Username;
+        //    return View();
+        //}
     }
 }
 
