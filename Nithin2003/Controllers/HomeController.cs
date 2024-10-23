@@ -52,6 +52,7 @@ namespace Nithin2003.Controllers
                     {
                         ModelState.AddModelError("Mobile", "Mobile Can't Be Empty");
                         return View(model);
+
                     }                    
 
                     ContactFormModel contactUs = new ContactFormModel();
@@ -108,4 +109,4 @@ namespace Nithin2003.Controllers
         }
 
     }
-}
+}           

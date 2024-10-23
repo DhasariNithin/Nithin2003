@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nithin2003.Database;
 using Nithin2003.Models;
-using System.Linq;
+
 
 namespace Nithin2003.Controllers
 {

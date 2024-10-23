@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  @*  <meta charset="utf-8" />
+    @*  <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Nithin2003</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -49,7 +49,7 @@
                                 <i class="ni ni-money-coins"></i>
                                 <span class="nav-link-text">Transfer Money</span>
                             </a>
-                        </li>                        
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
                                 <i class="ni ni-money-coins"></i>
@@ -152,7 +152,7 @@
 
     </nav>
 
-   
+
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
         <div class="container-fluid">
@@ -395,57 +395,55 @@
         </div>
     </nav>
 
-    
+
     <header>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" >Nithin2003</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+        <div class="container-fluid">
+        <a class="navbar-brand" >Nithin2003</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">@Context.Session.GetString("Username")</a>
-                        </li>
-                        @if(Context.Session.GetString("SignIn") == "True")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="SignOut">Sign Out</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li align="right" class="nav-item">
-                                <a  class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="SignIn">Sign In</a>
-                            </li>
-                        }
-                        
-                       
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">@Context.Session.GetString("Username")</a>
+        </li>
+        @if(Context.Session.GetString("SignIn") == "True")
+        {
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="SignOut">Sign Out</a>
+        </li>
+        }
+        else
+        {
+        <li align="right" class="nav-item">
+        <a  class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="SignIn">Sign In</a>
+        </li>
+        }
 
-                    </ul>
-                </div>
-            </div>
-            </nav>*@
+
+
+        </ul>
+        </div>
+        </div>
+        </nav>*@
     </header>
     <!-- ======= Header ======= -->
- 
+    @RenderBody()
 
-            @RenderBody()
 
-    
-   @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Nithin2003 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    @* <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2024 - Nithin2003 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
     <li>
     <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
     </li>
@@ -464,9 +462,167 @@
     <script src="~/Argon-assets/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     <script src="~/Argon-assets/js/argon.js?v=1.2.0"></script>
+    HttpContext.Session.SetString("UserStatus", "New")
+</body>
+</html>
+@if (Context.Session.GetString("UserStatus") == "Suspend")
+{
+    <html>
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+
+            #ac-wrapper {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(254, 126, 126, 0.7);
+                z-index: 1001;
+            }
+
+            #popup {
+                width: 555px;
+                height: 375px;
+                background: #FFFFFF;
+                border: 5px solid #000;
+                border-radius: 25px;
+                -moz-border-radius: 25px;
+                -webkit-border-radius: 25px;
+                box-shadow: #64686e 0px 0px 3px 3px;
+                -moz-box-shadow: #64686e 0px 0px 3px 3px;
+                -webkit-box-shadow: #64686e 0px 0px 3px 3px;
+                position: relative;
+                top: 150px;
+                left: 375px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ac-wrapper">
+            <div id="popup">
+                <center>
+                    <h2>Your Account Has Been Suspended By Admin , Please Contact Below link</h2>
+                    <a class="btn btn-primary my-4" asp-controller="Home" asp-action="ContactUs">click here</a>
+
+                </center>
+            </div>
+        </div>
+
     </body>
     </html>
+}
+@if (Context.Session.GetString("UserStatus") == "New")
+{
+    <html>
+    <head>
 
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+
+            #ac-wrapper {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(254, 126, 126, 0.7);
+                z-index: 1001;
+            }
+
+            #popup {
+                width: 555px;
+                height: 375px;
+                background: #FFFFFF;
+                border: 5px solid #000;
+                border-radius: 25px;
+                -moz-border-radius: 25px;
+                -webkit-border-radius: 25px;
+                box-shadow: #64686e 0px 0px 3px 3px;
+                -moz-box-shadow: #64686e 0px 0px 3px 3px;
+                -webkit-box-shadow: #64686e 0px 0px 3px 3px;
+                position: relative;
+                top: 150px;
+                left: 375px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ac-wrapper">
+            <div id="popup">
+                <center>
+                    <h2>Your Account Has Not Approved By Admin , Please Contact Below link</h2>
+                    <a class="btn btn-primary my-4" asp-controller="Home" asp-action="ContactUs">click here</a>
+
+                </center>
+            </div>
+        </div>
+
+    </body>
+    </html>
+}
+
+@if (Context.Session.GetString("EmailVerification") != "True")
+{
+    <html>
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+
+            #ac-wrapper
+            {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(254, 126, 126, 0.7);
+                z-index: 1001;
+            }
+
+            #popup 
+            {
+                width: 555px;
+                height: 375px;
+                background: #FFFFFF;
+                border: 5px solid #000;
+                border-radius: 25px;
+                -moz-border-radius: 25px;
+                -webkit-border-radius: 25px;
+                box-shadow: #64686e 0px 0px 3px 3px;
+                -moz-box-shadow: #64686e 0px 0px 3px 3px;
+                -webkit-box-shadow: #64686e 0px 0px 3px 3px;
+                position: relative;
+                top: 150px;
+                left: 375px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ac-wrapper">
+            <div id="popup">
+                <center>
+                    <h2>Your account is not verified, please verify your email to get a full access to the site</h2>
+                    <a class="btn btn-primary my-4" asp-controller="Dashboard" asp-action="VerifyEmail">click here</a>
+                    @*   <input type="submit" name="submit" value="Submit" onClick="PopUp()" />*@
+                </center>
+            </div>
+        </div>
+
+        <p>Page Content Here......</p>
+        <script>
+            function PopUp() {
+                document.getElementById('ac-wrapper').style.display = "none";
+            }</script>
+    </body>
+    </html>
+}
 
 
 

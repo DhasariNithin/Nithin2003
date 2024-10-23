@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nithin2003.Database;
 using Nithin2003.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace Nithin2003.Controllers
 {
@@ -102,9 +104,14 @@ namespace Nithin2003.Controllers
             try
             {
                 Request.RequestedUsername = HttpContext.Session.GetString("Username");
-                
+
                 Random rand = new Random();
                 Request.LoanId = rand.Next() + Request.RequestedUsername + Request.LoanAmount;
+                if(Request.UserComment == null)
+                {
+                    ModelState.AddModelError("UserComment", "UserComment Can't be Empty");
+                    return View();
+                }
                 _db.LoanRequest.Add(Request);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -121,9 +128,7 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;
-
-                //  IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest.Where(t => t.RequestedUsername.Contains("Manu"));
+                IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;                
                 return View(myloanrequest);
 
 
@@ -188,7 +193,7 @@ namespace Nithin2003.Controllers
         public IActionResult TrackLoanRequest()
         {
             try
-            {   
+            {
                 IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest.Where(t => t.RequestedUsername.Contains(HttpContext.Session.GetString("Username")));
                 return View(myloanrequest);
             }
@@ -199,11 +204,20 @@ namespace Nithin2003.Controllers
             }
 
         }
+
         public IActionResult VerifyEmail()
         {
             try
-            {                
-                return View();
+            {
+                
+
+                var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
+
+                UserEmailVerification _emailVerification = new UserEmailVerification();
+                _emailVerification.Email = _user.Email;
+                _emailVerification.Username = _user.Username;
+
+                return View(_emailVerification);
             }
 
             catch (Exception ex)
@@ -212,8 +226,141 @@ namespace Nithin2003.Controllers
             }
 
         }
+        //genrating OTP for email verification
+
+        public IActionResult SendOTP(string? Username)
+        {
+            try
+            {
+                var _user = _db.Users.Find(Username);
+                // creating an object for the same
+                UserEmailVerification _emailVerification = new UserEmailVerification();
+                Random random = new Random();
+
+
+                var _isOTPAlready = _db.EmailVerification.Find(Username);
+                _emailVerification.Email = _user.Email;
+                _emailVerification.Username = Username;
+
+                if (_isOTPAlready != null)
+                {
+                    _isOTPAlready.OTP = random.Next(0, 1000000);
+                    _isOTPAlready.OTPValidity = DateTime.Now;
+                }
+                else
+                {
+                    _emailVerification.OTP = random.Next(0, 1000000);
+                    _emailVerification.OTPValidity = DateTime.Now;
+                }
+
+
+
+
+                // sending an email
+                ContactFormModel contactUs = new ContactFormModel();
+
+                contactUs.Email = "testing7702738@gmail.com";
+                contactUs.Password = "wbaagdmwlqqmfxqc";
+                contactUs.Subject = "Your Email verifcation OTP";
+
+                contactUs.ToEmail = _emailVerification.Email;
+                contactUs.Body = "Your Email verifcation OTP is " + _emailVerification.OTP;
+
+
+                using (MailMessage mm = new MailMessage(contactUs.Email, contactUs.ToEmail))
+                {
+                    mm.Subject = contactUs.Subject;
+                    mm.Body = contactUs.Body;
+                    mm.IsBodyHtml = false;
+                    using (SmtpClient smtp = new SmtpClient())
+                    {
+                        NetworkCredential NetworkCred = new NetworkCredential(contactUs.Email, contactUs.Password);
+                        smtp.UseDefaultCredentials = false;
+                        smtp.EnableSsl = true;
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Credentials = NetworkCred;
+                        smtp.Port = 587;
+                        smtp.Send(mm);
+                        //ViewBag.Text = "OTP sent to your email successfully";
+                    }
+                }
+
+                HttpContext.Session.SetString("OTPGenerated", "True");
+
+
+                // saving OTP details to table
+                if (_isOTPAlready == null)
+                {
+                    _db.EmailVerification.Add(_emailVerification);
+                }
+                else
+                {
+                    _db.EmailVerification.Update(_isOTPAlready);
+                }
+
+                _db.SaveChanges();
+                return RedirectToAction("VerifyEmail", "Dashboard");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult VerifyEmail(UserEmailVerification enteredDetails)
+        {
+            try
+            {
+
+                var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
+                var _dbOTPDetails = _db.EmailVerification.Find(_user.Username);
+                
+
+                if (_dbOTPDetails.OTP == enteredDetails.OTP)
+                {
+                    var timeSpan = DateTime.Now - _dbOTPDetails.OTPValidity;
+
+                    if (timeSpan.TotalSeconds > 180)
+                    {
+                        ModelState.AddModelError("OTP", "OTP expired, please request new OTP, new OTP is valid for 3 minutes only");
+                        return View();                        
+                    }
+
+
+
+                    _user.EmailVerification = "Verified";
+                    _db.Users.Update(_user);
+                    _db.SaveChanges();
+                    HttpContext.Session.SetString("EmailVerification", "True");
+                    ViewBag.messageOtp = "OTP Verified Sucessfully";
+
+                    if (HttpContext.Session.GetString("EmailVerification") == "True")
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("OTP", "OTP does not match, please enter correct OTP");                    
+                    return View();
+                }
+
+                return View();
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
     }
 }
+
 
 
 

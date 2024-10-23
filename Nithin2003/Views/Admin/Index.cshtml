@@ -270,9 +270,23 @@
                                         </div>
                                         </div>*@
 
+                                            
+                                                <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails"  style="color:darkolivegreen" asp-route-Username="@users.Username">Edit</a></div></td>
+                                                @if (users.UserStatus == "Suspend")
+                                                {
+                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserUnSuspend" style="color:red" asp-route-Username="@users.Username">UnSuspend</a></div></td>
+                                                }
+                                                else if (users.UserStatus == "New")
+                                                {
+                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserApprove" style="color:red" asp-route-Username="@users.Username">Approve</a></div></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserSuspend" style="color:red" asp-route-Username="@users.Username">Suspend</a></div></td>
+                                                }                                          
 
-                                            <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails" asp-route-Username="@users.Username">Edit</a></div></td>
-                                            <td><div class="btn"> <a asp-controller="Users" asp-action="deleteDetails" style="color:red" asp-route-Username="@users.Username">Delete</a></div></td>
+                                                <td><div class="btn"> <a asp-controller="Users" asp-action="deleteDetails" style="color:red" asp-route-Username="@users.Username">Delete</a></div></td>
+                                            
                                         </tr>
 
                                     </tbody>

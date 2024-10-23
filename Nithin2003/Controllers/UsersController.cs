@@ -12,7 +12,7 @@ namespace Nithin2003.Controllers
         {
             _db = db;
         }
-        
+
         public IActionResult Index()
         {
             try
@@ -22,12 +22,12 @@ namespace Nithin2003.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Errors", "Home"); 
+                return RedirectToAction("Errors", "Home");
             }
         }
 
         // Add User Details
-        public IActionResult AddDetails() 
+        public IActionResult AddDetails()
         {
             try
             {
@@ -113,6 +113,8 @@ namespace Nithin2003.Controllers
                     }
 
                     _db.Users.Add(users);
+
+
                     _db.SaveChanges();
                     return RedirectToAction("Index", "Users");
                 }
@@ -130,7 +132,7 @@ namespace Nithin2003.Controllers
                 var user = _db.Users.Find(Username);
                 _db.Users.Remove(user);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Users");
+                return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)
             {
@@ -225,7 +227,7 @@ namespace Nithin2003.Controllers
                     }
                     _db.Users.Update(users);
                     _db.SaveChanges();
-                    return RedirectToAction("Index", "Users");
+                    return RedirectToAction("Index", "Admin");
                 }
             }
             catch (Exception ex)
@@ -251,7 +253,7 @@ namespace Nithin2003.Controllers
             }
         }
 
-      // validating the user with credentials
+        // validating the user with credentials
         [HttpPost]
         public IActionResult SignIn(MySignIn mySignIn)
         {
@@ -264,19 +266,31 @@ namespace Nithin2003.Controllers
                     {
                         if (mySignIn.Password == _user.Password)
                         {
+
                             HttpContext.Session.SetString("Username", _user.Username);
                             HttpContext.Session.SetString("SignIn", "True");
-
-                            if(_user.Admin)
+                            if (_user.UserStatus == "Suspend")
                             {
-                                HttpContext.Session.SetString("Admin", "True");
+                                HttpContext.Session.SetString("UserStatus", "Suspend");
+                            }
+                            if (_user.UserStatus == "New")
+                            {
+                                HttpContext.Session.SetString("UserStatus", "New");
+                            }
+                            if (_user.EmailVerification == "Verified")
+                            {
+                                HttpContext.Session.SetString("EmailVerification", "True");
+                            }
+                            if (_user.Admin)
+                            {
+                                HttpContext.Session.SetString("Admin","True");
                                 return RedirectToAction("Index", "Admin");
                             }
                             else
                             {
                                 return RedirectToAction("Index", "Dashboard");
                             }
-                           
+
                         }
                         else
                         {
@@ -311,7 +325,10 @@ namespace Nithin2003.Controllers
                 HttpContext.Session.SetString("Username", "");
                 HttpContext.Session.SetString("SignIn", "False");
                 HttpContext.Session.SetString("Admin", "False");
+                HttpContext.Session.SetString("EmailVerification", "False");
+                HttpContext.Session.SetString("UserStatus", "");
                 return RedirectToAction("SignIn", "Users");
+
             }
             catch (Exception ex)
             {
@@ -319,25 +336,61 @@ namespace Nithin2003.Controllers
             }
         }
 
-        // testing GIT merge
-        public IActionResult SignOut1()
+        public IActionResult UserSuspend(string? Username)
         {
             try
             {
-                HttpContext.Session.SetString("Username", "");
-                HttpContext.Session.SetString("SignIn", "False");
-                HttpContext.Session.SetString("Admin", "False");
-                return RedirectToAction("SignIn", "Users");
+                var _user = _db.Users.Find(Username);
+                _user.UserStatus = "Suspend";
+                _db.Users.Update(_user);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Admin");
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
             }
         }
+        public IActionResult UserUnSuspend(string? Username)
+        {
+            try
+            {
+                var _user = _db.Users.Find(Username);
 
+                if (_user.UserStatus == "Suspend")
+                {
+                    _user.UserStatus = "Active";
+                    HttpContext.Session.SetString("UserStatus", "Active");
 
+                }
+                _db.Users.Update(_user);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+        public IActionResult UserApprove(string? Username)
+        {
+            try
+            {
+                var _user = _db.Users.Find(Username);
 
-
-
+                if (_user.UserStatus == "New")
+                {
+                    _user.UserStatus = "Active";
+                    HttpContext.Session.SetString("UserStatus", "Active");
+                }
+                _db.Users.Update(_user);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
     }
-}
+}  
