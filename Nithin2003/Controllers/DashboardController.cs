@@ -107,7 +107,7 @@ namespace Nithin2003.Controllers
 
                 Random rand = new Random();
                 Request.LoanId = rand.Next() + Request.RequestedUsername + Request.LoanAmount;
-                if(Request.UserComment == null)
+                if (Request.UserComment == null)
                 {
                     ModelState.AddModelError("UserComment", "UserComment Can't be Empty");
                     return View();
@@ -128,7 +128,7 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;                
+                IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;
                 return View(myloanrequest);
 
 
@@ -209,7 +209,7 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                
+
 
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
 
@@ -316,7 +316,7 @@ namespace Nithin2003.Controllers
 
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
                 var _dbOTPDetails = _db.EmailVerification.Find(_user.Username);
-                
+
 
                 if (_dbOTPDetails.OTP == enteredDetails.OTP)
                 {
@@ -325,7 +325,7 @@ namespace Nithin2003.Controllers
                     if (timeSpan.TotalSeconds > 180)
                     {
                         ModelState.AddModelError("OTP", "OTP expired, please request new OTP, new OTP is valid for 3 minutes only");
-                        return View();                        
+                        return View();
                     }
 
 
@@ -343,12 +343,11 @@ namespace Nithin2003.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("OTP", "OTP does not match, please enter correct OTP");                    
+                    ModelState.AddModelError("OTP", "OTP does not match, please enter correct OTP");
                     return View();
                 }
 
                 return View();
-
 
 
 
@@ -360,15 +359,16 @@ namespace Nithin2003.Controllers
         }
         public IActionResult UserLoginDetails()
         {
+
             IEnumerable<UserHistory> userhistory = _db.LoginHistory;
             return View(userhistory);
         }
-        //public IActionResult UserLoginHistory(UserHistory history)
-        //{
-        //    var user = _db.Users.Find(HttpContext.Session.GetString("Username"));
-        //    history.UserName = user.Username;
-        //    return View();
-        //}
+        public IActionResult _UserLoginDetails()
+        {
+
+            IEnumerable<UserHistory> userhistory = _db.LoginHistory.Where(t => t.UserName.Contains(HttpContext.Session.GetString("Username")));
+            return View(userhistory);
+        }
     }
 }
 

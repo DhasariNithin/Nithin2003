@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Nithin2003.Database;
 using Nithin2003.Models;
+using System.Net.Http;
 
 namespace Nithin2003.Controllers
 {
@@ -269,6 +273,20 @@ namespace Nithin2003.Controllers
 
                             HttpContext.Session.SetString("Username", _user.Username);
                             HttpContext.Session.SetString("SignIn", "True");
+
+                            UserHistory history = new UserHistory();
+                            if (HttpContext.Session.GetString("SignIn") == "True")
+                            {
+                                history.UserName = _user.Username;
+                                history.Action = "SignIn";
+                                history.Time = DateTime.Now;
+                                var IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                                history.IPAddress = IpAddress;
+                                _db.LoginHistory.Add(history);
+                                    _db.SaveChanges();                               
+                                   
+                            }
+
                             if (_user.UserStatus == "Suspend")
                             {
                                 HttpContext.Session.SetString("UserStatus", "Suspend");
@@ -283,7 +301,8 @@ namespace Nithin2003.Controllers
                             }
                             if (_user.Admin)
                             {
-                                HttpContext.Session.SetString("Admin","True");
+
+                                HttpContext.Session.SetString("Admin", "True");
                                 return RedirectToAction("Index", "Admin");
                             }
                             else
@@ -322,8 +341,21 @@ namespace Nithin2003.Controllers
         {
             try
             {
+                var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
                 HttpContext.Session.SetString("Username", "");
                 HttpContext.Session.SetString("SignIn", "False");
+                UserHistory history = new UserHistory();
+                if (HttpContext.Session.GetString("SignIn") == "False")
+                {
+                    history.UserName = _user.Username;
+                    history.Action = "SignOut";
+                    history.Time = DateTime.Now;
+                    var IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                    history.IPAddress = IpAddress;
+                    _db.LoginHistory.Add(history);
+                    _db.SaveChanges();
+
+                }
                 HttpContext.Session.SetString("Admin", "False");
                 HttpContext.Session.SetString("EmailVerification", "False");
                 HttpContext.Session.SetString("UserStatus", "");
@@ -393,4 +425,4 @@ namespace Nithin2003.Controllers
             }
         }
     }
-}  
+}
