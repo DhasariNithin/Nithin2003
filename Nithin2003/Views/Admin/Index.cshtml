@@ -63,13 +63,13 @@
                         @if (Context.Session.GetString("Admin") == "True")
                         {
                             <li class="nav-item">
-                                <a class="nav-link active" asp-controller="DashBoard" asp-action="LoanAmountRequest">
+                                <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
                                     <i class="ni ni-money-coins"></i>
                                     <span class="nav-link-text">Loan Requests</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Dashboard" asp-action="UserLoginDetails">                                  
+                                <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">                                  
                                     <span class="nav-link-text">Users Login History</span>
                                 </a>
                             </li>

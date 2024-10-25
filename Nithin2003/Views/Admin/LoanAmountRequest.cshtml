@@ -248,8 +248,8 @@
 
                                             @if (users.LoanRequestStatus == "Pending")
                                             {                                                
-                                                <td><div class="btn"> <a asp-controller="Dashboard" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
-                                                <td><div class="btn"> <a asp-controller="Dashboard" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
+                                                <td><div class="btn"> <a asp-controller="Admin" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
+                                                <td><div class="btn"> <a asp-controller="Admin" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
                                             }
                                            
 

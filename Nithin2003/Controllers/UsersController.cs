@@ -358,12 +358,12 @@ namespace Nithin2003.Controllers
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
                 HttpContext.Session.SetString("Username", "");
                 HttpContext.Session.SetString("SignIn", "False");
-                UserHistory history = new UserHistory();
+                UserHistory userhistory = new UserHistory();
                 if (HttpContext.Session.GetString("SignIn") == "False")
                 {
-                    history.UserName = _user.Username;
-                    history.Action = "SignOut";
-                    history.Time = DateTime.Now;
+                    userhistory.UserName = _user.Username;
+                    userhistory.Action = "SignOut";
+                    userhistory.Time = DateTime.Now;
                     IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
                     string result = "";
                     if (remoteIpAddress != null)
@@ -377,8 +377,8 @@ namespace Nithin2003.Controllers
                         }
                         result = remoteIpAddress.ToString();
                     }
-                    history.IPAddress = result;
-                    _db.LoginHistory.Add(history);
+                    userhistory.IPAddress = result;
+                    _db.LoginHistory.Add(userhistory);
                     _db.SaveChanges();
 
                 }
