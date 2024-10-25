@@ -89,7 +89,6 @@ namespace Nithin2003.Controllers
         {
             try
             {
-
                 return View();
             }
             catch (Exception ex)
@@ -357,17 +356,30 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+        public IActionResult UsersLoginDetails()
+        {
+            try
+            {
+                IEnumerable<UserHistory> userhistory = _db.LoginHistory;
+                return View(userhistory);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
+        }
         public IActionResult UserLoginDetails()
         {
-
-            IEnumerable<UserHistory> userhistory = _db.LoginHistory;
-            return View(userhistory);
-        }
-        public IActionResult _UserLoginDetails()
-        {
-
-            IEnumerable<UserHistory> userhistory = _db.LoginHistory.Where(t => t.UserName.Contains(HttpContext.Session.GetString("Username")));
-            return View(userhistory);
+            try
+            {
+                IEnumerable<UserHistory> userhistory = _db.LoginHistory.Where(t => t.UserName.Contains(HttpContext.Session.GetString("Username")));
+                return View(userhistory);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
         }
     }
 }

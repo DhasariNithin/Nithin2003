@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Nithin2003.Database;
 using Nithin2003.Models;
+using System.Net;
 using System.Net.Http;
 
 namespace Nithin2003.Controllers
@@ -280,8 +281,21 @@ namespace Nithin2003.Controllers
                                 history.UserName = _user.Username;
                                 history.Action = "SignIn";
                                 history.Time = DateTime.Now;
-                                var IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-                                history.IPAddress = IpAddress;
+                                
+                                IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                                string result = "";
+                                if (remoteIpAddress != null)
+                                {
+                                    // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
+                                    // This usually only happens when the browser is on the same machine as the server.
+                                    if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                                    {
+                                        remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
+                                .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                                    }
+                                    result = remoteIpAddress.ToString();
+                                }
+                                history.IPAddress =result;
                                 _db.LoginHistory.Add(history);
                                     _db.SaveChanges();                               
                                    
@@ -350,8 +364,20 @@ namespace Nithin2003.Controllers
                     history.UserName = _user.Username;
                     history.Action = "SignOut";
                     history.Time = DateTime.Now;
-                    var IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-                    history.IPAddress = IpAddress;
+                    IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                    string result = "";
+                    if (remoteIpAddress != null)
+                    {
+                        // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
+                        // This usually only happens when the browser is on the same machine as the server.
+                        if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                        {
+                            remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
+                    .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                        }
+                        result = remoteIpAddress.ToString();
+                    }
+                    history.IPAddress = result;
                     _db.LoginHistory.Add(history);
                     _db.SaveChanges();
 
