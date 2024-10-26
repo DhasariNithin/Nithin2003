@@ -85,7 +85,7 @@
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                            <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                     </div>
                                         <input class="form-control" asp-for="@Model.Username" placeholder="Enter User Name" type="text">
                                         <span asp-validation-for="@Model.Username" class="text-danger"></span>
@@ -102,31 +102,19 @@
                                        
                                 </div>
                             </div>
-                            @*<div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                <label class="custom-control-label" for=" customCheckLogin">
-                                    <span class="text-muted">Remember me</span>
-                                </label>
-                            </div>*@
+                            
                             <div class="text-center">
                                     @*<button type="button" class="btn btn-primary my-4">Sign in</button>*@
                                     <input type="submit" class="btn btn-primary my-4" name="btnsubmit" value="Sign In" />                                    
                                     <a asp-controller="Home" asp-action="Index" class="btn btn-primary my-4" type="button">Back To Home</a>
                                     <h5 class="text-Black">Don't Have An Account ? Click On Sign Up</h5>
                                     <a asp-controller="Users" asp-action="AddDetails"  type="button" class="btn btn-primary my-4"> Sign Up</a>
+                                    <a asp-controller="Users" asp-action="ForgotPassword" type="button" class="btn btn-primary my-4"> Forgot Password</a>
                             </div>
                                 
                         </form>
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <a href="#" class="text-light"><small>Forgot password?</small></a>
-                    </div>
-                    <div class="col-6 text-right">
-                        <a href="#" class="text-light"><small>Create new account</small></a>
-                    </div>
-                </div>
+                </div>                
             </div>
         </div>
     </div>

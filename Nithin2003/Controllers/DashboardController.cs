@@ -3,6 +3,7 @@ using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Net.Mail;
 using System.Net;
+using System;
 
 namespace Nithin2003.Controllers
 {
@@ -71,12 +72,26 @@ namespace Nithin2003.Controllers
                 myTransferMoney.FromUsername = _fromUser.Username;
                 myTransferMoney.TransactionDate = DateTime.Now;
                 // Random number generator 
-                Random rand = new Random(10000);
-
-                myTransferMoney.TransactionId = rand.Next() + _fromUser.Username + rand.Next();
+                Random rand = new Random();
+                myTransferMoney.TransactionId = rand.Next(0, 1000000000) + myTransferMoney.FromUsername;
+                IPAddress ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                string result = "";
+                if (ipAddress != null)
+                {
+                    // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
+                    // This usually only happens when the browser is on the same machine as the server.
+                    if (ipAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                    {
+                        ipAddress = System.Net.Dns.GetHostEntry(ipAddress).AddressList
+                    .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                    }
+                    result = ipAddress.ToString();
+                }
+                myTransferMoney.IPAddress = result;
                 _db.TransactionHistory.Add(myTransferMoney);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
 
             catch (Exception ex)
@@ -85,11 +100,11 @@ namespace Nithin2003.Controllers
             }
 
         }
+        // User loan request 
         public IActionResult UserLoanRequest()
         {
             try
             {
-
                 return View();
             }
             catch (Exception ex)
@@ -107,7 +122,7 @@ namespace Nithin2003.Controllers
 
                 Random rand = new Random();
                 Request.LoanId = rand.Next() + Request.RequestedUsername + Request.LoanAmount;
-                if(Request.UserComment == null)
+                if (Request.UserComment == null)
                 {
                     ModelState.AddModelError("UserComment", "UserComment Can't be Empty");
                     return View();
@@ -122,73 +137,6 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
 
-        }
-
-        public IActionResult LoanAmountRequest()
-        {
-            try
-            {
-                IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;                
-                return View(myloanrequest);
-
-
-            }
-
-            catch (Exception ex)
-            {
-                return RedirectToAction("Errors", "Home");
-            }
-
-        }
-        public IActionResult ApproveLoan(string? LoanId)
-        {
-            try
-            {
-                // fetching loan request details from Loan request table using Load ID
-                var _requesteduser = _db.LoanRequest.Find(LoanId);
-
-                // fetching user details
-                var _user = _db.Users.Find(_requesteduser.RequestedUsername);
-                _user.AccountBalance = _user.AccountBalance + _requesteduser.LoanAmount;// adding loan amount to user amount
-                _db.Users.Update(_user);
-
-                // update loan request table with status change and last modified
-                _requesteduser.LoanRequestStatus = "Approved";
-                _requesteduser.LastModified = DateTime.Now;
-                _requesteduser.AdminComment = "Loan approved";
-
-                _db.LoanRequest.Update(_requesteduser);
-                _db.SaveChanges();
-
-                return RedirectToAction("LoanAmountRequest");
-
-
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Errors", "Home");
-            }
-        }
-        public IActionResult RejectLoan(string? LoanId)
-        {
-            try
-            {
-
-                var _requesteduser = _db.LoanRequest.Find(LoanId);
-
-                //Updating Loan Request Table
-                _requesteduser.LoanRequestStatus = "Rejected";
-                _requesteduser.LastModified = DateTime.Now;
-                _requesteduser.AdminComment = "Loan Rejected";
-
-                _db.LoanRequest.Update(_requesteduser);
-                _db.SaveChanges();
-                return RedirectToAction("LoanAmountRequest");
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Errors", "Home");
-            }
         }
         public IActionResult TrackLoanRequest()
         {
@@ -209,7 +157,6 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                
 
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
 
@@ -316,7 +263,7 @@ namespace Nithin2003.Controllers
 
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
                 var _dbOTPDetails = _db.EmailVerification.Find(_user.Username);
-                
+
 
                 if (_dbOTPDetails.OTP == enteredDetails.OTP)
                 {
@@ -325,7 +272,7 @@ namespace Nithin2003.Controllers
                     if (timeSpan.TotalSeconds > 180)
                     {
                         ModelState.AddModelError("OTP", "OTP expired, please request new OTP, new OTP is valid for 3 minutes only");
-                        return View();                        
+                        return View();
                     }
 
 
@@ -343,12 +290,11 @@ namespace Nithin2003.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("OTP", "OTP does not match, please enter correct OTP");                    
+                    ModelState.AddModelError("OTP", "OTP does not match, please enter correct OTP");
                     return View();
                 }
 
                 return View();
-
 
 
 
@@ -358,17 +304,19 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
-        public IActionResult UserLoginDetails()
+        public IActionResult UsersLoginDetails()
         {
-            IEnumerable<UserHistory> userhistory = _db.LoginHistory;
-            return View(userhistory);
+            try
+            {
+                IEnumerable<UserHistory> userhistory = _db.LoginHistory;
+                return View(userhistory);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
         }
-        //public IActionResult UserLoginHistory(UserHistory history)
-        //{
-        //    var user = _db.Users.Find(HttpContext.Session.GetString("Username"));
-        //    history.UserName = user.Username;
-        //    return View();
-        //}
     }
 }
 

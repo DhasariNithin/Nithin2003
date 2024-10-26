@@ -169,7 +169,7 @@
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
 
-                                        <input type="Password" asp-for="@Model.Password" placeholder="Enter Password" class="form-control" />
+                                        <input type="Password" asp-for="@Model.Password" pattern="(?=.*[^a-zA-Z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$" title="Password must contain at least 10 characters, including at least 1 uppercase letter, at least 1 lowercase letter, at least one number and a special character." placeholder="Enter Password" class="form-control" />
                                         <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
 
-                                        <input type="text" asp-for="@Model.Mobile" pattern="[6789][0-9]{9}" title="Please enter valid Mobile number" placeholder=" Mobile Number" class="form-control" />
+                                        <input type="text" asp-for="@Model.Mobile" pattern="[6789][0-9]{9}" title="Please enter valid Mobile number Starts with 6,7,8 and 9" placeholder=" Mobile Number" class="form-control" />
                                         <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
 
-                                        <input type="text" asp-for="@Model.Email" placeholder="Email" class="form-control" />
+                                        <input type="email" asp-for="@Model.Email" placeholder="Email" class="form-control" />
                                         <td>@Html.ValidationMessageFor(m => @Model.Email, "", new { @class = "text-danger" })</td>
                                     </div>
                                 </div>
