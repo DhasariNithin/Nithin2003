@@ -1,12 +1,15 @@
 ﻿using Azure.Core;
+using Azure.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 
 namespace Nithin2003.Controllers
 {
@@ -281,7 +284,7 @@ namespace Nithin2003.Controllers
                                 history.UserName = _user.Username;
                                 history.Action = "SignIn";
                                 history.Time = DateTime.Now;
-                                
+
                                 IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
                                 string result = "";
                                 if (remoteIpAddress != null)
@@ -295,10 +298,10 @@ namespace Nithin2003.Controllers
                                     }
                                     result = remoteIpAddress.ToString();
                                 }
-                                history.IPAddress =result;
+                                history.IPAddress = result;
                                 _db.LoginHistory.Add(history);
-                                    _db.SaveChanges();                               
-                                   
+                                _db.SaveChanges();
+
                             }
 
                             if (_user.UserStatus == "Suspend")
@@ -444,6 +447,77 @@ namespace Nithin2003.Controllers
                 _db.Users.Update(_user);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Admin");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ForgotPassword(ForgetPassword password)
+
+        {
+            try
+            {
+                var _user = password.Username;
+                var _userr = _db.Users.Find(_user);
+
+                if (_user != null)
+                {
+                    if (password.Email != null)
+                    {
+                        if (password.Email == _userr.Email && password.Username == _userr.Username)
+                        {
+                            // sending an email
+                            ContactFormModel contactUs = new ContactFormModel();
+
+                            contactUs.Email = "testing7702738@gmail.com";
+                            contactUs.Password = "wbaagdmwlqqmfxqc";
+                            contactUs.ToEmail = _userr.Email;
+                            contactUs.Body = "User Name = " + _userr.Username + "\n\n Password  = " + _userr.Password;
+
+
+                            using (MailMessage mm = new MailMessage(contactUs.Email, contactUs.ToEmail))
+                            {
+                                //mm.Subject = contactUs.Subject;
+                                mm.Body = contactUs.Body;
+                                mm.IsBodyHtml = false;
+                                using (SmtpClient smtp = new SmtpClient())
+                                {
+                                    NetworkCredential NetworkCred = new NetworkCredential(contactUs.Email, contactUs.Password);
+                                    smtp.UseDefaultCredentials = false;
+                                    smtp.EnableSsl = true;
+                                    smtp.Host = "smtp.gmail.com";
+                                    smtp.Credentials = NetworkCred;
+                                    smtp.Port = 587;
+                                    smtp.Send(mm);
+                                    ViewBag.Text = "Successfully ,Password sent to your email . ";
+                                }
+                            }
+                            return View();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Email or User Name", "Email Or User Nname Does not Match with user details please try again");
+                            return View();
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Eamil", "Email doesn't exist, please enter valid Email");
+                        return View();
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("Username", "Username Can't be empty ");
+                    return View();
+                }
             }
             catch (Exception ex)
             {
