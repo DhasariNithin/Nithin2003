@@ -3,6 +3,7 @@ using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Net.Mail;
 using System.Net;
+using System;
 
 namespace Nithin2003.Controllers
 {
@@ -71,12 +72,26 @@ namespace Nithin2003.Controllers
                 myTransferMoney.FromUsername = _fromUser.Username;
                 myTransferMoney.TransactionDate = DateTime.Now;
                 // Random number generator 
-                Random rand = new Random(10000);
-
-                myTransferMoney.TransactionId = rand.Next() + _fromUser.Username + rand.Next();
+                Random rand = new Random();
+                myTransferMoney.TransactionId = rand.Next(0, 1000000000) + myTransferMoney.FromUsername;
+                IPAddress ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                string result = "";
+                if (ipAddress != null)
+                {
+                    // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
+                    // This usually only happens when the browser is on the same machine as the server.
+                    if (ipAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                    {
+                        ipAddress = System.Net.Dns.GetHostEntry(ipAddress).AddressList
+                    .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                    }
+                    result = ipAddress.ToString();
+                }
+                myTransferMoney.IPAddress = result;
                 _db.TransactionHistory.Add(myTransferMoney);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
 
             catch (Exception ex)
@@ -85,6 +100,7 @@ namespace Nithin2003.Controllers
             }
 
         }
+        // User loan request 
         public IActionResult UserLoanRequest()
         {
             try
@@ -122,9 +138,6 @@ namespace Nithin2003.Controllers
             }
 
         }
-
-       
-        
         public IActionResult TrackLoanRequest()
         {
             try
@@ -303,7 +316,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
 
-        }        
+        }
     }
 }
 

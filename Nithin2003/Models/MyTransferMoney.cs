@@ -15,5 +15,6 @@ namespace Nithin2003.Models
         
         [Key]
         public string TransactionId { get; set; } 
+        public string IPAddress { get; set; }
     }
 }

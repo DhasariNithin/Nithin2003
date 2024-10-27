@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nithin2003.Models
 {
     public class MyUser
     {
         [Key]
-        public string Username { get; set; }
+        public string Username { get; set; }       
+        
         public string Password { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }        
