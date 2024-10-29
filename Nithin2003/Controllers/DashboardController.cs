@@ -3,7 +3,6 @@ using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Net.Mail;
 using System.Net;
-using System;
 
 namespace Nithin2003.Controllers
 {
@@ -35,7 +34,6 @@ namespace Nithin2003.Controllers
         {
             try
             {
-
                 return View();
             }
             catch (Exception ex)
@@ -152,7 +150,7 @@ namespace Nithin2003.Controllers
             }
 
         }
-
+        // Verifying Email from signin user
         public IActionResult VerifyEmail()
         {
             try
@@ -303,7 +301,7 @@ namespace Nithin2003.Controllers
             {
                 return RedirectToAction("Errors", "Home");
             }
-        }
+        }//reading user loginin details
         public IActionResult UsersLoginDetails()
         {
             try
