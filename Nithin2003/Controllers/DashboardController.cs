@@ -294,8 +294,6 @@ namespace Nithin2003.Controllers
 
                 return View();
 
-
-
             }
             catch (Exception ex)
             {
