@@ -3,6 +3,7 @@ using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Nithin2003.Controllers
 {
@@ -47,11 +48,16 @@ namespace Nithin2003.Controllers
         {
             try
             {
-
                 var _toUserObj = _db.Users.Find(myTransferMoney.ToUsername); // checking To Username
+
                 if (_toUserObj == null)
                 {
                     ModelState.AddModelError("ToUsername", "User doesn't exist, please enter valid username");
+                    return View();
+                }
+                if (_toUserObj.UserStatus == "Suspend")
+                {
+                    ModelState.AddModelError("ToUsername", "User Has been suspended You can't transfer money to them");
                     return View();
                 }
                 var _fromUser = _db.Users.Find(HttpContext.Session.GetString("Username"));
@@ -88,7 +94,7 @@ namespace Nithin2003.Controllers
                 myTransferMoney.IPAddress = result;
                 _db.TransactionHistory.Add(myTransferMoney);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");            
 
             }
 
