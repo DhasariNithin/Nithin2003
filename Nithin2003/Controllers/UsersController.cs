@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Nithin2003.Database;
 using Nithin2003.Models;
@@ -20,6 +21,7 @@ namespace Nithin2003.Controllers
         {
             _db = db;
         }
+
 
         public IActionResult Index()
         {
@@ -51,80 +53,97 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                if (users.Username.IsNullOrEmpty())
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("Username", "Username can't be Empty");
-                    return View(users);
+                    if (users.Username.IsNullOrEmpty())
+                    {
+                        ModelState.AddModelError("Username", "Username can't be Empty");
+                        return View(users);
+                    }
+                    else
+                    {
+                        if (users.Password == null)
+                        {
+                            ModelState.AddModelError("Password", "Password Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.Firstname.IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("Firstname", "Firstname Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.Lastname.IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("Lastname", "Lastname Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.Mobile.ToString().IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("Mobile", "Mobile Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.City.IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("City", "City Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.Nationality.ToString().IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("Nationality", "Nationality Can't be Empty");
+                            return View(users);
+                        }
+
+                        if (users.Age.ToString().IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("Age", "Age Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.AccountBalance.ToString().IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("AccountBalance", "AccountBalance Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.UserStatus.IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("UserStatus", "UserStatus Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.Email.IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("Email", "Email Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.EmailVerification.IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("EmailVerification", "EmailVerification Can't be Empty");
+                            return View(users);
+                        }
+                        if (users.LastModifiedDate.ToString().IsNullOrEmpty())
+                        {
+                            ModelState.AddModelError("LastModifiedDate", "LastModifiedDate Can't be Empty");
+                            return View(users);
+                        }
+                        var isEmailAlreadyExistss = _db.Users.Any(x => x.Email == users.Email);
+                        if (isEmailAlreadyExistss)
+                        {
+                            ModelState.AddModelError("Email", "User with this email already exists please try with another Email");
+                            return View(users);
+                        }
+                        var isEmailAlreadyExists = _db.Users.Any(x => x.Username == users.Username);
+                        if (isEmailAlreadyExists)
+                        {
+                            ModelState.AddModelError("Username", "User with this User Name already exists please try with another User Name");
+                            return View(users);
+                        }
+
+                        _db.Users.Add(users);
+                        _db.SaveChanges();
+                        return RedirectToAction("Index", "Users");
+                    }
                 }
                 else
                 {
-                    if (users.Password == null)
-                    {
-                        ModelState.AddModelError("Password", "Password Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.Firstname.IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("Firstname", "Firstname Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.Lastname.IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("Lastname", "Lastname Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.Mobile.ToString().IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("Mobile", "Mobile Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.City.IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("City", "City Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.Nationality.ToString().IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("Nationality", "Nationality Can't be Empty");
-                        return View(users);
-                    }
-
-                    if (users.Age.ToString().IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("Age", "Age Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.AccountBalance.ToString().IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("AccountBalance", "AccountBalance Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.UserStatus.IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("UserStatus", "UserStatus Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.Email.IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("Email", "Email Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.EmailVerification.IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("EmailVerification", "EmailVerification Can't be Empty");
-                        return View(users);
-                    }
-                    if (users.LastModifiedDate.ToString().IsNullOrEmpty())
-                    {
-                        ModelState.AddModelError("LastModifiedDate", "LastModifiedDate Can't be Empty");
-                        return View(users);
-                    }
-
-                    _db.Users.Add(users);
-
-
-                    _db.SaveChanges();
-                    return RedirectToAction("Index", "Users");
+                    return View();
                 }
             }
             catch (Exception ex)
@@ -132,6 +151,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
         // Delete User Details
         public IActionResult deleteDetails(string? Username)
         {
@@ -455,11 +475,17 @@ namespace Nithin2003.Controllers
         }
         public IActionResult ForgotPassword()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
         }
         [HttpPost]
         public IActionResult ForgotPassword(ForgetPassword password)
-
         {
             try
             {
@@ -468,56 +494,49 @@ namespace Nithin2003.Controllers
 
                 if (_user != null)
                 {
-                    if (password.Email != null)
+                    if (password.Username == _userr.Username)
                     {
-                        if (password.Email == _userr.Email && password.Username == _userr.Username)
+                        // sending an email
+                        ContactFormModel contactUs = new ContactFormModel();
+
+                        contactUs.Email = "testing7702738@gmail.com";
+                        contactUs.Password = "wbaagdmwlqqmfxqc";
+                        contactUs.ToEmail = _userr.Email;
+                        contactUs.Body = "User Name = " + _userr.Username + "\n\n Password  = " + _userr.Password;
+
+
+                        using (MailMessage mm = new MailMessage(contactUs.Email, contactUs.ToEmail))
                         {
-                            // sending an email
-                            ContactFormModel contactUs = new ContactFormModel();
-
-                            contactUs.Email = "testing7702738@gmail.com";
-                            contactUs.Password = "wbaagdmwlqqmfxqc";
-                            contactUs.ToEmail = _userr.Email;
-                            contactUs.Body = "User Name = " + _userr.Username + "\n\n Password  = " + _userr.Password;
-
-
-                            using (MailMessage mm = new MailMessage(contactUs.Email, contactUs.ToEmail))
+                            //mm.Subject = contactUs.Subject;
+                            mm.Body = contactUs.Body;
+                            mm.IsBodyHtml = false;
+                            using (SmtpClient smtp = new SmtpClient())
                             {
-                                //mm.Subject = contactUs.Subject;
-                                mm.Body = contactUs.Body;
-                                mm.IsBodyHtml = false;
-                                using (SmtpClient smtp = new SmtpClient())
-                                {
-                                    NetworkCredential NetworkCred = new NetworkCredential(contactUs.Email, contactUs.Password);
-                                    smtp.UseDefaultCredentials = false;
-                                    smtp.EnableSsl = true;
-                                    smtp.Host = "smtp.gmail.com";
-                                    smtp.Credentials = NetworkCred;
-                                    smtp.Port = 587;
-                                    smtp.Send(mm);
-                                    ViewBag.Text = "Successfully ,Password sent to your email . ";
-                                }
+                                NetworkCredential NetworkCred = new NetworkCredential(contactUs.Email, contactUs.Password);
+                                smtp.UseDefaultCredentials = false;
+                                smtp.EnableSsl = true;
+                                smtp.Host = "smtp.gmail.com";
+                                smtp.Credentials = NetworkCred;
+                                smtp.Port = 587;
+                                smtp.Send(mm);
+                                ViewBag.Text = "Successfully ,Password sent to your Registration Email.";
                             }
-                            return View();
                         }
-                        else
-                        {
-                            ModelState.AddModelError("Email or User Name", "Email Or User Nname Does not Match with user details please try again");
-                            return View();
-                        }
-
+                        return View();
                     }
                     else
                     {
-                        ModelState.AddModelError("Eamil", "Email doesn't exist, please enter valid Email");
+                        ModelState.AddModelError("Username", "User Name Does not Match with user details please try again");
                         return View();
                     }
+
                 }
                 else
                 {
                     ModelState.AddModelError("Username", "Username Can't be empty ");
                     return View();
                 }
+
             }
             catch (Exception ex)
             {

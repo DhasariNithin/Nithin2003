@@ -6,8 +6,7 @@ namespace Nithin2003.Models
     public class MyUser
     {
         [Key]
-        public string Username { get; set; }       
-        
+        public string Username { get; set; } 
         public string Password { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }        
@@ -20,7 +19,7 @@ namespace Nithin2003.Models
         public bool Admin { get; set; } = false;
 
         [Required(ErrorMessage = "Email is required.")]
-        [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Invalid Email Address.")] 
+        [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Invalid Email Address.")]        
         public string Email { get; set; }
         public string EmailVerification { get; set; } = "NotVerified";
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;
