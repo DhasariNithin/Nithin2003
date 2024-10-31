@@ -203,6 +203,8 @@
                                         </div>
                                         </div>*@
 
+                                        @if(Context.Session.GetString("Admin") == "True")
+                                        {
                                             
                                                 <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails"  style="color:darkolivegreen" asp-route-Username="@users.Username">Edit</a></div></td>
                                                 @if (users.UserStatus == "Suspend")
@@ -219,7 +221,7 @@
                                                 }                                          
 
                                                 <td><div class="btn"> <a asp-controller="Users" asp-action="deleteDetails" style="color:red" asp-route-Username="@users.Username">Delete</a></div></td>
-                                            
+                                        }  
                                         </tr>
 
                                     </tbody>

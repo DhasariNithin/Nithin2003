@@ -23,6 +23,7 @@ namespace Nithin2003.Models
         public string Email { get; set; }
         public string EmailVerification { get; set; } = "NotVerified";
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public bool ContentEditor { get; set; } = false;
 
     }
 }
