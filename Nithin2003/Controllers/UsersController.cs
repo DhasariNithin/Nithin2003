@@ -267,26 +267,26 @@ namespace Nithin2003.Controllers
         // User Sign In
         public IActionResult SignIn()
         {
-            try
-            {
+            //try
+            //{
                 if (HttpContext.Session.GetString("SignIn") == "True")
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
                 return View();
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Errors", "Home");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return RedirectToAction("Errors", "Home");
+            //}
         }
 
         // validating the user with credentials
         [HttpPost]
         public IActionResult SignIn(MySignIn mySignIn)
         {
-            try
-            {
+            //try
+            //{
                 if (ModelState.IsValid)
                 {
                     var _user = _db.Users.Find(mySignIn.Username);
@@ -366,11 +366,11 @@ namespace Nithin2003.Controllers
                     return View();
                 }
 
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Errors", "Home");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return RedirectToAction("Errors", "Home");
+            //}
         }
 
         // User sign-out amd remove seesions
