@@ -50,18 +50,47 @@
                                 <span class="nav-link-text">Transfer Money</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
-                                <i class="ni ni-money-coins"></i>
-                                <span class="nav-link-text">Request a Loan</span>
-                            </a>
-                        </li>                        
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TrackLoanRequest">
-                                <i class="ni ni-money-coins"></i>
-                                <span class="nav-link-text">Track Loan Status</span>
-                            </a>
-                        </li>
+                        @if (Context.Session.GetString("Admin") == "True")
+                        {
+                            
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
+                                    <i class="ni ni-circle-08"></i>
+                                    <span class="nav-link-text">Users Login History</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Admin" asp-action="Index">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Users Details</span>
+                                </a>
+                            </li>
+                        }
+                        @if (Context.Session.GetString("Admin") != "True")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Request a Loan</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="DashBoard" asp-action="TrackLoanRequest">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Track Loan Status</span>
+                                </a>
+                            </li>
+                        }
+                        @if (Context.Session.GetString("ContentEditor") == "True")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Users" asp-action="UsersContentEditor">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Content Editor</span>
+                                </a>
+                            </li>
+                        }
 
 
 

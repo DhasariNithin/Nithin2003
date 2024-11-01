@@ -273,6 +273,7 @@ namespace Nithin2003.Controllers
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
+
                 return View();
         }
             catch (Exception ex)
@@ -323,6 +324,7 @@ namespace Nithin2003.Controllers
                                 _db.SaveChanges();
 
                             }
+                            
 
                             if (_user.UserStatus == "Suspend")
                             {
@@ -336,6 +338,10 @@ namespace Nithin2003.Controllers
                             {
                                 HttpContext.Session.SetString("EmailVerification", "True");
                             }
+                            if (_user.ContentEditor)
+                            {
+                                HttpContext.Session.SetString("ContentEditor", "True");
+                            }
                             if (_user.Admin)
                             {
 
@@ -346,7 +352,7 @@ namespace Nithin2003.Controllers
                             {
                                 return RedirectToAction("Index", "Dashboard");
                             }
-
+                            
                         }
                         else
                         {
@@ -405,6 +411,7 @@ namespace Nithin2003.Controllers
                     _db.SaveChanges();
 
                 }
+                HttpContext.Session.SetString("ContentEditor", "False");
                 HttpContext.Session.SetString("Admin", "False");
                 HttpContext.Session.SetString("EmailVerification", "False");
                 HttpContext.Session.SetString("UserStatus", "");
@@ -546,6 +553,11 @@ namespace Nithin2003.Controllers
             {
                 return RedirectToAction("Errors", "Home");
             }
+        }
+        public IActionResult UsersContentEditor()
+        {
+            IEnumerable<MyUser> users = _db.Users;
+            return View(users);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿@model IEnumerable<MyLoanRequest>
+﻿@model IEnumerable<MyUser>
 @{
-    ViewData["Title"] = "BalanceRequest";
+    ViewData["Title"] = "UsersContentEditor";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
@@ -24,14 +24,14 @@
     <link rel="stylesheet" href="~/Argon-assets/css/argon.css?v=1.2.0" type="text/css">
     </head>*@
 <body>
-    <!-- ======= Sidebar ======= -->
+    <!-- Sidenav -->
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
             <div class="sidenav-header  align-items-center">
                 <a class="navbar-brand" href="javascript:void(0)">
                     <a asp-controller="Home" asp-action="Index" type="button">Nithin</a>
-
+                    @*<img src="~/Argon-assets/img/brand/blue.png" class="navbar-brand-img" alt="...">*@
                 </a>
             </div>
             <div class="navbar-inner">
@@ -45,34 +45,45 @@
                                 <span class="nav-link-text">My Dashboard</span>
                             </a>
                         </li>
-
-                        @if (Context.Session.GetString("Admin") == "True")
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Transfer Money</span>
+                            </a>
+                        </li>
+                        @if (Context.Session.GetString("Admin") != "True")
                         {
-                            @* <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
-                                    <i class="ni ni-money-coins"></i>
-                                    <span class="nav-link-text">Loan Requests</span>
-                                </a>
-                            </li> *@
                             <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
-                                    <i class="ni ni-circle-08"></i>
-                                    <span class="nav-link-text">Users Login History</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Admin" asp-action="Index">
+                                <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
                                     <i class="ni ni-money-coins"></i>
-                                    <span class="nav-link-text">Users Details</span>
+                                    <span class="nav-link-text">Request a Loan</span>
                                 </a>
                             </li>
                         }
-                        
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TrackLoanRequest">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Track Loan Status</span>
+                            </a>
+                        </li>
+                        @if (Context.Session.GetString("ContentEditor") == "True")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Users" asp-action="UsersContentEditor">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Content Editor</span>
+                                </a>
+                            </li>
+                        }
+
+
+
                     </ul>
+
+
                 </div>
             </div>
         </div>
-
     </nav>
     <!-- Main content -->
     <div class="main-content" id="panel">
@@ -108,17 +119,18 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Users Loan table</h3>
+                            <h3 class="mb-0">Users table</h3>
                         </div>
                         <!-- Light table -->
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>User Loan Id</th>
-                                        <th>Requested Username</th>
-                                        <th> User Loan Amount</th>
-                                        <th>User Loan Status</th>
+                                        <th>User Name</th>
+                                        <th>Age</th>
+                                        <th> User Status</th>
+                                        <th>City</th>
+                                        <th>Account Balance</th>
 
 
 
@@ -126,7 +138,7 @@
                                 </thead>
                                 @foreach (var users in Model)
                                 {
-                                    
+                                    @*<tr>@users.Username</tr>*@
 
 
 
@@ -136,24 +148,23 @@
                                                 <div class="media align-items-center">
 
                                                     <div class="media-body">
-                                                        <span class="name mb-0 text-sm">@users.LoanId</span>
+                                                        <span class="name mb-0 text-sm">@users.Username</span>
                                                     </div>
                                                 </div>
                                             </th>
-                                            @*<td class="budget">
+                                            <td class="budget">
                                                 @{
                                                     int age = DateTime.Now.Year - users.Age.Year;
                                                 }
                                                 @age years
-                                            </td>*@
+                                            </td>
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                     <i class="bg-warning"></i>
-                                                    <span class="status">@users.RequestedUsername</span>
+                                                    <span class="status">@users.UserStatus</span>
                                                 </span>
                                             </td>
                                             <td>
-                                                <div class=" ni ni-money-coins">
                                                 @*<div class="avatar-group">
                                             <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
                                             <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-1.jpg">
@@ -168,15 +179,14 @@
                                             <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-4.jpg">
                                             </a>
                                             </div>*@
-                                                @users.LoanAmount
+                                                @users.City
+                                            </td>
+                                            <td>
+                                                <div class=" ni ni-money-coins">
+                                                    <span class="">@users.AccountBalance</span>
+
                                                 </div>
                                             </td>
-                                            <td>                                                
-                                                    <span class="">@users.LoanRequestStatus</span>                                                
-                                            </td>
-                                            @*<td>
-                                        <span class="">@users.LastModified</span>                                                
-                                            </td>*@
 
                                             @*<div class="dropdown">
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -189,46 +199,30 @@
                                         </div>
                                         </div>*@
 
-                                            @if (users.LoanRequestStatus == "Pending")
-                                            {                                                
-                                                <td><div class="btn"> <a asp-controller="Admin" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
-                                                <td><div class="btn"> <a asp-controller="Admin" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
-                                            }
-                                           
+                                            @if (Context.Session.GetString("ContentEditor") == "True")
+                                            {
 
-                                            
+                                                <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails" style="color:darkolivegreen" asp-route-Username="@users.Username">Edit</a></div></td>
+                                                @if (users.UserStatus == "Suspend")
+                                                {
+                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserUnSuspend" style="color:red" asp-route-Username="@users.Username">UnSuspend</a></div></td>
+                                                }
+                                                else if (users.UserStatus == "New")
+                                                {
+                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserApprove" style="color:red" asp-route-Username="@users.Username">Approve</a></div></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserSuspend" style="color:red" asp-route-Username="@users.Username">Suspend</a></div></td>
+                                                }
+                                                
+                                            }
                                         </tr>
 
                                     </tbody>
                                 }
                             </table>
-                        </div>
-                        @*<!-- Card footer -->
-                        <div class="card-footer py-4">
-                        <nav aria-label="...">
-                        <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                        <span class="sr-only">Previous</span>
-                        </a>
-                        </li>
-                        <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                        <a class="page-link" href="#">
-                        <i class="fas fa-angle-right"></i>
-                        <span class="sr-only">Next</span>
-                        </a>
-                        </li>
-                        </ul>
-                        </nav>
-                        </div>*@
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -266,3 +260,4 @@
 </body>
 
 </html>
+
