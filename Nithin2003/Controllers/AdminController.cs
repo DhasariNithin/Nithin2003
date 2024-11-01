@@ -12,6 +12,8 @@ namespace Nithin2003.Controllers
         {
             _db = db;
         }
+
+        // Read all users 
         public IActionResult Index()
         {
             try
@@ -25,6 +27,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+        // Checking Users loan requests 
         public IActionResult LoanAmountRequest()
         {
             try
@@ -41,6 +44,7 @@ namespace Nithin2003.Controllers
             }
 
         }
+        //Approve Loan button
         public IActionResult ApproveLoan(string? LoanId)
         {
             try
@@ -71,6 +75,8 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
+        // Reject loan button
         public IActionResult RejectLoan(string? LoanId)
         {
             try

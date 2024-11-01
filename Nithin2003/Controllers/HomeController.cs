@@ -23,6 +23,8 @@ namespace Nithin2003.Controllers
         {
             return View();
         }
+
+        // Contact form with email
         public IActionResult ContactUs()
         {
             try

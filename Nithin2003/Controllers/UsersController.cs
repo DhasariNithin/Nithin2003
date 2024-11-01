@@ -22,7 +22,7 @@ namespace Nithin2003.Controllers
             _db = db;
         }
 
-
+    
         public IActionResult Index()
         {
             try
@@ -267,26 +267,26 @@ namespace Nithin2003.Controllers
         // User Sign In
         public IActionResult SignIn()
         {
-            //try
-            //{
+            try
+            {
                 if (HttpContext.Session.GetString("SignIn") == "True")
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
                 return View();
-            //}
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Errors", "Home");
-            //}
         }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+    }
+}
 
         // validating the user with credentials
         [HttpPost]
         public IActionResult SignIn(MySignIn mySignIn)
         {
-            //try
-            //{
+            try
+            {
                 if (ModelState.IsValid)
                 {
                     var _user = _db.Users.Find(mySignIn.Username);
@@ -366,11 +366,11 @@ namespace Nithin2003.Controllers
                     return View();
                 }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Errors", "Home");
-            //}
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
         }
 
         // User sign-out amd remove seesions
@@ -417,6 +417,7 @@ namespace Nithin2003.Controllers
             }
         }
 
+        // Suspend the user
         public IActionResult UserSuspend(string? Username)
         {
             try
@@ -432,6 +433,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+        // unsuspend the user
         public IActionResult UserUnSuspend(string? Username)
         {
             try
@@ -453,6 +455,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+        // Approving the user to active status
         public IActionResult UserApprove(string? Username)
         {
             try
@@ -473,6 +476,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+        // forgot password sending password to email 
         public IActionResult ForgotPassword()
         {
             try

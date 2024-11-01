@@ -142,6 +142,7 @@ namespace Nithin2003.Controllers
             }
 
         }
+        // Users track loan status 
         public IActionResult TrackLoanRequest()
         {
             try
@@ -305,7 +306,8 @@ namespace Nithin2003.Controllers
             {
                 return RedirectToAction("Errors", "Home");
             }
-        }//reading user loginin details
+        }
+        //reading user login in details
         public IActionResult UsersLoginDetails()
         {
             try
