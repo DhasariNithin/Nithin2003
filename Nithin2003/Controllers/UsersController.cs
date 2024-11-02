@@ -22,7 +22,7 @@ namespace Nithin2003.Controllers
             _db = db;
         }
 
-    
+
         public IActionResult Index()
         {
             try
@@ -275,12 +275,12 @@ namespace Nithin2003.Controllers
                 }
 
                 return View();
-        }
+            }
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
-    }
-}
+            }
+        }
 
         // validating the user with credentials
         [HttpPost]
@@ -324,7 +324,7 @@ namespace Nithin2003.Controllers
                                 _db.SaveChanges();
 
                             }
-                            
+
 
                             if (_user.UserStatus == "Suspend")
                             {
@@ -352,7 +352,7 @@ namespace Nithin2003.Controllers
                             {
                                 return RedirectToAction("Index", "Dashboard");
                             }
-                            
+
                         }
                         else
                         {
@@ -556,8 +556,30 @@ namespace Nithin2003.Controllers
         }
         public IActionResult UsersContentEditor()
         {
-            IEnumerable<MyUser> users = _db.Users;
-            return View(users);
+            try
+            {
+                IEnumerable<MyUser> users = _db.Users;
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
         }
+        //public IActionResult ContentEdit(string? Username)
+        //{
+        //    try
+        //    {
+        //        var _user = _db.Users.Find(Username);
+        //        _user.ContentEditor = true;
+        //        _db.Users.Update(_user);
+        //        _db.SaveChanges();
+        //        return RedirectToAction("Index", "Admin");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return RedirectToAction("Errors", "Home");
+        //    }
+        //}
     }
 }

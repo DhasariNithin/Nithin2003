@@ -208,6 +208,8 @@
                                         {
                                             
                                                 <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails"  style="color:darkolivegreen" asp-route-Username="@users.Username">Edit</a></div></td>
+
+                                                @* <td><div class="btn"> <a type="checkox" asp-controller="Users" asp-action="ContentEdit" style="color:darkolivegreen" asp-route-Username="@users.Username"><input type="checkbox"></a><p>Content Editor</p></div></td> *@
                                                 @if (users.UserStatus == "Suspend")
                                                 {
                                                     <td><div class="btn"> <a asp-controller="Users" asp-action="UserUnSuspend" style="color:red" asp-route-Username="@users.Username">UnSuspend</a></div></td>
@@ -222,6 +224,8 @@
                                                 }                                          
 
                                                 <td><div class="btn"> <a asp-controller="Users" asp-action="deleteDetails" style="color:red" asp-route-Username="@users.Username">Delete</a></div></td>
+                                                
+                                               
                                         }  
                                         </tr>
 
