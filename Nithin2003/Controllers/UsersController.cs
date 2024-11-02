@@ -386,31 +386,7 @@ namespace Nithin2003.Controllers
             {
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
                 HttpContext.Session.SetString("Username", "");
-                HttpContext.Session.SetString("SignIn", "False");
-                UserHistory userhistory = new UserHistory();
-                if (HttpContext.Session.GetString("SignIn") == "False")
-                {
-                    userhistory.UserName = _user.Username;
-                    userhistory.Action = "SignOut";
-                    userhistory.Time = DateTime.Now;
-                    IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
-                    string result = "";
-                    if (remoteIpAddress != null)
-                    {
-                        // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
-                        // This usually only happens when the browser is on the same machine as the server.
-                        if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
-                        {
-                            remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
-                    .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                        }
-                        result = remoteIpAddress.ToString();
-                    }
-                    userhistory.IPAddress = result;
-                    _db.LoginHistory.Add(userhistory);
-                    _db.SaveChanges();
-
-                }
+                HttpContext.Session.SetString("SignIn", "False");               
                 HttpContext.Session.SetString("ContentEditor", "False");
                 HttpContext.Session.SetString("Admin", "False");
                 HttpContext.Session.SetString("EmailVerification", "False");
