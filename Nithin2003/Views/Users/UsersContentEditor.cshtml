@@ -44,28 +44,8 @@
                                 <i class="ni ni-tv-2 text-primary"></i>
                                 <span class="nav-link-text">My Dashboard</span>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
-                                <i class="ni ni-money-coins"></i>
-                                <span class="nav-link-text">Transfer Money</span>
-                            </a>
-                        </li>
-                        @if (Context.Session.GetString("Admin") != "True")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
-                                    <i class="ni ni-money-coins"></i>
-                                    <span class="nav-link-text">Request a Loan</span>
-                                </a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TrackLoanRequest">
-                                <i class="ni ni-money-coins"></i>
-                                <span class="nav-link-text">Track Loan Status</span>
-                            </a>
-                        </li>
+                        </li>                        
+                        
                         @if (Context.Session.GetString("ContentEditor") == "True")
                         {
                             <li class="nav-item">
@@ -75,7 +55,12 @@
                                 </a>
                             </li>
                         }
-
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="SignOut">
+                                <i class=""></i>
+                                <span class="nav-link-text">Sign Out</span>
+                            </a>
+                        </li>
 
 
                     </ul>
