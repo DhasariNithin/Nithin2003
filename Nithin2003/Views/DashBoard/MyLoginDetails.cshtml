@@ -31,7 +31,7 @@
                             </a>
                         </li>
 
-                        @if (Context.Session.GetString("Admin") == "True")
+                        @* @if (Context.Session.GetString("Admin") == "True")
                         {
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
@@ -59,7 +59,7 @@
                                     <span class="nav-link-text">Users Transaction History</span>
                                 </a>
                             </li>
-                        }
+                        } *@
                         <li class="nav-item">
                             <a style="background-color:#5e72e4;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
                                 <i class=""></i>

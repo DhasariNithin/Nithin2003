@@ -46,27 +46,29 @@
                         </div>*@
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
-                                <small> Sign in with credentials</small>
+                                <small>Enter below details</small>
                             </div>
                             <form action="/Admin/ApproveAsAdmin" method="post">
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                            <span class="input-group-text"><i class=""></i></span>
                                         </div>
                                         <input class="form-control" asp-for="@Model.UserName" placeholder="Enter User Name" type="text">
-                                        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                                        @* <span asp-validation-for="@Model.UserName" class="text-danger"></span> *@
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
+                                        <span class="input-group-text"><i class=""></i></span>
                                         <h1 class="form-control">Admin</h1>
                                         <input type="checkbox" id="Admin" asp-for="@Model.Admin" /><br>
-                                        <span asp-validation-for="@Model.Admin" class="text-danger"></span>
+                                        @* <span asp-validation-for="@Model.Admin" class="text-danger"></span> *@
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
+                                        <span class="input-group-text"><i class=" "></i></span>
                                         <h1 class="form-control">Content Editor</h1>
                                         <input type="checkbox" id="Content Editor" asp-for="@Model.Contenteditor" /><br>
                                         <span asp-validation-for="@Model.Contenteditor" class="text-danger"></span>
