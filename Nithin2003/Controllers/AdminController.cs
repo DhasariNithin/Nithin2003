@@ -19,13 +19,26 @@ namespace Nithin2003.Controllers
             try
             {
                 IEnumerable<MyUser> users =_db.Users;
-                return View(users);
-               
+                return View(users);               
             }
             catch(Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
             }
+        }
+        // checking users transaction details
+        public IActionResult UserstransactionHistory()
+        {
+            try
+            {
+                IEnumerable<MyTransferMoney> myTransferMoney = _db.TransactionHistory;
+                return View(myTransferMoney);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
         }
         // Checking Users loan requests 
         public IActionResult LoanAmountRequest()

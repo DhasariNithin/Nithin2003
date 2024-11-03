@@ -29,14 +29,15 @@
                         <a asp-controller="DashBoard" asp-action="TransferMoney" class="btn btn-primary my-4" type="button">Transfer Money</a>
                         </li>*@
 
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
-                                <i class="ni ni-money-coins"></i>
-                                <span class="nav-link-text">Transfer Money</span>
-                            </a>
-                        </li>
+                        
                         @if (Context.Session.GetString("Admin") != "True")
                         {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Transfer Money</span>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
                                     <i class="ni ni-money-coins"></i>
@@ -60,8 +61,23 @@
                             </li>
 
                         }
+                        @if (Context.Session.GetString("Admin") == "True")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Users" asp-action="UsersContentEditor">
+                                    <i class="ni ni-circle-08"></i>
+                                    <span class="nav-link-text">Content Editor</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Admin" asp-action="UserstransactionHistory">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Users Transaction History</span>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="SignOut">
+                            <a style="background-color:#5e72e4;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
                                 <i class=""></i>
                                 <span class="nav-link-text">Sign Out</span>
                             </a>

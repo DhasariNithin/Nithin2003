@@ -49,11 +49,11 @@
                         @if (Context.Session.GetString("Admin") == "True")
                         {
                             @* <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
-                                    <i class="ni ni-money-coins"></i>
-                                    <span class="nav-link-text">Loan Requests</span>
-                                </a>
-                            </li> *@
+                        <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
+                        <i class="ni ni-money-coins"></i>
+                        <span class="nav-link-text">Loan Requests</span>
+                        </a>
+                        </li> *@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
                                     <i class="ni ni-circle-08"></i>
@@ -66,9 +66,22 @@
                                     <span class="nav-link-text">Users Details</span>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Users" asp-action="UsersContentEditor">
+                                    <i class="ni ni-circle-08"></i>
+                                    <span class="nav-link-text">Content Editor</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Admin" asp-action="UserstransactionHistory">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Users Transaction History</span>
+                                </a>
+                            </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="SignOut">
+                            <a style="background-color:#5e72e4;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
                                 <i class=""></i>
                                 <span class="nav-link-text">Sign Out</span>
                             </a>
@@ -131,7 +144,7 @@
                                 </thead>
                                 @foreach (var users in Model)
                                 {
-                                    
+
 
 
 
@@ -146,11 +159,11 @@
                                                 </div>
                                             </th>
                                             @*<td class="budget">
-                                                @{
-                                                    int age = DateTime.Now.Year - users.Age.Year;
-                                                }
-                                                @age years
-                                            </td>*@
+                                        @{
+                                        int age = DateTime.Now.Year - users.Age.Year;
+                                        }
+                                        @age years
+                                        </td>*@
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                     <i class="bg-warning"></i>
@@ -159,29 +172,29 @@
                                             </td>
                                             <td>
                                                 <div class=" ni ni-money-coins">
-                                                @*<div class="avatar-group">
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-1.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-2.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-3.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-4.jpg">
-                                            </a>
-                                            </div>*@
-                                                @users.LoanAmount
+                                                    @*<div class="avatar-group">
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-1.jpg">
+                                                </a>
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-2.jpg">
+                                                </a>
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-3.jpg">
+                                                </a>
+                                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
+                                                <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-4.jpg">
+                                                </a>
+                                                </div>*@
+                                                    @users.LoanAmount
                                                 </div>
                                             </td>
-                                            <td>                                                
-                                                    <span class="">@users.LoanRequestStatus</span>                                                
+                                            <td>
+                                                <span class="">@users.LoanRequestStatus</span>
                                             </td>
                                             @*<td>
-                                        <span class="">@users.LastModified</span>                                                
-                                            </td>*@
+                                        <span class="">@users.LastModified</span>
+                                        </td>*@
 
                                             @*<div class="dropdown">
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -195,13 +208,13 @@
                                         </div>*@
 
                                             @if (users.LoanRequestStatus == "Pending")
-                                            {                                                
+                                            {
                                                 <td><div class="btn"> <a asp-controller="Admin" asp-action="ApproveLoan" asp-route-LoanId="@users.LoanId">Approve Loan</a></div></td>
                                                 <td><div class="btn"> <a asp-controller="Admin" asp-action="RejectLoan" asp-route-LoanId="@users.LoanId" style="color:red">Reject Loan</a></div></td>
                                             }
-                                           
 
-                                            
+
+
                                         </tr>
 
                                     </tbody>
