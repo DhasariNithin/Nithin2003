@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Nithin2003.Database;
 using Nithin2003.Models;
 
@@ -105,6 +106,31 @@ namespace Nithin2003.Controllers
                 _db.LoanRequest.Update(_requesteduser);
                 _db.SaveChanges();
                 return RedirectToAction("LoanAmountRequest");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }        
+        public IActionResult ApproveAsAdmin(AdminOrEditor AdminOrEditor)
+        {
+            try
+            {
+                var userssss = AdminOrEditor.UserName;                
+                var _usersdata = _db.Users.Find(userssss);
+                if (_usersdata != null)
+                {
+
+                    if (AdminOrEditor.UserName == _usersdata.Username)
+                    {
+                        _usersdata.Admin = AdminOrEditor.Admin;
+                        _usersdata.ContentEditor = AdminOrEditor.Contenteditor;
+                        _db.Users.Update(_usersdata);
+                        _db.SaveChanges();
+                        return View();
+                    }
+                }
+                return View();
             }
             catch (Exception ex)
             {

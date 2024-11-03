@@ -1,24 +1,8 @@
-﻿@model IEnumerable<MyUser>
+﻿@model IEnumerable<MyTransferMoney>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "MytransactionHistory";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
-@*<h1>Index</h1>*@
-<!--
-=========================================================
-* Argon Dashboard - v1.2.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-
-
-* Copyright  Creative Tim (http://www.creative-tim.com)
-* Coded by www.creative-tim.com
-
-
-
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html>
 
@@ -60,7 +44,6 @@
                                 <span class="nav-link-text">My Dashboard</span>
                             </a>
                         </li>
-
                         @if (Context.Session.GetString("Admin") == "True")
                         {
                             <li class="nav-item">
@@ -69,7 +52,6 @@
                                     <span class="nav-link-text">Loan Requests</span>
                                 </a>
                             </li>
-
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
                                     <i class="ni ni-circle-08"></i>
@@ -83,16 +65,11 @@
                                 </a>
                             </li>
 
+                            
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Admin" asp-action="UserstransactionHistory">
                                     <i class="ni ni-money-coins"></i>
                                     <span class="nav-link-text">Users Transaction History</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Admin" asp-action="ApproveAsAdmin">
-                                    <i class="ni ni-money-coins"></i>
-                                    <span class="nav-link-text">Permissions For Admin Or Editor</span>
                                 </a>
                             </li>
                         }
@@ -151,134 +128,50 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>User Name</th>
-                                        <th>Age</th>
-                                        <th> User Status</th>
-                                        <th>City</th>
-                                        <th>Account Balance</th>
-
-
+                                        <th>From User</th>
+                                        <th>To User</th>
+                                        <th>Amount Transfered</th>
+                                        <th> Transaction Date</th>
 
                                     </tr>
                                 </thead>
                                 @foreach (var users in Model)
                                 {
-                                    @*<tr>@users.Username</tr>*@
-
-
-
                                     <tbody class="list">
                                         <tr>
                                             <th scope="row">
                                                 <div class="media align-items-center">
 
                                                     <div class="media-body">
-                                                        <span class="name mb-0 text-sm">@users.Username</span>
+                                                        <span class="name mb-0 text-sm">@users.FromUsername</span>
                                                     </div>
                                                 </div>
                                             </th>
-                                            <td class="budget">
-                                                @{
-                                                    int age = DateTime.Now.Year - users.Age.Year;
-                                                }
-                                                @age years
-                                            </td>
+
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                     <i class="bg-warning"></i>
-                                                    <span class="status">@users.UserStatus</span>
+                                                    <span class="status">@users.ToUsername</span>
                                                 </span>
                                             </td>
-                                            <td>
-                                                @*<div class="avatar-group">
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-1.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-2.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-3.jpg">
-                                            </a>
-                                            <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                            <img alt="Image placeholder" src="~/Argon-assets/img/theme/team-4.jpg">
-                                            </a>
-                                            </div>*@
-                                                @users.City
-                                            </td>
+
                                             <td>
                                                 <div class=" ni ni-money-coins">
-                                                    <span class="">@users.AccountBalance</span>
+                                                    <span class="">@users.Amount</span>
 
                                                 </div>
                                             </td>
-
-                                            @*<div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                        </div>*@
-
-                                            @if (Context.Session.GetString("Admin") == "True")
-                                            {
-
-                                                <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails" style="color:darkolivegreen" asp-route-Username="@users.Username">Edit</a></div></td>
+                                            <td>
+                                                <span class="">@users.TransactionDate</span>
+                                            </td>
 
 
-                                                @if (users.UserStatus == "Suspend")
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserUnSuspend" style="color:red" asp-route-Username="@users.Username">UnSuspend</a></div></td>
-                                                }
-                                                else if (users.UserStatus == "New")
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserApprove" style="color:red" asp-route-Username="@users.Username">Approve</a></div></td>
-                                                }
-                                                else
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserSuspend" style="color:red" asp-route-Username="@users.Username">Suspend</a></div></td>
-                                                }
-
-                                                <td><div class="btn"> <a asp-controller="Users" asp-action="deleteDetails" style="color:red" asp-route-Username="@users.Username">Delete</a></div></td>
-
-
-                                            }
-                                        </tr>
 
                                     </tbody>
                                 }
                             </table>
                         </div>
-                        @*<!-- Card footer -->
-                        <div class="card-footer py-4">
-                        <nav aria-label="...">
-                        <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                        <span class="sr-only">Previous</span>
-                        </a>
-                        </li>
-                        <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                        <a class="page-link" href="#">
-                        <i class="fas fa-angle-right"></i>
-                        <span class="sr-only">Next</span>
-                        </a>
-                        </li>
-                        </ul>
-                        </nav>
-                        </div>*@
+
                     </div>
                 </div>
             </div>
@@ -316,3 +209,5 @@
 </body>
 
 </html>
+
+

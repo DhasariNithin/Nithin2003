@@ -94,7 +94,7 @@ namespace Nithin2003.Controllers
                 myTransferMoney.IPAddress = result;
                 _db.TransactionHistory.Add(myTransferMoney);
                 _db.SaveChanges();
-                return RedirectToAction("Index");            
+                return RedirectToAction("Index");         
 
             }
 
@@ -314,6 +314,34 @@ namespace Nithin2003.Controllers
             {
                 IEnumerable<UserHistory> userhistory = _db.LoginHistory;
                 return View(userhistory);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
+        }
+        //reading user login in details
+        public IActionResult MyLoginDetails()
+        {
+            try
+            {
+                IEnumerable<UserHistory> userhistory = _db.LoginHistory.Where(t => t.UserName.Contains(HttpContext.Session.GetString("Username")));
+                return View(userhistory);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+
+        }
+        // checking user transaction details
+        public IActionResult MytransactionHistory()
+        {
+            try
+            {
+                IEnumerable<MyTransferMoney> myTransferMoney = _db.TransactionHistory.Where(t => t.FromUsername.Contains(HttpContext.Session.GetString("Username")));
+                return View(myTransferMoney);
             }
             catch (Exception ex)
             {

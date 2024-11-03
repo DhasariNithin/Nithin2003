@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<UserHistory>
 @{
-    ViewData["Title"] = "UsersLoginDetails";
+    ViewData["Title"] = "MyLoginDetails";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
-
 }
-
-@*<h1>UserLoginDetails</h1>*@
 
 <!DOCTYPE html>
 <html>
@@ -55,6 +52,7 @@
                                 </a>
                             </li>
 
+                            
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Admin" asp-action="UserstransactionHistory">
                                     <i class="ni ni-money-coins"></i>
@@ -68,7 +66,7 @@
                                 <span class="nav-link-text">Sign Out</span>
                             </a>
                         </li>
-                       
+                        
                     </ul>
                 </div>
             </div>
