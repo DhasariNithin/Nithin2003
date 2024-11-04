@@ -37,14 +37,9 @@
                             </a>
                         </li>
 
-                        @* @if (Context.Session.GetString("Admin") == "True")
+                        @if (Context.Session.GetString("Admin") == "True")
                         {
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
-                                    <i class="ni ni-money-coins"></i>
-                                    <span class="nav-link-text">Loan Requests</span>
-                                </a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
                                     <i class="ni ni-circle-08"></i>
@@ -57,15 +52,19 @@
                                     <span class="nav-link-text">Users Details</span>
                                 </a>
                             </li>
-
-                            
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Admin" asp-action="UserstransactionHistory">
                                     <i class="ni ni-money-coins"></i>
                                     <span class="nav-link-text">Users Transaction History</span>
                                 </a>
                             </li>
-                        } *@
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Admin" asp-action="ApproveAsAdmin">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Add Admin/Editor</span>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a style="background-color:#5e72e4;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
                                 <i class=""></i>

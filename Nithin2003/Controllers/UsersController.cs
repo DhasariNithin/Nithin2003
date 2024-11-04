@@ -269,12 +269,12 @@ namespace Nithin2003.Controllers
         {
             //try
             //{
-                if (HttpContext.Session.GetString("SignIn") == "True")
-                {
-                    return RedirectToAction("Index", "Dashboard");
-                }
+            if (HttpContext.Session.GetString("SignIn") == "True")
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
 
-                return View();
+            return View();
             //}
             //catch (Exception ex)
             //{
@@ -288,89 +288,89 @@ namespace Nithin2003.Controllers
         {
             //try
             //{
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                var _user = _db.Users.Find(mySignIn.Username);
+                if (_user != null)
                 {
-                    var _user = _db.Users.Find(mySignIn.Username);
-                    if (_user != null)
+                    if (mySignIn.Password == _user.Password)
                     {
-                        if (mySignIn.Password == _user.Password)
+
+                        HttpContext.Session.SetString("Username", _user.Username);
+                        HttpContext.Session.SetString("SignIn", "True");
+
+                        UserHistory history = new UserHistory();
+                        if (HttpContext.Session.GetString("SignIn") == "True")
+                        {
+                            history.UserName = _user.Username;
+                            history.Action = "SignIn";
+                            history.Time = DateTime.Now;
+
+                            IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                            string result = "";
+                            if (remoteIpAddress != null)
+                            {
+                                // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
+                                // This usually only happens when the browser is on the same machine as the server.
+                                if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                                {
+                                    remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
+                            .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                                }
+                                result = remoteIpAddress.ToString();
+                            }
+                            history.IPAddress = result;
+                            _db.LoginHistory.Add(history);
+                            _db.SaveChanges();
+
+                        }
+
+
+                        if (_user.UserStatus == "Suspend")
+                        {
+                            HttpContext.Session.SetString("UserStatus", "Suspend");
+                        }
+                        if (_user.UserStatus == "New")
+                        {
+                            HttpContext.Session.SetString("UserStatus", "New");
+                        }
+                        if (_user.EmailVerification == "Verified")
+                        {
+                            HttpContext.Session.SetString("EmailVerification", "True");
+                        }
+                        if (_user.ContentEditor)
+                        {
+                            HttpContext.Session.SetString("ContentEditor", "True");
+                        }
+                        if (_user.Admin)
                         {
 
-                            HttpContext.Session.SetString("Username", _user.Username);
-                            HttpContext.Session.SetString("SignIn", "True");
-
-                            UserHistory history = new UserHistory();
-                            if (HttpContext.Session.GetString("SignIn") == "True")
-                            {
-                                history.UserName = _user.Username;
-                                history.Action = "SignIn";
-                                history.Time = DateTime.Now;
-
-                                IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
-                                string result = "";
-                                if (remoteIpAddress != null)
-                                {
-                                    // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
-                                    // This usually only happens when the browser is on the same machine as the server.
-                                    if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
-                                    {
-                                        remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
-                                .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                                    }
-                                    result = remoteIpAddress.ToString();
-                                }
-                                history.IPAddress = result;
-                                _db.LoginHistory.Add(history);
-                                _db.SaveChanges();
-
-                            }
-
-
-                            if (_user.UserStatus == "Suspend")
-                            {
-                                HttpContext.Session.SetString("UserStatus", "Suspend");
-                            }
-                            if (_user.UserStatus == "New")
-                            {
-                                HttpContext.Session.SetString("UserStatus", "New");
-                            }
-                            if (_user.EmailVerification == "Verified")
-                            {
-                                HttpContext.Session.SetString("EmailVerification", "True");
-                            }
-                            if (_user.ContentEditor)
-                            {
-                                HttpContext.Session.SetString("ContentEditor", "True");
-                            }
-                            if (_user.Admin)
-                            {
-
-                                HttpContext.Session.SetString("Admin", "True");
-                                return RedirectToAction("Index", "Admin");
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Dashboard");
-                            }
-
+                            HttpContext.Session.SetString("Admin", "True");
+                            return RedirectToAction("Index", "Admin");
                         }
                         else
                         {
-                            ModelState.AddModelError("Password", "Password doesn't match, please try with a valid password");
-                            return View();
+                            return RedirectToAction("Index", "Dashboard");
                         }
 
                     }
                     else
                     {
-                        ModelState.AddModelError("Username", "Username doesn't exist, please try with a valid username");
+                        ModelState.AddModelError("Password", "Password doesn't match, please try with a valid password");
                         return View();
                     }
+
                 }
                 else
                 {
+                    ModelState.AddModelError("Username", "Username doesn't exist, please try with a valid username");
                     return View();
                 }
+            }
+            else
+            {
+                return View();
+            }
 
             //}
             //catch (Exception ex)
@@ -386,7 +386,7 @@ namespace Nithin2003.Controllers
             {
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
                 HttpContext.Session.SetString("Username", "");
-                HttpContext.Session.SetString("SignIn", "False");               
+                HttpContext.Session.SetString("SignIn", "False");
                 HttpContext.Session.SetString("ContentEditor", "False");
                 HttpContext.Session.SetString("Admin", "False");
                 HttpContext.Session.SetString("EmailVerification", "False");
@@ -472,24 +472,28 @@ namespace Nithin2003.Controllers
             }
         }
         [HttpPost]
-        public IActionResult ForgotPassword(ForgetPassword password)
+        public IActionResult ForgotPassword(ForgetPassword forgetPassword)
         {
             try
             {
-                var _user = password.Username;
-                var _userr = _db.Users.Find(_user);
-
-                if (_user != null)
+                
+                var _userObject = _db.Users.Find(forgetPassword.Username);
+                if (_userObject == null)
                 {
-                    if (password.Username == _userr.Username)
+                    ModelState.AddModelError("Username", "User does not exist, please enter valid Username");
+                    return View();
+                }
+                if (_userObject != null)
+                {
+                    if (forgetPassword.Username == _userObject.Username)
                     {
                         // sending an email
                         ContactFormModel contactUs = new ContactFormModel();
 
                         contactUs.Email = "testing7702738@gmail.com";
                         contactUs.Password = "wbaagdmwlqqmfxqc";
-                        contactUs.ToEmail = _userr.Email;
-                        contactUs.Body = "User Name = " + _userr.Username + "\n\n Password  = " + _userr.Password;
+                        contactUs.ToEmail = _userObject.Email;
+                        contactUs.Body = "User Name = " + _userObject.Username + "\n\n Password  = " + _userObject.Password;
 
 
                         using (MailMessage mm = new MailMessage(contactUs.Email, contactUs.ToEmail))
@@ -506,14 +510,14 @@ namespace Nithin2003.Controllers
                                 smtp.Credentials = NetworkCred;
                                 smtp.Port = 587;
                                 smtp.Send(mm);
-                                ViewBag.Text = "Successfully ,Password sent to your Registration Email.";
+                                ViewBag.Text = "Password has been sent to your registered email successfully.";
                             }
                         }
                         return View();
                     }
                     else
                     {
-                        ModelState.AddModelError("Username", "User Name Does not Match with user details please try again");
+                        ModelState.AddModelError("Username", "User Name does not match with user details please try again");
                         return View();
                     }
 
@@ -541,7 +545,7 @@ namespace Nithin2003.Controllers
             {
                 return RedirectToAction("Errors", "Home");
             }
-        }  
-        
+        }
+
     }
 }

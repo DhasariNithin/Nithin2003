@@ -6,6 +6,7 @@ namespace Nithin2003.Models
     {
 
         [Key]
+        [Required]
         public string Username { get; set; }
     }
 }

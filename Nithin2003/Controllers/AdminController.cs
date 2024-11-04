@@ -19,10 +19,10 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                IEnumerable<MyUser> users =_db.Users;
-                return View(users);               
+                IEnumerable<MyUser> users = _db.Users;
+                return View(users);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
             }
@@ -111,20 +111,36 @@ namespace Nithin2003.Controllers
             {
                 return RedirectToAction("Errors", "Home");
             }
-        }        
+        }
         public IActionResult ApproveAsAdmin(AdminOrEditor AdminOrEditor)
         {
             try
             {
-                var userssss = AdminOrEditor.UserName;                
+
+                var userssss = AdminOrEditor.UserName;
                 var _usersdata = _db.Users.Find(userssss);
+                if (_usersdata == null)
+                {
+                    ModelState.AddModelError("UserName", "UserName can't be empty");
+                    return View(AdminOrEditor);
+                }
+                if (AdminOrEditor.UserName != _usersdata.Username)
+                {
+                    ModelState.AddModelError("UserName", "UserName doesn't match with existing details please try again");
+                    return View(AdminOrEditor);
+                }
                 if (_usersdata != null)
                 {
-
                     if (AdminOrEditor.UserName == _usersdata.Username)
                     {
-                        _usersdata.Admin = AdminOrEditor.Admin;
-                        _usersdata.ContentEditor = AdminOrEditor.Contenteditor;
+                        if (AdminOrEditor.AdminOrContentEditor == "Admin")
+                        {
+                            _usersdata.Admin = true;
+                        }
+                        if (AdminOrEditor.AdminOrContentEditor == "ContentEditor")
+                        {
+                            _usersdata.ContentEditor = true;
+                        }
                         _db.Users.Update(_usersdata);
                         _db.SaveChanges();
                         return View();

@@ -6,7 +6,6 @@ namespace Nithin2003.Models
     {
         [Key]
         public string UserName { get; set; }
-        public bool Admin { get; set; } =false;
-        public bool Contenteditor { get; set; } = false;
+        public string AdminOrContentEditor { get; set; }         
     }
 }
