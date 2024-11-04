@@ -72,7 +72,7 @@
                                     <span class="nav-link-text">Track Loan Status</span>
                                 </a>
                             </li>
-                           
+
                         }
                         <li class="nav-item">
                             <a class="nav-link active" asp-controller="Dashboard" asp-action="MyLoginDetails">
@@ -85,8 +85,19 @@
                                 <span class="nav-link-text">My Transaction History</span>
                             </a>
                         </li>
-                        @if (Context.Session.GetString("ContentEditor") == "True")
-                        {
+
+
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Model.Username">
+                                <i class=""></i>
+                                <span class="nav-link-text">Edit My Profile</span>
+
+                            </a>
+                        </li>
+
+
+                            @if (Context.Session.GetString("ContentEditor") == "True")
+                            {
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Users" asp-action="UsersContentEditor">
                                     <i class="ni ni-money-coins"></i>
@@ -94,9 +105,9 @@
                                 </a>
                             </li>
 
-                        }
-                        @if (Context.Session.GetString("Admin") == "True")
-                        {
+                            }
+                            @if (Context.Session.GetString("Admin") == "True")
+                            {
 
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
@@ -123,7 +134,7 @@
                                     <span class="nav-link-text">Users Transaction History</span>
                                 </a>
                             </li>
-                        }
+                            }
                         <li class="nav-item">
                             <a style="background-color:#5e72e4;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
                                 <i class=""></i>
@@ -132,7 +143,7 @@
                         </li>
 
 
-                        @* <li class="nav-item">
+                            @* <li class="nav-item">
                         <a class="nav-link">
                         <i class="ni ni-tv-2 text-primary"></i>
                         <span class="nav-link-text">Dashboard</span>
@@ -214,7 +225,7 @@
                         <span class="nav-link-text">Upgrade to PRO</span>
                         </a>
                         </li>*@
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>
