@@ -28,7 +28,7 @@
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
-            < <div class="sidenav-header  align-items-center">
+             <div class="sidenav-header  align-items-center">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index" type="button">
                     <img style="max-height:60px;width:200px;" src="~/Argon-assets/img/Screenshot 2024-11-03 214613.png" class="navbar-brand-img" alt="...">
 
@@ -48,12 +48,12 @@
 
                         @if (Context.Session.GetString("Admin") == "True")
                         {
-                            @* <li class="nav-item">
-                        <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
-                        <i class="ni ni-money-coins"></i>
-                        <span class="nav-link-text">Loan Requests</span>
-                        </a>
-                        </li> *@
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Loan Requests</span>
+                                </a>
+                            </li>                            
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
                                     <i class="ni ni-circle-08"></i>
@@ -67,11 +67,17 @@
                                 </a>
                             </li>
 
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Admin" asp-action="UserstransactionHistory">
                                     <i class="ni ni-money-coins"></i>
                                     <span class="nav-link-text">Users Transaction History</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Admin" asp-action="ApproveAsAdmin">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Permissions For Admin Or Editor</span>
                                 </a>
                             </li>
                         }
