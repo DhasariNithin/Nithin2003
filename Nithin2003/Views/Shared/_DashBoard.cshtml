@@ -46,7 +46,7 @@
                         <a asp-controller="DashBoard" asp-action="TransferMoney" class="btn btn-primary my-4" type="button">Transfer Money</a>
                         </li>*@
 
-                        <li class="nav-item">
+                       @*  <li class="nav-item">
                             <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
                                 <i class="ni ni-money-coins"></i>
                                 <span class="nav-link-text">Transfer Money</span>
@@ -107,8 +107,75 @@
                                 <i class=""></i>
                                 <span class="nav-link-text">Sign Out</span>
                             </a>
+                        </li> *@
+                        @if (Context.Session.GetString("Admin") != "True")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="ni ni-tv-2 text-primary"></i>
+                                    <span class="nav-link-text">My Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Transfer Money</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Request a Loan</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="DashBoard" asp-action="TrackLoanRequest">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Track Loan Status</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Dashboard" asp-action="MyLoginDetails">
+                                    <i class="ni ni-circle-08"></i>
+                                    <span class="nav-link-text">My LogIn History</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Dashboard" asp-action="MytransactionHistory">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">My Transaction History</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
+                                    <i class="ni ni-circle-08"></i>
+                                    <span class="nav-link-text">Edit My Profile</span>
+
+                                </a>
+                            </li>
+                        }
+
+
+                        @if (Context.Session.GetString("ContentEditor") == "True")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Users" asp-action="UsersContentEditor">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Content Editor</span>
+                                </a>
+                            </li>
+
+                        }
+                        <li class="nav-item">
+                            <a style="background-color:royalblue;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
+                                <i class=""></i>
+                                <span class="nav-link-text">Sign Out</span>
+                            </a>
                         </li>
-                       
 
 
 

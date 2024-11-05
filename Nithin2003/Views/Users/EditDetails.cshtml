@@ -238,7 +238,15 @@
                                 <div class="text-center">
                                     
                                     <input type="submit" class="btn btn-primary my-4" name="btnsubmit" value="Update" />
-                                    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary my-4" type="button">Back To Admin Dashboard</a>
+                                    @if(Model.Admin == true)
+                                    {
+                                        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary my-4" type="button">Back To Admin Dashboard</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary my-4" type="button">Back To My Dashboard</a>
+                                    }
+
                                 </div>
                             </form>
                         </div>
