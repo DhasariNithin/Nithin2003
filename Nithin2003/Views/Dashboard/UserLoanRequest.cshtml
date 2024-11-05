@@ -13,7 +13,7 @@
             <div class="header-body text-center mb-7">
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                        <h1 class="text-white">Welcome To Loan Request</h1>
+                        <h1 class="text-white">Loan Request To Admin</h1>
                         @* <p class="text-lead text-white"> To Sign In </p>*@
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                                             <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                                         </div>
 
-                                        <input class="form-control" asp-for="@Model.LoanAmount" placeholder="Enter Amount " type="number">
+                                        <input class="form-control" asp-for="@Model.LoanAmount" required placeholder="Enter Amount " type="number">
 
 
                                     </div>
@@ -67,7 +67,7 @@
                                             <span class="input-group-text"><i></i></span>
                                         </div>
 
-                                        <input class="form-control" asp-for="@Model.UserComment" placeholder="Write Your Comment" type="text">
+                                        <input class="form-control" asp-for="@Model.UserComment" required placeholder="Write Your Comment" type="text">
                                        
 
                                     </div>

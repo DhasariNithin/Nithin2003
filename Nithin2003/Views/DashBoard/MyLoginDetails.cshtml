@@ -14,10 +14,10 @@
         <div class="scrollbar-inner">
             <!-- Brand -->
             @* <div class="sidenav-header  align-items-center">
-                <a class="navbar-brand" href="javascript:void(0)">
-                    <a asp-controller="Home" asp-action="Index" type="button">Nithin</a>
+            <a class="navbar-brand" href="javascript:void(0)">
+            <a asp-controller="Home" asp-action="Index" type="button">Nithin</a>
 
-                </a>
+            </a>
             </div> *@
             <div class="sidenav-header  align-items-center">
                 <div class="sidenav-header  align-items-center">
@@ -115,19 +115,19 @@
                 <div class="header-body">
                     <div class="row align-items-center py-4">
                         <div class="col-lg-6 col-7">
-                            <h6 class="h2 text-white d-inline-block mb-0">Tables</h6>
+                            <h6 class="h2 text-white d-inline-block mb-0">Users LogIn</h6>
                             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Tables</li>
+                                    <li class="breadcrumb-item"><a href="#">Table</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Table</li>
                                 </ol>
                             </nav>
                         </div>
-                        <div class="col-lg-6 col-5 text-right">
+                       @*  <div class="col-lg-6 col-5 text-right">
                             <a href="#" class="btn btn-sm btn-neutral">New</a>
                             <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-                        </div>
+                        </div> *@
                     </div>
                 </div>
             </div>
@@ -139,7 +139,7 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Users Ligin History</h3>
+                            <h3 class="mb-0">Users Login History</h3>
                         </div>
                         <!-- Light table -->
                         <div class="table-responsive">
@@ -156,25 +156,33 @@
                                 </thead>
                                 @foreach (var users in Model)
                                 {
-
-
-
-
                                     <tbody class="list">
                                         <tr>
                                             <td>
                                                 <span class="name mb-0 text-sm">@users.UserName</span>
                                             </td>
-                                            <td>
-                                                <span>
+                                            @if(users.Action == "SignIn")
+                                            {
+                                                <td>
+                                                    <span>
 
-                                                    <span class="status">@users.Action</span>
-                                                </span>
-                                            </td>
+                                                        <span class="status">@users.Action</span>
+                                                    </span>
+                                                </td>
+                                            }
+                                            @if (users.Action == "SignOut")
+                                            {
+                                                <td>
+                                                    <span>
+
+                                                        <span class="status">@users.Action</span>
+                                                    </span>
+                                                </td>
+                                            }
+                                            
                                             <td>
                                                 <div>
-
-                                                    @users.Time
+                                                        @users.Time
                                                 </div>
                                             </td>
                                             <td>

@@ -9,5 +9,6 @@ namespace Nithin2003.Models
         public string Action { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
         public string IPAddress { get; set; } = "";
+       
     }
 }

@@ -139,7 +139,7 @@ namespace Nithin2003.Controllers
 
                         _db.Users.Add(users);
                         _db.SaveChanges();
-                        return RedirectToAction("Index", "Users");
+                        return RedirectToAction("SignIn", "Users");
                     }
                 }
                 else
@@ -153,15 +153,15 @@ namespace Nithin2003.Controllers
             }
         }
 
-        // Delete User Details
-        public IActionResult deleteDetails(string? Username)
+        // Delete User Details using asp-route
+       public IActionResult deleteDetails(string? Username)
         {
             try
             {
                 var user = _db.Users.Find(Username);
                 _db.Users.Remove(user);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Admin");
             }
             catch (Exception ex)
             {
@@ -256,7 +256,18 @@ namespace Nithin2003.Controllers
                     }
                     _db.Users.Update(users);
                     _db.SaveChanges();
-                    return RedirectToAction("Index", "Admin");
+                    if (users.Admin == true)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else if(users.ContentEditor == true)
+                    {
+                        return RedirectToAction("UsersContentEditor", "Users");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
                 }
             }
             catch (Exception ex)
@@ -270,12 +281,12 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                if (HttpContext.Session.GetString("SignIn") == "True")
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
+                if(HttpContext.Session.GetString("SignIn") == "True")
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
 
-            return View();
+                return View();
             }
             catch (Exception ex)
             {
@@ -292,86 +303,86 @@ namespace Nithin2003.Controllers
                 if (ModelState.IsValid)
                 {
                     var _user = _db.Users.Find(mySignIn.Username);
-                if (_user != null)
-                {
-                    if (mySignIn.Password == _user.Password)
+                    if (_user != null)
                     {
-
-                        HttpContext.Session.SetString("Username", _user.Username);
-                        HttpContext.Session.SetString("SignIn", "True");
-
-                        UserHistory history = new UserHistory();
-                        if (HttpContext.Session.GetString("SignIn") == "True")
+                        if (mySignIn.Password == _user.Password)
                         {
-                            history.UserName = _user.Username;
-                            history.Action = "SignIn";
-                            history.Time = DateTime.Now;
 
-                            IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
-                            string result = "";
-                            if (remoteIpAddress != null)
+                            HttpContext.Session.SetString("Username", _user.Username);
+                            HttpContext.Session.SetString("SignIn", "True");
+
+                            UserHistory history = new UserHistory();
+                            if (HttpContext.Session.GetString("SignIn") == "True")
                             {
-                                // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
-                                // This usually only happens when the browser is on the same machine as the server.
-                                if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                                history.UserName = _user.Username;
+                                history.Action = "SignIn";
+                                history.Time = DateTime.Now;
+
+                                IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                                string result = "";
+                                if (remoteIpAddress != null)
                                 {
-                                    remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
-                            .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                                    // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
+                                    // This usually only happens when the browser is on the same machine as the server.
+                                    if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                                    {
+                                        remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
+                                .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                                    }
+                                    result = remoteIpAddress.ToString();
                                 }
-                                result = remoteIpAddress.ToString();
+                                history.IPAddress = result;
+                                _db.LoginHistory.Add(history);
+                                _db.SaveChanges();
+
                             }
-                            history.IPAddress = result;
-                            _db.LoginHistory.Add(history);
-                            _db.SaveChanges();
-
-                        }
 
 
-                        if (_user.UserStatus == "Suspend")
-                        {
-                            HttpContext.Session.SetString("UserStatus", "Suspend");
-                        }
-                        if (_user.UserStatus == "New")
-                        {
-                            HttpContext.Session.SetString("UserStatus", "New");
-                        }
-                        if (_user.EmailVerification == "Verified")
-                        {
-                            HttpContext.Session.SetString("EmailVerification", "True");
-                        }
-                        if (_user.ContentEditor)
-                        {
-                            HttpContext.Session.SetString("ContentEditor", "True");
-                        }
-                        if (_user.Admin)
-                        {
+                            if (_user.UserStatus == "Suspend")
+                            {
+                                HttpContext.Session.SetString("UserStatus", "Suspend");
+                            }
+                            if (_user.UserStatus == "New")
+                            {
+                                HttpContext.Session.SetString("UserStatus", "New");
+                            }
+                            if (_user.EmailVerification == "Verified")
+                            {
+                                HttpContext.Session.SetString("EmailVerification", "True");
+                            }
+                            if (_user.ContentEditor)
+                            {
+                                HttpContext.Session.SetString("ContentEditor", "True");
+                            }
+                            if (_user.Admin)
+                            {
 
-                            HttpContext.Session.SetString("Admin", "True");
-                            return RedirectToAction("Index", "Admin");
+                                HttpContext.Session.SetString("Admin", "True");
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Dashboard");
+                            }
+
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Dashboard");
+                            ModelState.AddModelError("Password", "Password doesn't match, please try with a valid password");
+                            return View();
                         }
 
                     }
                     else
                     {
-                        ModelState.AddModelError("Password", "Password doesn't match, please try with a valid password");
+                        ModelState.AddModelError("Username", "Username doesn't exist, please try with a valid username");
                         return View();
                     }
-
                 }
                 else
                 {
-                    ModelState.AddModelError("Username", "Username doesn't exist, please try with a valid username");
                     return View();
                 }
-            }
-            else
-            {
-                return View();
-            }
 
             }
             catch (Exception ex)
@@ -386,15 +397,45 @@ namespace Nithin2003.Controllers
             try
             {
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
-                HttpContext.Session.SetString("Username", "");
-                HttpContext.Session.SetString("SignIn", "False");
-                HttpContext.Session.SetString("ContentEditor", "False");
-                HttpContext.Session.SetString("Admin", "False");
-                HttpContext.Session.SetString("EmailVerification", "False");
-                HttpContext.Session.SetString("UserStatus", "");
-                return RedirectToAction("SignIn", "Users");
+               
 
-            }
+                HttpContext.Session.SetString("Username", "");
+                    HttpContext.Session.SetString("SignIn", "False");
+                //UserHistory history = new UserHistory();
+                //if (HttpContext.Session.GetString("SignIn") == "False")
+                //{
+                //    history.UserName = _user.Username;
+                //    history.Action = "SignOut";
+                //    history.Time = DateTime.Now;
+
+                //    IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                //    string result = "";
+                //    if (remoteIpAddress != null)
+                //    {
+                //        // If we got an IPV6 address, then we need to ask the network for the IPV4 address.
+                //        // This usually only happens when the browser is on the same machine as the server.
+
+                //        if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                //        {
+                //            remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
+                //    .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                //        }
+                //        result = remoteIpAddress.ToString();
+                //    }
+                //    history.IPAddress = result;
+                //    _db.LoginHistory.Add(history);
+                //    _db.SaveChanges();
+
+                //}
+                HttpContext.Session.SetString("ContentEditor", "False");
+                    HttpContext.Session.SetString("Admin", "False");
+                    HttpContext.Session.SetString("EmailVerification", "False");
+                    HttpContext.Session.SetString("UserStatus", "");
+
+                    return RedirectToAction("SignIn", "Users");
+                }
+
+            
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
@@ -410,7 +451,17 @@ namespace Nithin2003.Controllers
                 _user.UserStatus = "Suspend";
                 _db.Users.Update(_user);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Admin");
+
+                if (HttpContext.Session.GetString("Admin") == "True")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("UsersContentEditor", "Users");
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -432,7 +483,15 @@ namespace Nithin2003.Controllers
                 }
                 _db.Users.Update(_user);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Admin");
+                if (HttpContext.Session.GetString("Admin") == "True")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("UsersContentEditor", "Users");
+                }              
+                
             }
             catch (Exception ex)
             {
@@ -453,7 +512,16 @@ namespace Nithin2003.Controllers
                 }
                 _db.Users.Update(_user);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Admin");
+
+                if (HttpContext.Session.GetString("Admin") == "True")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("UsersContentEditor", "Users");
+                }
+
             }
             catch (Exception ex)
             {
@@ -477,7 +545,7 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                
+
                 var _userObject = _db.Users.Find(forgetPassword.Username);
                 if (_userObject == null)
                 {

@@ -23,4 +23,11 @@
     <Folder Include="wwwroot\DbBackup\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\popup.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

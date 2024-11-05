@@ -174,9 +174,10 @@
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">                                        
 
-                                        <input type="Password" asp-for="@Model.Password" pattern="(?=.*[^a-zA-Z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$" title="Password must contain at least 5-6 characters, including at least 1 uppercase letter, at least 1 lowercase letter, at least one number and a special character." placeholder="Enter Password" class="form-control" />
-                                       
+                                        <input type="Password" asp-for="@Model.Password" pattern="((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$" title="Password must contain Minimum 8 characters, including at least 1 uppercase letter, at least 1 lowercase letter, at least one number and a special character." placeholder="Enter Password" class="form-control" />
+                                        
                                     </div>
+                                    @* (?=.*[^a-zA-Z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$ *@
                                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-3">

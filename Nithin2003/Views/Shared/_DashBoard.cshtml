@@ -23,6 +23,7 @@
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="~/Argon-assets/css/argon.css?v=1.2.0" type="text/css">
+  
 </head>
 <body>
     <!-- ======= Sidebar ======= -->
@@ -558,103 +559,43 @@
 </html>
 @if (Context.Session.GetString("UserStatus") == "Suspend")
 {
-    <html>
-    <head>
-
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-
-            #ac-wrapper {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(254, 126, 126, 0.7);
-                z-index: 1001;
-            }
-
-            #popup {
-                width: 555px;
-                height: 375px;
-                background: #FFFFFF;
-                border: 5px solid #000;
-                border-radius: 25px;
-                -moz-border-radius: 25px;
-                -webkit-border-radius: 25px;
-                box-shadow: #64686e 0px 0px 3px 3px;
-                -moz-box-shadow: #64686e 0px 0px 3px 3px;
-                -webkit-box-shadow: #64686e 0px 0px 3px 3px;
-                position: relative;
-                top: 150px;
-                left: 375px;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="ac-wrapper">
-            <div id="popup">
-                <center>
-                    <h2>Your Account Has Been Suspended By Admin , Please Contact Below link</h2>
-                    <a class="btn btn-primary my-4" asp-controller="Home" asp-action="ContactUs">click here</a>
-
-                </center>
-            </div>
+   <html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="~/css/popup.css" type="text/css">
+</head>
+<body>
+    <div id="ac-wrapper">
+        <div id="popup">
+            <h2>Your Account Has Been Suspended By Admin, Please Contact Below link</h2>
+            <a class="btn btn-primary my-4" href="/Home/ContactUs">Click here</a>
         </div>
+    </div>
+</body>
+</html>
 
-    </body>
-    </html>
 }
 @if (Context.Session.GetString("UserStatus") == "New")
 {
-    <html>
-    <head>
-
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-
-            #ac-wrapper {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(254, 126, 126, 0.7);
-                z-index: 1001;
-            }
-
-            #popup {
-                width: 555px;
-                height: 375px;
-                background: #FFFFFF;
-                border: 5px solid #000;
-                border-radius: 25px;
-                -moz-border-radius: 25px;
-                -webkit-border-radius: 25px;
-                box-shadow: #64686e 0px 0px 3px 3px;
-                -moz-box-shadow: #64686e 0px 0px 3px 3px;
-                -webkit-box-shadow: #64686e 0px 0px 3px 3px;
-                position: relative;
-                top: 150px;
-                left: 375px;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="ac-wrapper">
-            <div id="popup">
-                <center>
-                    <h2>Your Account Has Not Approved By Admin , Please Contact Below link</h2>
-                    <a class="btn btn-primary my-4" asp-controller="Home" asp-action="ContactUs">click here</a>
-
-                </center>
-            </div>
+   <html>
+   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="~/css/popup.css" type="text/css">
+</head>
+<body>
+    <div id="ac-wrapper">
+        <div id="popup">
+            <center>
+                <h2>Your Account Has Not Been Approved By Admin, Please Contact the Link Below</h2>
+                <a class="btn btn-primary my-4" href="/Home/ContactUs">Click here</a>
+            </center>
         </div>
+    </div>
+</body>
+</html>
 
-    </body>
-    </html>
 }
 
 @if (Context.Session.GetString("EmailVerification") != "True")
@@ -664,34 +605,7 @@
 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-
-            #ac-wrapper {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(254, 126, 126, 0.7);
-                z-index: 1001;
-            }
-
-            #popup {
-                width: 555px;
-                height: 375px;
-                background: #FFFFFF;
-                border: 5px solid #000;
-                border-radius: 25px;
-                -moz-border-radius: 25px;
-                -webkit-border-radius: 25px;
-                box-shadow: #64686e 0px 0px 3px 3px;
-                -moz-box-shadow: #64686e 0px 0px 3px 3px;
-                -webkit-box-shadow: #64686e 0px 0px 3px 3px;
-                position: relative;
-                top: 150px;
-                left: 375px;
-            }
-        </style>
+        <link rel="stylesheet" href="~/css/popup.css" type="text/css">
     </head>
     <body>
         <div id="ac-wrapper">
