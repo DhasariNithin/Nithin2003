@@ -112,40 +112,62 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
+        public IActionResult ApproveAsAdmin()
+        {
+            try
+            {
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+
+
+        [HttpPost]
         public IActionResult ApproveAsAdmin(AdminOrEditor AdminOrEditor)
         {
             try
             {
 
-                var userssss = AdminOrEditor.UserName;
-                var _usersdata = _db.Users.Find(userssss);
+               
+                var _usersdata = _db.Users.Find(AdminOrEditor.UserName);
                 if (_usersdata == null)
                 {
-                    ModelState.AddModelError("UserName", "UserName can't be empty");
-                    return View(AdminOrEditor);
+                    ModelState.AddModelError("UserName", "User Name doesn't exist");
+                    return View();
                 }
-                if (AdminOrEditor.UserName != _usersdata.Username)
-                {
-                    ModelState.AddModelError("UserName", "UserName doesn't match with existing details please try again");
-                    return View(AdminOrEditor);
-                }
+               
                 if (_usersdata != null)
                 {
-                    if (AdminOrEditor.UserName == _usersdata.Username)
+
+                    if (AdminOrEditor.AdminOrContentEditor == "Admin")
                     {
-                        if (AdminOrEditor.AdminOrContentEditor == "Admin")
-                        {
-                            _usersdata.Admin = true;
-                        }
-                        if (AdminOrEditor.AdminOrContentEditor == "ContentEditor")
-                        {
-                            _usersdata.ContentEditor = true;
-                        }
+                        _usersdata.Admin = true;
+                        _usersdata.ContentEditor = false;
+                    }
+                    else if (AdminOrEditor.AdminOrContentEditor == "ContentEditor")
+                    {
+                        _usersdata.ContentEditor = true;
+                        _usersdata.Admin = false;
+                    }
+                    else
+                    {
+                        _usersdata.ContentEditor = false;
+                        _usersdata.Admin = false;
+                    } 
+
                         _db.Users.Update(_usersdata);
                         _db.SaveChanges();
+                    ViewBag.Message = "Successfully permissions given to User .";
                         return View();
-                    }
+                   
+                    
                 }
+                
                 return View();
             }
             catch (Exception ex)

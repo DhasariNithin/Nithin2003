@@ -36,7 +36,7 @@ namespace Nithin2003.Controllers
             }
         }
 
-        // Add User Details
+        // Add User Details page
         public IActionResult AddDetails()
         {
             try
@@ -48,6 +48,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+        // Adding user details to SQL using form post from page
         [HttpPost]
         public IActionResult AddDetails(MyUser users)
         {
@@ -129,8 +130,8 @@ namespace Nithin2003.Controllers
                             ModelState.AddModelError("Email", "User with this email already exists please try with another Email");
                             return View(users);
                         }
-                        var isEmailAlreadyExists = _db.Users.Any(x => x.Username == users.Username);
-                        if (isEmailAlreadyExists)
+                        var UsernameAlreadyExists = _db.Users.Any(x => x.Username == users.Username);
+                        if (UsernameAlreadyExists)
                         {
                             ModelState.AddModelError("Username", "User with this User Name already exists please try with another User Name");
                             return View(users);
@@ -267,30 +268,30 @@ namespace Nithin2003.Controllers
         // User Sign In
         public IActionResult SignIn()
         {
-            //try
-            //{
-            if (HttpContext.Session.GetString("SignIn") == "True")
+            try
+            {
+                if (HttpContext.Session.GetString("SignIn") == "True")
             {
                 return RedirectToAction("Index", "Dashboard");
             }
 
             return View();
-            //}
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Errors", "Home");
-            //}
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
         }
 
         // validating the user with credentials
         [HttpPost]
         public IActionResult SignIn(MySignIn mySignIn)
         {
-            //try
-            //{
-            if (ModelState.IsValid)
+            try
             {
-                var _user = _db.Users.Find(mySignIn.Username);
+                if (ModelState.IsValid)
+                {
+                    var _user = _db.Users.Find(mySignIn.Username);
                 if (_user != null)
                 {
                     if (mySignIn.Password == _user.Password)
@@ -372,11 +373,11 @@ namespace Nithin2003.Controllers
                 return View();
             }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Errors", "Home");
-            //}
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
         }
 
         // User sign-out amd remove seesions

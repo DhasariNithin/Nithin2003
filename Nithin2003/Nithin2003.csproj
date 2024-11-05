@@ -23,11 +23,4 @@
     <Folder Include="wwwroot\DbBackup\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="Views\Shared\_Admin.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>

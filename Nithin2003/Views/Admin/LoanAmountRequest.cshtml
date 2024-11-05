@@ -28,11 +28,12 @@
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
-             <div class="sidenav-header  align-items-center">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index" type="button">
-                    <img style="max-height:60px;width:200px;" src="~/Argon-assets/img/Screenshot 2024-11-03 214613.png" class="navbar-brand-img" alt="...">
-
-                </a>
+            <div class="sidenav-header  align-items-center">
+                <div class="sidenav-header  align-items-center">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index" type="button">
+                        <img style="max-height: 60px;width:200px;" src="~/Argon-assets/img/Nithinnnnnn.png" class="navbar-brand-img" alt="...">
+                    </a>
+                </div>
             </div>
             <div class="navbar-inner">
                 <!-- Collapse -->
@@ -78,7 +79,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Users" asp-action="EditDetails">
+                            <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
                                 <i class="ni ni-circle-08"></i>
                                 <span class="nav-link-text">Edit My Profile</span>
 
