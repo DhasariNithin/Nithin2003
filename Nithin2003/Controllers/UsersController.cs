@@ -606,41 +606,6 @@ namespace Nithin2003.Controllers
             }
         }
 
-        //sending user name to email
-        public IActionResult ForgotUsername()
-        {
-            try
-            {
-
-                return View();
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Errors", "Home");
-            }
-        }
-
-        [HttpPost]
-        public IActionResult ForgotUsername(ForgotUsername forgotUsername)
-        {
-            try
-            {
-                var _userObj = _db.Users.Find(forgotUsername.Email);
-                if (_userObj != null)
-                {
-                    if(forgotUsername.Email == _userObj.Email)
-                    {
-
-                    }
-                }
-
-                return View();
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Errors", "Home");
-            }
-        }
         public IActionResult UsersContentEditor()
         {
             try
