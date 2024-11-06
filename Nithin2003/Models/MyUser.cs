@@ -19,7 +19,8 @@ namespace Nithin2003.Models
         public bool Admin { get; set; } = false;
 
         [Required(ErrorMessage = "Email is required.")]
-        [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Invalid Email Address.")]        
+        [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Invalid Email Address.")]
+        
         public string Email { get; set; }
         public string EmailVerification { get; set; } = "NotVerified";
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;

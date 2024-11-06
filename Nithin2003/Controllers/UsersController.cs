@@ -154,7 +154,7 @@ namespace Nithin2003.Controllers
         }
 
         // Delete User Details using asp-route
-       public IActionResult deleteDetails(string? Username)
+        public IActionResult deleteDetails(string? Username)
         {
             try
             {
@@ -260,7 +260,7 @@ namespace Nithin2003.Controllers
                     {
                         return RedirectToAction("Index", "Admin");
                     }
-                    else if(users.ContentEditor == true)
+                    else if (users.ContentEditor == true)
                     {
                         return RedirectToAction("UsersContentEditor", "Users");
                     }
@@ -281,7 +281,7 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                if(HttpContext.Session.GetString("SignIn") == "True")
+                if (HttpContext.Session.GetString("SignIn") == "True")
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -336,7 +336,6 @@ namespace Nithin2003.Controllers
                                 _db.SaveChanges();
 
                             }
-
 
                             if (_user.UserStatus == "Suspend")
                             {
@@ -397,10 +396,12 @@ namespace Nithin2003.Controllers
             try
             {
                 var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
-               
+
 
                 HttpContext.Session.SetString("Username", "");
-                    HttpContext.Session.SetString("SignIn", "False");
+                HttpContext.Session.SetString("SignIn", "False");
+
+
                 //UserHistory history = new UserHistory();
                 //if (HttpContext.Session.GetString("SignIn") == "False")
                 //{
@@ -427,15 +428,16 @@ namespace Nithin2003.Controllers
                 //    _db.SaveChanges();
 
                 //}
+
                 HttpContext.Session.SetString("ContentEditor", "False");
-                    HttpContext.Session.SetString("Admin", "False");
-                    HttpContext.Session.SetString("EmailVerification", "False");
-                    HttpContext.Session.SetString("UserStatus", "");
+                HttpContext.Session.SetString("Admin", "False");
+                HttpContext.Session.SetString("EmailVerification", "False");
+                HttpContext.Session.SetString("UserStatus", "");
 
-                    return RedirectToAction("SignIn", "Users");
-                }
+                return RedirectToAction("SignIn", "Users");
+            }
 
-            
+
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
@@ -490,8 +492,8 @@ namespace Nithin2003.Controllers
                 else
                 {
                     return RedirectToAction("UsersContentEditor", "Users");
-                }              
-                
+                }
+
             }
             catch (Exception ex)
             {
@@ -603,6 +605,42 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
+        //sending user name to email
+        public IActionResult ForgotUsername()
+        {
+            try
+            {
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ForgotUsername(ForgotUsername forgotUsername)
+        {
+            try
+            {
+                var _userObj = _db.Users.Find(forgotUsername.Email);
+                if (_userObj != null)
+                {
+                    if(forgotUsername.Email == _userObj.Email)
+                    {
+
+                    }
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
         public IActionResult UsersContentEditor()
         {
             try
@@ -615,6 +653,6 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
-
+       
     }
 }

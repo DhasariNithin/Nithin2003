@@ -339,11 +339,11 @@ namespace Nithin2003.Controllers
         public IActionResult MytransactionHistory()
         {
             try
-
             {
-                IEnumerable<MyTransferMoney> myTransferMoney = _db.TransactionHistory.Where((t => t.FromUsername.Contains((HttpContext.Session.GetString("Username")))));
-               
+                IEnumerable<MyTransferMoney> myTransferMoney = _db.TransactionHistory.Where(t => t.FromUsername.Contains(HttpContext.Session.GetString("Username")));               
+
                 return View(myTransferMoney);
+               
             }
             catch (Exception ex)
             {
