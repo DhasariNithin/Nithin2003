@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Nithin2003.Database;
+using Newtonsoft.Json.Serialization;
 
 namespace Nithin2003
 {
@@ -16,6 +17,7 @@ namespace Nithin2003
             builder.Services.AddDbContext<ApplicationData>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,9 +28,12 @@ namespace Nithin2003
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+           
 
+
+        app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            
             app.UseRouting();
 
             app.UseAuthorization();
@@ -41,4 +46,6 @@ namespace Nithin2003
             app.Run();
         }
     }
+    
+
 }
