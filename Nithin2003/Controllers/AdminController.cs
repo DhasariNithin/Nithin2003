@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Nithin2003.Database;
 using Nithin2003.Models;
 
@@ -41,7 +40,7 @@ namespace Nithin2003.Controllers
             }
 
         }
-        // Checking Users loan requests 
+           // Checking Users loan requests 
         public IActionResult LoanAmountRequest()
         {
             try
@@ -58,7 +57,7 @@ namespace Nithin2003.Controllers
             }
 
         }
-        //Approve Loan button
+            //Approve Loan button
         public IActionResult ApproveLoan(string? LoanId)
         {
             try

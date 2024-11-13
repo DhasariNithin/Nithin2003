@@ -142,19 +142,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-7">
                     <div class="card bg-secondary border-0 mb-0">
-                        @*<div class="card-header bg-transparent pb-5">
-                            <div class="text-muted text-center mt-2 mb-3"><small>Sign Up</small></div>
-                            <div class="btn-wrapper text-center">
-                                <a href="#" class="btn btn-neutral btn-icon">
-                                    <span class="btn-inner--icon"><img src="../assets/img/icons/common/github.svg"></span>
-                                    <span class="btn-inner--text">Github</span>
-                                </a>
-                                <a href="#" class="btn btn-neutral btn-icon">
-                                    <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
-                                    <span class="btn-inner--text">Google</span>
-                                </a>
-                            </div>
-                        </div>*@
+                        
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
                                 <strong>Sign Up</strong>
@@ -177,7 +165,7 @@
                                         <input type="Password" asp-for="@Model.Password" pattern="((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$" title="Password must contain Minimum 8 characters, including at least 1 uppercase letter, at least 1 lowercase letter, at least one number and a special character." placeholder="Enter Password" class="form-control" />
                                         
                                     </div>
-                                    @* (?=.*[^a-zA-Z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$ *@
+                                   
                                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-3">
@@ -259,43 +247,7 @@
             </div>
         </div>
     </div>
-   @* <!-- Footer -->
-    <footer class="py-5" id="footer-main">
-        <div class="container">
-            <div class="row align-items-center justify-content-xl-between">
-                <div class="col-xl-6">
-                    <div class="copyright text-center text-xl-left text-muted">
-                        &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>*@
-    @*<!-- Argon Scripts -->
-    <!-- Core -->
-    <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
-    <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-    <!-- Argon JS -->
-    <script src="../assets/js/argon.js?v=1.2.0"></script>*@
+   
 </body>
 
 

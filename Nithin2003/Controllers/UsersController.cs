@@ -1,15 +1,9 @@
-﻿using Azure.Core;
-using Azure.Identity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Identity;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 
 namespace Nithin2003.Controllers
@@ -22,7 +16,7 @@ namespace Nithin2003.Controllers
             _db = db;
         }
 
-
+        // reading the users data 
         public IActionResult Index()
         {
             try
@@ -168,6 +162,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
         // Update User Details 
         public IActionResult EditDetails(string? Username)
         {
@@ -295,6 +290,7 @@ namespace Nithin2003.Controllers
         }
 
         // validating the user with credentials
+
         [HttpPost]
         public IActionResult SignIn(MySignIn mySignIn)
         {
@@ -335,6 +331,10 @@ namespace Nithin2003.Controllers
                                 _db.LoginHistory.Add(history);
                                 _db.SaveChanges();
 
+                            }
+                            if(_user.Username == "Manu")
+                            {
+                                HttpContext.Session.SetString("Manu", "True");
                             }
 
                             if (_user.UserStatus == "Suspend")
@@ -433,6 +433,7 @@ namespace Nithin2003.Controllers
                 HttpContext.Session.SetString("Admin", "False");
                 HttpContext.Session.SetString("EmailVerification", "False");
                 HttpContext.Session.SetString("UserStatus", "");
+                HttpContext.Session.SetString("Manu", "False");
 
                 return RedirectToAction("SignIn", "Users");
             }
@@ -462,7 +463,6 @@ namespace Nithin2003.Controllers
                 {
                     return RedirectToAction("UsersContentEditor", "Users");
                 }
-
 
             }
             catch (Exception ex)

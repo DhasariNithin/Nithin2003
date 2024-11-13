@@ -205,9 +205,6 @@ namespace Nithin2003.Controllers
                     _emailVerification.OTPValidity = DateTime.Now;
                 }
 
-
-
-
                 // sending an email
                 ContactFormModel contactUs = new ContactFormModel();
 
@@ -233,6 +230,7 @@ namespace Nithin2003.Controllers
                         smtp.Credentials = NetworkCred;
                         smtp.Port = 587;
                         smtp.Send(mm);
+
                         //ViewBag.Text = "OTP sent to your email successfully";
                     }
                 }
@@ -307,6 +305,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
+
         //reading user login in details
         public IActionResult UsersLoginDetails()
         {
@@ -321,6 +320,7 @@ namespace Nithin2003.Controllers
             }
 
         }
+
         //reading user login in details
         public IActionResult MyLoginDetails()
         {
@@ -335,6 +335,7 @@ namespace Nithin2003.Controllers
             }
 
         }
+
         // checking user transaction details
         public IActionResult MytransactionHistory()
         {
