@@ -332,7 +332,7 @@ namespace Nithin2003.Controllers
                                 _db.SaveChanges();
 
                             }
-                            if(_user.Username == "Manu")
+                            if (_user.Username == "Manu")
                             {
                                 HttpContext.Session.SetString("Manu", "True");
                             }
@@ -399,35 +399,7 @@ namespace Nithin2003.Controllers
 
 
                 HttpContext.Session.SetString("Username", "");
-                HttpContext.Session.SetString("SignIn", "False");
-
-
-                //UserHistory history = new UserHistory();
-                //if (HttpContext.Session.GetString("SignIn") == "False")
-                //{
-                //    history.UserName = _user.Username;
-                //    history.Action = "SignOut";
-                //    history.Time = DateTime.Now;
-
-                //    IPAddress remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
-                //    string result = "";
-                //    if (remoteIpAddress != null)
-                //    {
-                //        // If we got an IPV6 address, then we need to ask the network for the IPV4 address.
-                //        // This usually only happens when the browser is on the same machine as the server.
-
-                //        if (remoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
-                //        {
-                //            remoteIpAddress = System.Net.Dns.GetHostEntry(remoteIpAddress).AddressList
-                //    .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                //        }
-                //        result = remoteIpAddress.ToString();
-                //    }
-                //    history.IPAddress = result;
-                //    _db.LoginHistory.Add(history);
-                //    _db.SaveChanges();
-
-                //}
+                HttpContext.Session.SetString("SignIn", "False");              
 
                 HttpContext.Session.SetString("ContentEditor", "False");
                 HttpContext.Session.SetString("Admin", "False");
@@ -618,6 +590,6 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
-       
+
     }
 }

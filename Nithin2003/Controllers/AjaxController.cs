@@ -4,9 +4,11 @@ using Nithin2003.Models;
 namespace Nithin2003.Controllers
 {
 
-    // ajax calling for live hosting
+   
     public class AjaxController : Controller
     {
+
+        // ajax calling for live updates
         public IActionResult Index()
         {
             return View();

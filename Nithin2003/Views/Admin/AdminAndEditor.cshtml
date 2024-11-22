@@ -1,43 +1,12 @@
 ﻿@model IEnumerable<MyUser>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "AdminAndEditor";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
-@*<h1>Index</h1>*@
-<!--
-=========================================================
-* Argon Dashboard - v1.2.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
 
-
-* Copyright  Creative Tim (http://www.creative-tim.com)
-* Coded by www.creative-tim.com
-
-
-
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html>
 
-@*<head>
-  *<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-    <meta name="author" content="Creative Tim">
-    <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
-    <!-- Favicon -->
-    <link rel="icon" href="~/Argon-assets/img/brand/favicon.png" type="image/png">
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-    <!-- Icons -->
-    <link rel="stylesheet" href="~/Argon-assets/vendor/nucleo/css/nucleo.css" type="text/css">
-    <link rel="stylesheet" href="~/Argon-assets/vendor/fortawesome/fontawesome-free/css/all.min.css" type="text/css">
-    <!-- Argon CSS -->
-    <link rel="stylesheet" href="~/Argon-assets/css/argon.css?v=1.2.0" type="text/css">
-    </head>*@
 <body>
     <!-- Sidenav -->
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
@@ -105,7 +74,7 @@
                                 <span class="nav-link-text">Edit My Profile</span>
 
                             </a>
-                        </li>                        
+                        </li>
 
                         <li class="nav-item">
                             <a style="background-color:#5e72e4;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
@@ -131,12 +100,12 @@
                 <div class="header-body">
                     <div class="row align-items-center py-4">
                         <div class="col-lg-6 col-7">
-                            <h6 class="h2 text-white d-inline-block mb-0">Admin</h6>
+                            <h6 class="h2 text-white d-inline-block mb-0">Admin and Editor</h6>
                             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="#">Table</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Table</li>
+                                    <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tables</li>
                                 </ol>
                             </nav>
                         </div>
@@ -152,7 +121,7 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Users table</h3>
+                            <h3 class="mb-0">Admin Details</h3>
                         </div>
                         <!-- Light table -->
                         <div class="table-responsive">
@@ -163,7 +132,7 @@
                                         <th>Age</th>
                                         <th> User Status</th>
                                         <th>City</th>
-                                        <th>Account Balance</th>
+                                        <th>Admin Status</th>
 
 
 
@@ -171,12 +140,111 @@
                                 </thead>
                                 @foreach (var users in Model)
                                 {
-                                    @*<tr>@users.Username</tr>*@
-
-
-
                                     <tbody class="list">
+
                                         <tr>
+                                            @if (users.Admin == true)
+                                            {
+                                                <th scope="row">
+                                                    <div class="media align-items-center">
+
+                                                        <div class="media-body">
+                                                            <span class="name mb-0 text-sm">@users.Username</span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td class="budget">
+                                                    @{
+                                                        int age = DateTime.Now.Year - users.Age.Year;
+                                                    }
+                                                    @age years
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-warning"></i>
+                                                        <span class="status">@users.UserStatus</span>
+                                                    </span>
+                                                </td>
+                                                <td>
+
+                                                    @users.City
+                                                </td>
+                                                <td>
+                                                    <div class=" ">
+                                                        <span class="">@users.Admin</span>
+
+                                                    </div>
+                                                </td>
+
+
+                                                @if (Context.Session.GetString("Admin") == "True")
+                                                {
+                                                    <td><div class="btn"> <a asp-controller="Admin" asp-action="RemoveAsAdmin" style="color:red" asp-route-Username="@users.Username">Remove</a></div></td>
+
+                                                }
+                                            }
+                                        </tr>
+
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer pt-0">
+                <div class="row align-items-center justify-content-lg-between">
+                    <div class="col-lg-6">
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+
+                            <li>
+                                <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header border-0">
+                        <h3 class="mb-0">Content Editor Details</h3>
+                    </div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Age</th>
+                                    <th> User Status</th>
+                                    <th>City</th>
+                                        <th>Content Editor Status</th>
+
+
+
+                                </tr>
+                            </thead>
+                            @foreach (var users in Model)
+                            {
+                                <tbody class="list">
+
+                                    <tr>
+                                        @if (users.ContentEditor == true)
+                                        {
                                             <th scope="row">
                                                 <div class="media align-items-center">
 
@@ -202,68 +270,47 @@
                                                 @users.City
                                             </td>
                                             <td>
-                                                <div class=" ni ni-money-coins">
-                                                    <span class="">@users.AccountBalance</span>
+                                                <div class=" ">
+                                                    <span class="">@users.ContentEditor</span>
 
                                                 </div>
                                             </td>
 
 
-
                                             @if (Context.Session.GetString("Admin") == "True")
                                             {
-
-                                                <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails" style="color:darkolivegreen" asp-route-Username="@users.Username">Edit</a></div></td>
-
-
-                                                @if (users.UserStatus == "Suspend")
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserUnSuspend" style="color:red" asp-route-Username="@users.Username">UnSuspend</a></div></td>
-                                                }
-                                                else if (users.UserStatus == "New")
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserApprove" style="color:red" asp-route-Username="@users.Username">Approve</a></div></td>
-                                                }
-                                                else
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserSuspend" style="color:red" asp-route-Username="@users.Username">Suspend</a></div></td>
-                                                }
-
-                                                <td><div class="btn"> <a asp-controller="Users" asp-action="deleteDetails" style="color:red" asp-route-Username="@users.Username">Delete</a></div></td>
-
+                                                <td><div class="btn"> <a asp-controller="Admin" asp-action="RemoveAsEditor" style="color:red" asp-route-Username="@users.Username">Remove</a></div></td>
 
                                             }
-                                        </tr>
+                                        }
+                                    </tr>
 
-                                    </tbody>
-                                }
-                            </table>
-                        </div>
-
+                                </tbody>
+                            }
+                        </table>
                     </div>
+
                 </div>
             </div>
-
-            <!-- Footer -->
-            <footer class="footer pt-0">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6">
-                        @*<div class="copyright text-center  text-lg-left  text-muted">
-                        &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-                        </div>*@
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-
-                            <li>
-                                <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </footer>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer pt-0">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-6">
+                </div>
+                <div class="col-lg-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+
+                        <li>
+                            <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
     </div>
     <!-- Argon Scripts -->
     <!-- Core -->

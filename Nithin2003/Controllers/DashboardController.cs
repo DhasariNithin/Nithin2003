@@ -231,7 +231,7 @@ namespace Nithin2003.Controllers
                         smtp.Port = 587;
                         smtp.Send(mm);
 
-                        //ViewBag.Text = "OTP sent to your email successfully";
+                        
                     }
                 }
 
@@ -341,7 +341,7 @@ namespace Nithin2003.Controllers
         {
             try
             {
-                IEnumerable<MyTransferMoney> myTransferMoney = _db.TransactionHistory.Where(t => t.FromUsername.Contains(HttpContext.Session.GetString("Username")));               
+                IEnumerable<MyTransferMoney> myTransferMoney = _db.TransactionHistory.Where(t => t.FromUsername.Contains(HttpContext.Session.GetString("Username")));              
 
                 return View(myTransferMoney);
                

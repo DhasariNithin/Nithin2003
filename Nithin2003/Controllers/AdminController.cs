@@ -40,7 +40,7 @@ namespace Nithin2003.Controllers
             }
 
         }
-           // Checking Users loan requests 
+        // Checking Users loan requests 
         public IActionResult LoanAmountRequest()
         {
             try
@@ -57,7 +57,7 @@ namespace Nithin2003.Controllers
             }
 
         }
-            //Approve Loan button
+        //Approve Loan button
         public IActionResult ApproveLoan(string? LoanId)
         {
             try
@@ -132,14 +132,14 @@ namespace Nithin2003.Controllers
             try
             {
 
-               
+
                 var _usersdata = _db.Users.Find(AdminOrEditor.UserName);
                 if (_usersdata == null)
                 {
                     ModelState.AddModelError("UserName", "User Name doesn't exist");
                     return View();
                 }
-               
+
                 if (_usersdata != null)
                 {
 
@@ -157,17 +157,68 @@ namespace Nithin2003.Controllers
                     {
                         _usersdata.ContentEditor = false;
                         _usersdata.Admin = false;
-                    } 
+                    }
 
-                        _db.Users.Update(_usersdata);
-                        _db.SaveChanges();
-                    ViewBag.Message = "Successfully permissions given to User .";
-                        return View();
-                   
-                    
+                    _db.Users.Update(_usersdata);
+                    _db.SaveChanges();
+                    ViewBag.Message = "Successfully permissions given to User.";
+                    return View();
+
+
                 }
-                
+
                 return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+
+        public IActionResult AdminAndEditor()
+        {
+            try
+            {
+                IEnumerable<MyUser> users = _db.Users;
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+        
+        public IActionResult RemoveAsAdmin(string? Username)
+        {
+            try
+            {
+                var _user = _db.Users.Find(Username);
+                if(_user.Admin == true)
+                {
+                    _user.Admin = false;
+                }
+                _db.Users.Update(_user);
+                _db.SaveChanges();
+                return RedirectToAction("AdminAndEditor", "Admin");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
+        }
+
+        public IActionResult RemoveAsEditor(string? Username)
+        {
+            try
+            {
+                var _user = _db.Users.Find(Username);
+                if (_user.ContentEditor == true)
+                {
+                    _user.ContentEditor = false;
+                }
+                _db.Users.Update(_user);
+                _db.SaveChanges();
+                return RedirectToAction("AdminAndEditor", "Admin");
             }
             catch (Exception ex)
             {
