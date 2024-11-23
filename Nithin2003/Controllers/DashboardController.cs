@@ -3,7 +3,7 @@ using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Net.Mail;
 using System.Net;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+
 
 namespace Nithin2003.Controllers
 {
@@ -30,7 +30,7 @@ namespace Nithin2003.Controllers
         }
 
 
-        // Money Transfer
+        // Money Transfer page
         public IActionResult TransferMoney()
         {
             try
@@ -44,6 +44,8 @@ namespace Nithin2003.Controllers
 
         }
         [HttpPost]
+
+        // transfering money to other users
         public IActionResult TransferMoney(MyTransferMoney myTransferMoney)
         {
             try
@@ -178,6 +180,7 @@ namespace Nithin2003.Controllers
             }
 
         }
+
         //genrating OTP for email verification
 
         public IActionResult SendOTP(string? Username)

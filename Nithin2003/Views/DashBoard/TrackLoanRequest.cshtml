@@ -1,6 +1,6 @@
-﻿@model IEnumerable<MyUser>
+﻿@model IEnumerable<MyLoanRequest>
 @{
-    ViewData["Title"] = "UsersContentEditor";
+    ViewData["Title"] = "TrackLoanRequest";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
@@ -9,7 +9,7 @@
 
 
 <body>
-    <!-- Sidenav -->
+    <!-- ======= Sidebar ======= -->
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
@@ -25,6 +25,8 @@
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <!-- Nav items -->
                     <ul class="navbar-nav">
+
+
                         @if (Context.Session.GetString("Admin") != "True")
                         {
                             <li class="nav-item">
@@ -94,13 +96,11 @@
                             </a>
                         </li>
 
-
                     </ul>
-
-
                 </div>
             </div>
         </div>
+
     </nav>
     <!-- Main content -->
     <div class="main-content" id="panel">
@@ -112,7 +112,7 @@
                 <div class="header-body">
                     <div class="row align-items-center py-4">
                         <div class="col-lg-6 col-7">
-                            <h6 class="h2 text-white d-inline-block mb-0">Users</h6>
+                            <h6 class="h2 text-white d-inline-block mb-0">Loan Status</h6>
                             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
@@ -121,7 +121,6 @@
                                 </ol>
                             </nav>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -133,18 +132,19 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Users table</h3>
+                            <h3 class="mb-0">Users Loan table</h3>
                         </div>
                         <!-- Light table -->
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>User Name</th>
-                                        <th>Age</th>
-                                        <th> User Status</th>
-                                        <th>City</th>
-                                        <th>Account Balance</th>
+                                        <th>User Loan Id</th>
+                                        <th>Requested Username</th>
+                                        <th> User Loan Amount</th>
+                                        <th>Last Modified</th>
+                                        <th> Loan Request Status</th>
+
 
 
 
@@ -152,7 +152,7 @@
                                 </thead>
                                 @foreach (var users in Model)
                                 {
-                                    
+
 
 
 
@@ -162,64 +162,44 @@
                                                 <div class="media align-items-center">
 
                                                     <div class="media-body">
-                                                        <span class="name mb-0 text-sm">@users.Username</span>
+                                                        <span class="name mb-0 text-sm">@users.LoanId</span>
                                                     </div>
                                                 </div>
                                             </th>
-                                            <td class="budget">
-                                                @{
-                                                    int age = DateTime.Now.Year - users.Age.Year;
-                                                }
-                                                @age years
-                                            </td>
+
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                     <i class="bg-warning"></i>
-                                                    <span class="status">@users.UserStatus</span>
+                                                    <span class="status">@users.RequestedUsername</span>
                                                 </span>
                                             </td>
                                             <td>
-                                                
-                                                @users.City
-                                            </td>
-                                            <td>
                                                 <div class=" ni ni-money-coins">
-                                                    <span class="">@users.AccountBalance</span>
 
+                                                    @users.LoanAmount
                                                 </div>
                                             </td>
+                                            <td>
+                                                <span class="">@users.LastModified</span>
+                                            </td>
+                                            <td>
+                                                <span class="">@users.LoanRequestStatus</span>
+                                            </td>
 
-                                            
 
-                                            @if (Context.Session.GetString("ContentEditor") == "True")
-                                            {
-
-                                                <td><div class="btn"> <a asp-controller="Users" asp-action="EditDetails" style="color:darkolivegreen" asp-route-Username="@users.Username">Edit</a></div></td>
-                                                @if (users.UserStatus == "Suspend")
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserUnSuspend" style="color:red" asp-route-Username="@users.Username">UnSuspend</a></div></td>
-                                                }
-                                                else if (users.UserStatus == "New")
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserApprove" style="color:red" asp-route-Username="@users.Username">Approve</a></div></td>
-                                                }
-                                                else
-                                                {
-                                                    <td><div class="btn"> <a asp-controller="Users" asp-action="UserSuspend" style="color:red" asp-route-Username="@users.Username">Suspend</a></div></td>
-                                                }
-                                                
-                                            }
                                         </tr>
 
                                     </tbody>
                                 }
                             </table>
-                        </div>                        
+                        </div>
+                        
                     </div>
                 </div>
             </div>
 
             <!-- Footer -->
+           
             <footer class="footer pt-0">
                 <div class="row align-items-center justify-content-lg-between">
                     <div class="col-lg-6">
@@ -250,4 +230,3 @@
 </body>
 
 </html>
-

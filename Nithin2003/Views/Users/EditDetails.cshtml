@@ -47,7 +47,7 @@
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
-                                            @*<span class="input-group-text"><i class="ni ni-email-83"></i></span>*@
+                                            
                                         </div>
 
                                         <input type="text" asp-for="@Model.Username" placeholder="Enter User Name" class="form-control" />
@@ -108,8 +108,7 @@
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <h1 class="form-control">Indian</h1>
                                         <input type="checkbox" id="Indian" asp-for="@Model.Nationality" /><br>
-                                        @* <h1 class="text-white">Nationality</h1>
-                                        <input type="checkbox" asp-for=" @Model.Nationality" placeholder="Indian" value="Indian" /><br>*@
+                                       
                                         
                                     </div>
                                     <span asp-validation-for="@Model.Nationality" class="text-danger"></span>

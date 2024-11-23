@@ -11,16 +11,24 @@ namespace Nithin2003.Controllers
         // ajax calling for live updates
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Errors", "Home");
+            }
         }
         [HttpPost]
         public int Add(int number1,int number2)
         {
-
+            
            return number1 + number2;
         }
 
         // calculating the values
+
         [HttpPost]
         public Number Calculator(int number1, int number2)
         {

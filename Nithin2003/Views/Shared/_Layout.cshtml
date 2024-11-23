@@ -43,7 +43,7 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
             <a href="#hero" class="logo d-flex align-items-center">
-                @* <img src="~/flex-assets/img/logo.png" alt="">*@
+                
                 <span>Nithin</span>
             </a>
 
@@ -51,7 +51,7 @@
                 <ul>
                     @if (Context.Session.GetString("SignIn") == "true")
                     {
-                        @*style = "float:left;width:400px;height: 60px;"*@
+                        
                     <li> <a class="nav-link scrollto active" asp-controller="Dashboard" asp-action="Index">Dashboard </a></li>
                     }
                     else

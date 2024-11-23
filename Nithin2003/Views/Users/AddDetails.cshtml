@@ -4,100 +4,6 @@
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 
-@*<h1>Add User Details</h1>
-<form action="/Users/AddDetails" method="post">
-    <div class="mb-3">
-        <label class="form-label">User Name </label>
-        <input type="text" asp-for="@Model.Username" class="form-control"/>
-        <span asp-validation-for="@Model.Username" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">User Password </label>
-        <input type="password" asp-for="@Model.Password" class="form-control" />
-        <span asp-validation-for="@Model.Password" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Firstname</label>
-        <input type="text" asp-for="@Model.Firstname" class="form-control"/>
-        <span asp-validation-for="@Model.Firstname" class="text-danger"></span>
-
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Lastname </label>
-        <input type="text" asp-for="@Model.Lastname" class="form-control"/>
-        <span asp-validation-for="@Model.Lastname" class="text-danger"></span>
-    </div>
-
-
-    <div class="mb-3">
-        <label class="form-label">Mobile No </label>
-        <input type="text" pattern="[6789][0-9]{9}" title="Please enter valid Mobile number" asp-for="@Model.Mobile" class="form-control" />
-        <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
-
-
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label"> User City</label>
-        @*<input type="DropDownList" asp-for="@Model.City" class="form-control" />*@
-       @* @Html.DropDownList("City", new List<SelectListItem>
-        {
-        new SelectListItem { Text = "Nizamabad", Value = "Nizamabad", Selected=true},
-        new SelectListItem { Text = "Karimagar", Value = "Karimagar"},
-        new SelectListItem { Text = "Hyderabad", Value = "Hyderabad"},
-        new SelectListItem { Text = "Warangal", Value = "Warangal"},
-        new SelectListItem { Text = "Nalgonda", Value = "Nalgonda"},
-        }, "Select City", new { @class = "form-control" })
-        <span asp-validation-for="@Model.City" class="text-danger"></span>
-
-    </div>
-
-
-    <div class="mb-3">
-           <label >Indian</label>
-          <input type="checkbox" id="Indian" asp-for=" @Model.Nationality" /><br>
-        <span asp-validation-for="@Model.Nationality" class="text-danger"></span>
-    </div>    
-
-    <div class="mb-3">
-            <label class="form-label"> User Age</label>
-            <input type="datetime-local" asp-for="@Model.Age" class="form-control" />
-        <span asp-validation-for="@Model.Age" class="text-danger"></span>
-     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Account Number </label>
-        <input type="number" asp-for="@Model.AccountBalance" class="form-control" />
-        <span asp-validation-for="@Model.AccountBalance" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">User Status </label>
-        <input type="text" asp-for="@Model.UsersStatus" class="form-control" />
-        <span asp-validation-for="@Model.UsersStatus" class="text-danger"></span>
-
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">User Email </label>
-        <input type="text" asp-for="@Model.Email" class="form-control">
-        <td>@Html.ValidationMessageFor(m => @Model.Email, "", new { @class = "text-danger" })</td>
-
-
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">User EmailVerification </label>
-        <input type="text" asp-for="@Model.EmailVerification" class="form-control" />
-        <span asp-validation-for="@Model.EmailVerification" class="text-danger"></span>
-
-    </div>
-    <input type="submit" name="btnsubmit" value="submit"/><a asp-controller="Users" asp-action="Index" type="button">Back To Users Details</a>
-</form>
-*@
 
 
 <!--
@@ -151,7 +57,7 @@
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
-                                            @*<span class="input-group-text"><i class="ni ni-email-83"></i></span>*@
+                                            
                                         </div>                                        
                                         
                                         <input type="text" asp-for="@Model.Username" placeholder="Enter User Name" class="form-control" />

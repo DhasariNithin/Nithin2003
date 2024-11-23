@@ -111,7 +111,7 @@ namespace Nithin2003.Controllers
                 return RedirectToAction("Errors", "Home");
             }
         }
-
+        // Page for aprove admin or editors
         public IActionResult ApproveAsAdmin()
         {
             try
@@ -127,6 +127,8 @@ namespace Nithin2003.Controllers
 
 
         [HttpPost]
+
+        // giving permission to user admin or editor
         public IActionResult ApproveAsAdmin(AdminOrEditor AdminOrEditor)
         {
             try
@@ -139,25 +141,44 @@ namespace Nithin2003.Controllers
                     ModelState.AddModelError("UserName", "User Name doesn't exist");
                     return View();
                 }
+                if (_usersdata.UserStatus == "New") 
+                {
+                    ModelState.AddModelError("UserName", "User account has not approvedyou can't make this user as admin or Content Editor");
+                    return View();
+                }
+                if (_usersdata.UserStatus == "Suspend")
+                {
+                    ModelState.AddModelError("UserName", "User account has been suspended you can't make this user as admin or Content Editor");
+                    return View();
+                }
 
                 if (_usersdata != null)
                 {
+                    if (_usersdata.UserStatus == "Active")
+                    {
 
-                    if (AdminOrEditor.AdminOrContentEditor == "Admin")
-                    {
-                        _usersdata.Admin = true;
-                        _usersdata.ContentEditor = false;
-                    }
-                    else if (AdminOrEditor.AdminOrContentEditor == "ContentEditor")
-                    {
-                        _usersdata.ContentEditor = true;
-                        _usersdata.Admin = false;
+                        if (AdminOrEditor.AdminOrContentEditor == "Admin")
+                        {
+                            _usersdata.Admin = true;
+                            _usersdata.ContentEditor = false;
+                        }
+                        else if (AdminOrEditor.AdminOrContentEditor == "ContentEditor")
+                        {
+                            _usersdata.ContentEditor = true;
+                            _usersdata.Admin = false;
+                        }
+                        else
+                        {
+                            _usersdata.ContentEditor = false;
+                            _usersdata.Admin = false;
+                        }
                     }
                     else
                     {
-                        _usersdata.ContentEditor = false;
-                        _usersdata.Admin = false;
+                        ModelState.AddModelError("UserName", "You can't make this user as admin or Content Editor");
+                        return View();
                     }
+                    
 
                     _db.Users.Update(_usersdata);
                     _db.SaveChanges();
@@ -175,6 +196,7 @@ namespace Nithin2003.Controllers
             }
         }
 
+        // Reading admin and editors details
         public IActionResult AdminAndEditor()
         {
             try
@@ -188,6 +210,7 @@ namespace Nithin2003.Controllers
             }
         }
         
+        // removing permissions as admin
         public IActionResult RemoveAsAdmin(string? Username)
         {
             try
@@ -207,6 +230,7 @@ namespace Nithin2003.Controllers
             }
         }
 
+        // removing permissions as Editor
         public IActionResult RemoveAsEditor(string? Username)
         {
             try
