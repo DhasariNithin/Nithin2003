@@ -5,7 +5,7 @@
 }
 
 
--->
+
 <!DOCTYPE html>
 <html>
 
@@ -71,15 +71,7 @@
                                     <span class="nav-link-text">My Transaction History</span>
                                 </a>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
-                                    <i class="ni ni-circle-08"></i>
-                                    <span class="nav-link-text">Edit My Profile</span>
-
-                                </a>
-                            </li>
-                            @if(Context.Session.GetString("Manu") == "True")
+                            @if (Context.Session.GetString("Manu") == "True")
                             {
                                 <li class="nav-item">
                                     <a class="nav-link active" asp-controller="Ajax" asp-action="Index">
@@ -88,7 +80,23 @@
 
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" asp-controller="WeatherForecast" asp-action="WeatherForecastIndex">
+                                        <i class="ni ni-circle-08"></i>
+                                        <span class="nav-link-text">Web API</span>
+
+                                    </a>
+                                </li>
                             }
+
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
+                                    <i class="ni ni-circle-08"></i>
+                                    <span class="nav-link-text">Edit My Profile</span>
+
+                                </a>
+                            </li>
+                            
                            
                         }                      
 
