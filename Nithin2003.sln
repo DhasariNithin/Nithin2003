@@ -5,9 +5,11 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nithin2003", "Nithin2003\Nithin2003.csproj", "{AFF3F6A4-1B3A-4FBC-B1C6-6FC657C015AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.Web.Api", "WeatherForecast.Web.Api\WeatherForecast.Web.Api.csproj", "{29F8D802-97DE-4828-BBA6-046082CD6719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.Web.Api", "WeatherForecast.Web.Api\WeatherForecast.Web.Api.csproj", "{29F8D802-97DE-4828-BBA6-046082CD6719}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DC461FD-6685-4985-8625-B5B12D8059CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsApp", "..\WhatsApp\WhatsApp.csproj", "{93C550B5-EB81-428D-9C46-C69FAE05A5CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{29F8D802-97DE-4828-BBA6-046082CD6719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29F8D802-97DE-4828-BBA6-046082CD6719}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29F8D802-97DE-4828-BBA6-046082CD6719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93C550B5-EB81-428D-9C46-C69FAE05A5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93C550B5-EB81-428D-9C46-C69FAE05A5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93C550B5-EB81-428D-9C46-C69FAE05A5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93C550B5-EB81-428D-9C46-C69FAE05A5CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
