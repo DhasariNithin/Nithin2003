@@ -165,7 +165,7 @@ namespace Nithin2003.Controllers
             try
             {
 
-                var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));
+                var _user = _db.Users.Find(HttpContext.Session.GetString("Username"));//Tracking the login user
 
                 UserEmailVerification _emailVerification = new UserEmailVerification();
                 _emailVerification.Email = _user.Email;
