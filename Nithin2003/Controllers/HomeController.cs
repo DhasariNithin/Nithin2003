@@ -162,6 +162,10 @@ namespace Nithin2003.Controllers
         {
             return View();
         }
+        public IActionResult ErrorAmount()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

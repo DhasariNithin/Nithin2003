@@ -1,0 +1,283 @@
+﻿@model IEnumerable<Nithin2003.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+<!-- ======= Sidebar ======= -->
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+        <!-- Brand -->
+        <div class="sidenav-header  align-items-center">
+            <div class="sidenav-header  align-items-center">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index" type="button">
+                    <img style="max-height: 60px;width:200px;" src="~/Argon-assets/img/Nithinnnnnn.png" class="navbar-brand-img" alt="...">
+                </a>
+            </div>
+        </div>
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+
+
+
+                    @if (Context.Session.GetString("Admin") != "True")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Dashboard" asp-action="Index">
+                                <i class="ni ni-tv-2 text-primary"></i>
+                                <span class="nav-link-text">My Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TransferMoney">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Transfer Money</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Product" asp-action="Index">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Shopping Cart</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Cart" asp-action="TrackOrder">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">My Order Details</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Request a Loan</span>
+                            </a>
+
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="DashBoard" asp-action="TrackLoanRequest">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Track Loan Status</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Dashboard" asp-action="MyLoginDetails">
+                                <i class="ni ni-circle-08"></i>
+                                <span class="nav-link-text">My LogIn History</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Dashboard" asp-action="MytransactionHistory">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">My Transaction History</span>
+                            </a>
+                        </li>
+                        @* @if (Context.Session.GetString("Manu") == "True")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Ajax" asp-action="Index">
+                                    <i class="ni ni-circle-08"></i>
+                                    <span class="nav-link-text">Ajax</span>
+
+                                </a>
+                            </li>
+
+                        } *@
+
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
+                                <i class="ni ni-circle-08"></i>
+                                <span class="nav-link-text">Edit My Profile</span>
+
+                            </a>
+                        </li>
+
+
+                    }
+
+
+                    @if (Context.Session.GetString("ContentEditor") == "True")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Users" asp-action="UsersContentEditor">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Content Editor</span>
+                            </a>
+                        </li>
+
+                    }
+                    @if (Context.Session.GetString("Admin") == "True")
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Admin" asp-action="Index">
+                                <i class="ni ni-circle-08"></i>
+                                <span class="nav-link-text">Admin Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Admin" asp-action="LoanAmountRequest">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">All Loan Requests</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Admin" asp-action="UserstransactionHistory">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">All Transaction History</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Admin" asp-action="ApproveAsAdmin">
+                                <i class="ni ni-money-coins"></i>
+                                <span class="nav-link-text">Add Admin/Editor</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Dashboard" asp-action="UsersLoginDetails">
+                                <i class="ni ni-circle-08"></i>
+                                <span class="nav-link-text">All User Login History</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Dashboard" asp-action="Index">
+                                <i class="ni ni-tv-2 text-primary"></i>
+                                <span class="nav-link-text">My Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Admin" asp-action="AdminAndEditor">
+                                <i class="ni ni-circle-08"></i>
+                                <span class="nav-link-text">Remove Admin or Editor</span>
+
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
+                                <i class="ni ni-circle-08"></i>
+                                <span class="nav-link-text">Edit My Profile</span>
+
+                            </a>
+                        </li>
+
+                    }
+                    <li class="nav-item">
+                        <a style="background-color:#5e72e4;color:white" class="nav-link " asp-area="" asp-controller="Users" asp-action="SignOut">
+                            <i class=""></i>
+                            <span class="nav-link-text">Sign Out</span>
+                        </a>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+    <!-- Main content -->
+    <div class="main-content" id="panel">
+
+        <!-- Header -->
+        <!-- Header -->
+        <div class="header bg-primary pb-6">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <div class="row align-items-center py-4">
+                        <div class="col-lg-6 col-7">
+                            <h6 class="h2 text-white d-inline-block mb-0">Products Table</h6>
+                            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                                    @* <li class="breadcrumb-item active" aria-current="page">Table</li> *@
+                                </ol>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page content -->
+        <div class="container-fluid mt--6">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <!-- Card header -->
+                        <div class="card-header border-0">
+                            <h3 class="mb-0">Product Table</h3>
+                        </div>
+                        <!-- Light table -->
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Image</th>
+                                        <th>Price</th>
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var product in Model) //loop through the products
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => product.Name)
+                                            </td>
+                                            <td>
+                                                <img src="~/Argon-assets/img/@product.ImageUrl" alt="@product.Name" style="width: 100px; height: auto;" asp-append-version="true" />
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => product.Price)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Buy", "Buy", "Cart", new { sku = product.Sku }, new { @class = "btn btn-primary" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer pt-0">
+                <div class="row align-items-center justify-content-lg-between">
+                    <div class="col-lg-6">
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+
+                            <li>
+                                <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="~/Argon-assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/Argon-assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Argon-assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="~/Argon-assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="~/Argon-assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <!-- Argon JS -->
+    <script src="~/Argon-assets/js/argon.js?v=1.2.0"></script>
+
+
+

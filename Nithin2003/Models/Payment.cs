@@ -1,0 +1,27 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace Nithin2003.Models
+{
+    public class Payment
+    {
+        [Key]
+        public int PaymentId { get; set; }
+
+        [Required]
+        public string Username { get; set; } // Assuming payments are linked to users
+
+        
+        [Required]
+        [Range(1, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
+        public int Amount { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime PaymentDate { get; set; }     
+
+        
+
+        
+    }
+}

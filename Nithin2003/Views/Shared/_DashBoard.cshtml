@@ -56,6 +56,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Product" asp-action="Index">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">Shopping Cart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-controller="Cart" asp-action="TrackOrder">
+                                    <i class="ni ni-money-coins"></i>
+                                    <span class="nav-link-text">My Order Details</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link active" asp-controller="DashBoard" asp-action="UserLoanRequest">
                                     <i class="ni ni-money-coins"></i>
                                     <span class="nav-link-text">Request a Loan</span>
@@ -82,7 +94,7 @@
                                     <span class="nav-link-text">My Transaction History</span>
                                 </a>
                             </li>
-                            @if (Context.Session.GetString("Manu") == "True")
+                            @* @if (Context.Session.GetString("Manu") == "True")
                             {
                                 <li class="nav-item">
                                     <a class="nav-link active" asp-controller="Ajax" asp-action="Index">
@@ -92,7 +104,7 @@
                                     </a>
                                 </li>
                                 
-                            }
+                            } *@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
                                     <i class="ni ni-circle-08"></i>

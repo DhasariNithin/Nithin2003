@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Form.cshtml";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
 
@@ -18,7 +18,7 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                             <h1 class="text-white">Welcome!</h1>
-                            <p class="text-lead text-white"> Enter Below Details To Make UPI Payment</p>
+                            <p class="text-lead text-white"> Click Below Button To Make UPI Payment</p>
                         </div>
                     </div>
                 </div>
@@ -37,125 +37,30 @@
                     <div class="card bg-secondary border-0 mb-0">
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
-                                <strong>UPI Payment</strong>
-                            </div>
+                                
+                                <div class="payment-container">
+                                    <h2>Make a Payment</h2>
+                                    <p>Click the button below to proceed with your payment.</p>
+                                    <button  class="btn btn-primary my-4" onclick="makePayment()">Pay Now</button>
+                                </div>
 
-                            <h2>Pay with Debit or Credit Card</h2>
-                            @*  <button id="google-pay-button">Make payment</button> <!-- Google Pay Button --> *@
+                                <script>
+                                    function makePayment() {
+                                        if (confirm("Proceed to payment?")) {
+                                            window.location.href = "https://payments.cashfree.com/links?code=q850nmqlou00";
+                                        }
+                                    }
 
+                                    // Uncomment this line if you want auto-redirect when the page loads
+                                    // window.onload = function() { window.location.href = "https://payments.cashfree.com/links?code=q850nmqlou00"; };
+                                </script>
                             <body>
                                 <div id="container" class="padding-after"></div>
                             </body>
 
-                            <script type="application/javascript">
-                                function getGooglePaymentsClient() {
-                                  return new google.payments.api.PaymentsClient({
-                                    environment: 'TEST',
-                                  });
-                                }
+                            
 
-                                function onGooglePayLoaded() {
-                                  const paymentsClient = getGooglePaymentsClient();
-                                  addGooglePayButton();
-                                }
-
-                                function addGooglePayButton() {
-                                  const paymentsClient = getGooglePaymentsClient();
-
-                                  const buttonOptions = (google.payments.api.ButtonOptions = {
-                                    onClick: onGooglePaymentButtonClicked,
-                                  });
-
-                                  console.log(JSON.stringify(buttonOptions, null, 2));
-
-                                  const button = paymentsClient.createButton(buttonOptions);
-
-                                  let container = document.getElementById('container');
-                                  if (container.firstChild) {
-                                    container.replaceChild(button, container.firstChild);
-                                  } else {
-                                    container.appendChild(button);
-                                  }
-                                }
-
-                                function getRequest() {
-                                  const allowedCardNetworks = [
-                                    'AMEX',
-                                    'DISCOVER',
-                                    'INTERAC',
-                                    'JCB',
-                                    'MASTERCARD',
-                                    'VISA',
-                                  ];
-
-                                  // also called IsReadyToPayRequest in the docs
-                                  googlePayConfig = {
-                                    apiVersion: 2,
-                                    apiVersionMinor: 0,
-                                  };
-                                  paymentDataRequest = Object.assign({}, googlePayConfig);
-                                  // currency code is ISO 4217 code
-                                  // country code is ISO 3166-1 alpha-2 code for where the transaction is processed
-                                  paymentDataRequest.transactionInfo = {
-                                    totalPriceStatus: 'FINAL',
-                                    totalPrice: '0', // will change this later
-                                    currencyCode: 'INR',
-                                    countryCode: 'IN',
-                                  };
-                                  paymentDataRequest.merchantInfo = {
-                                    merchantId: 'BCR2DN6TQ7DLV7SQ',
-                                    merchantName: 'Nithin',
-                                  };
-                                  const tokenizationSpec = {
-                                    type: 'PAYMENT_GATEWAY',
-                                    parameters: {
-                                      gateway: 'cardconnect',
-                                      gatewayMerchantId: 'gatewayMerchantId',
-                                    },
-                                  };
-                                  const cardPaymentMethod = {
-                                    type: 'CARD',
-                                    tokenizationSpecification: tokenizationSpec,
-                                    parameters: {
-                                      allowedCardNetworks: allowedCardNetworks,
-                                      allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-                                      //billingAddressParamters: {
-                                      //    format: "FULL",
-                                      //    phoneNumberRequired: false
-                                      //}
-                                    },
-                                  };
-                                  paymentDataRequest.shippingAddressRequired = false;
-                                  paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
-                                  return paymentDataRequest;
-                                }
-
-                                function onGooglePaymentButtonClicked() {
-                                  const paymentDataRequest = getRequest();
-                                  console.log(JSON.stringify(paymentDataRequest, null, 2));
-                                  //paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
-
-                                  const paymentsClient = getGooglePaymentsClient();
-                                  paymentsClient.loadPaymentData(paymentDataRequest).then((paymentData) => {
-                                    console.log(paymentData.paymentMethodData.tokenizationData.token);
-
-                                    }).catch((error) => {
-                                    // errors will be displayed in the Google Pay window
-                                    console.log(error);
-                                    return;
-                                    });
-                                }
-
-                                function processPayment(paymentData) {
-                                  console.log(paymentData.paymentMethodData.tokenizationData.token);
-                                }
-
-                            </script>
-
-                            <script async
-                                    src="https://pay.google.com/gp/p/js/pay.js"
-                                    onload="onGooglePayLoaded()">
-                            </script>
+                           
 
                         </div>
                     </div>

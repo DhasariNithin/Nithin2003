@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Nithin2003.Database;
+using Nithin2003.Interfaces;
 using Nithin2003.Services;
-using Nithin2003.Services.Interfaces;
 
 
 namespace Nithin2003
@@ -17,16 +18,15 @@ namespace Nithin2003
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Adding services for WeatherForecastService
-            builder.Services.AddHttpClient<IWeatherForecastService, WeatherForecastService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:7081"); 
-            });
-
+           
             builder.Services.AddSession();
             builder.Services.AddDbContext<ApplicationData>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddSession(); // Enable session support
 
+
+            builder.Services.AddScoped<IProductService,ProductService>(); // Register ProductService with DI container
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var app = builder.Build();
 

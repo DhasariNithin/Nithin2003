@@ -1,19 +1,16 @@
-﻿@model IEnumerable<UserHistory>
+﻿@model IEnumerable<Payment>
 @{
-    ViewData["Title"] = "MyLoginDetails";
-    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewData["Title"] = "TrackOrder";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
-
 <!DOCTYPE html>
 <html>
 
-
 <body>
-    <!-- ======= Sidebar ======= -->
+    <!-- Sidenav -->
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
-            
             <div class="sidenav-header  align-items-center">
                 <div class="sidenav-header  align-items-center">
                     <a class="navbar-brand" asp-controller="Home" asp-action="Index" type="button">
@@ -88,7 +85,7 @@
 
                                     </a>
                                 </li>
-                                
+
                             } *@
 
                             <li class="nav-item">
@@ -117,11 +114,13 @@
                                 <span class="nav-link-text">Sign Out</span>
                             </a>
                         </li>
+
                     </ul>
+
+
                 </div>
             </div>
         </div>
-
     </nav>
     <!-- Main content -->
     <div class="main-content" id="panel">
@@ -133,7 +132,7 @@
                 <div class="header-body">
                     <div class="row align-items-center py-4">
                         <div class="col-lg-6 col-7">
-                            <h6 class="h2 text-white d-inline-block mb-0">Users LogIn</h6>
+                            <h6 class="h2 text-white d-inline-block mb-0">My Orders</h6>
                             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
@@ -142,7 +141,10 @@
                                 </ol>
                             </nav>
                         </div>
-                       
+                        @* <div class="col-lg-6 col-5 text-right">
+                            <a href="#" class="btn btn-sm btn-neutral">New</a>
+                            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+                        </div> *@
                     </div>
                 </div>
             </div>
@@ -154,18 +156,17 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Users Login History</h3>
+                            <h3 class="mb-0">My Order Details</h3>
                         </div>
                         <!-- Light table -->
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-
-                                        <th>User name</th>
-                                        <th> User Action</th>
-                                        <th>Time</th>
-                                        <th>User IP Address</th>
+                                        <th>Payment Id</th>
+                                        <th>User Name</th>
+                                        <th>Amount</th>
+                                        <th>Payment Date</th>                                        
 
                                     </tr>
                                 </thead>
@@ -173,38 +174,34 @@
                                 {
                                     <tbody class="list">
                                         <tr>
+                                            <th scope="row">
+                                                <div class="media align-items-center">
+
+                                                    <div class="media-body">
+                                                        <span class="name mb-0 text-sm">@users.PaymentId</span>
+                                                    </div>
+                                                </div>
+                                            </th>
+
                                             <td>
-                                                <span class="name mb-0 text-sm">@users.UserName</span>
+                                                <span class="badge badge-dot mr-4">
+                                                    <i class="bg-warning"></i>
+                                                    <span class="status">@users.Username</span>
+                                                </span>
                                             </td>
-                                            @if(users.Action == "SignIn")
-                                            {
-                                                <td>
-                                                    <span>
 
-                                                        <span class="status">@users.Action</span>
-                                                    </span>
-                                                </td>
-                                            }
-                                            @if (users.Action == "SignOut")
-                                            {
-                                                <td>
-                                                    <span>
-
-                                                        <span class="status">@users.Action</span>
-                                                    </span>
-                                                </td>
-                                            }
-                                            
                                             <td>
-                                                <div>
-                                                        @users.Time
+                                                <div class=" ni ni-money-coins">
+                                                    <span class="">@users.Amount</span>
+
                                                 </div>
                                             </td>
                                             <td>
-                                                <span>@users.IPAddress</span>
+                                                <span class="">@users.PaymentDate</span>
                                             </td>
+                                           
 
-                                        </tr>
+
 
                                     </tbody>
                                 }
@@ -215,10 +212,13 @@
                 </div>
             </div>
 
-
+            <!-- Footer -->
             <footer class="footer pt-0">
                 <div class="row align-items-center justify-content-lg-between">
                     <div class="col-lg-6">
+                        @*<div class="copyright text-center  text-lg-left  text-muted">
+                        &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+                        </div>*@
                     </div>
                     <div class="col-lg-6">
                         <ul class="nav nav-footer justify-content-center justify-content-lg-end">
@@ -245,3 +245,5 @@
 </body>
 
 </html>
+
+
