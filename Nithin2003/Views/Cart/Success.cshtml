@@ -13,6 +13,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                         <h1 class="text-white">Your order has been successfully completed! Thank you for your purchase.</h1>
+                        <h1 class="text-white">Order Id : @TempData["OrderId"]</h1>
                         @*<h2 class="text-white">@ViewBag.Message</h2>*@
 
                     </div>
@@ -49,8 +50,8 @@
 
 
                             <div class="text-center">
-
-                                <a asp-controller="Cart" asp-action="TrackOrder" class="btn btn-primary my-4" type="button">Go To Order Details</a>
+                                
+                               
                             </div>
 
                         </form>

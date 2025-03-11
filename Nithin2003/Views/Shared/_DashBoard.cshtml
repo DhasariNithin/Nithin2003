@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,7 @@
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="~/Argon-assets/css/argon.css?v=1.2.0" type="text/css">
-  
+
 </head>
 <body>
     <!-- ======= Sidebar ======= -->
@@ -38,9 +38,9 @@
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <!-- Nav items -->
                     <ul class="navbar-nav">
-                        
 
-                      
+
+
                         @if (Context.Session.GetString("Admin") != "True")
                         {
                             <li class="nav-item">
@@ -58,7 +58,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Product" asp-action="Index">
                                     <i class="ni ni-money-coins"></i>
-                                    <span class="nav-link-text">Shopping Cart</span>
+                                    <span class="nav-link-text">Shop</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -103,7 +103,7 @@
 
                                     </a>
                                 </li>
-                                
+
                             } *@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
@@ -143,7 +143,7 @@
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                
+
                 <!-- Navbar links -->
                 <ul class="navbar-nav align-items-center  ml-md-auto ">
                     <li class="nav-item d-xl-none">
@@ -161,15 +161,29 @@
                             <i class="ni ni-zoom-split-in"></i>
                         </a>
                     </li>
-                   
+
                 </ul>
                 <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
                     <li class="nav-item dropdown">
                         <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div  class="media align-items-center">
                                 <a style="color:white" class="nav-link scrollto" asp-controller="Dashboard" asp-action="Index">@Context.Session.GetString("Username")</a>
-                                   
+
+                                @* @if (@Context.Session.GetString("Index") == "True") *@
+                                @if ((Context.Session.GetInt32("CartCount") ?? 0) > 0)
+                                {
+                                    <a style="background-color: RGB(94, 114, 228);" type="button"
+                                       class="nav-link scrollto d-flex align-items-center justify-content-center"
+                                       asp-controller="Cart" asp-action="Index">
+                                        <img src="~/Argon-assets/img/carttt.png"
+                                             class="navbar-brand-img img-fluid"
+                                             style="max-height: 40px; max-width: 100px;" />
+                                        <span class="badge badge-light ml-2">@Context.Session.GetInt32("CartCount")</span>
+                                    </a>
+                                }
+
                             </div>
+                           
                         </a>
                         <div class="dropdown-menu  dropdown-menu-right ">
                             <div class="dropdown-header noti-title">

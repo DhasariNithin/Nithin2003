@@ -10,8 +10,9 @@ namespace Nithin2003.Models
 
         [Required]
         public string Username { get; set; } // Assuming payments are linked to users
+        public string OrderStatus { get; set; } = "";
 
-        
+
         [Required]
         [Range(1, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
         public int Amount { get; set; }

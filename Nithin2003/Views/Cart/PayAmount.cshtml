@@ -1,14 +1,12 @@
-﻿@model Nithin2003.Models.PaymentViewModel
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Google Pay UPI Integration</title>
+    <title>Pay with Account Balance or UPI</title>
     <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 </head>
 <body class="bg-default">
@@ -18,8 +16,8 @@
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
                         <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                            <h1 class="text-white">Welcome!</h1>
-                            <p class="text-lead text-white"> Click Below Button To Make UPI Payment</p>
+                            @*  <h1 class="text-white">Welcome!</h1> *@
+                            <p class="text-lead text-white">Choose your payment method below</p>
                         </div>
                     </div>
                 </div>
@@ -38,44 +36,46 @@
                     <div class="card bg-secondary border-0 mb-0">
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
-                                <form asp-action="ProceedToPay" asp-controller="Payment" method="post">
-                                    <label>Enter Amount:</label>
-                                    <input type="number" asp-for="Amount" required min="1" />
 
-                                    <span asp-validation-for="Amount" style="color:red;"></span> <!-- Validation message -->
-
-                                    <button type="submit">Proceed to Pay</button>
-                                </form>
-                                
-                               @*  <div class="payment-container">
+                                <div class="payment-container">
                                     <h2>Make a Payment</h2>
-                                    <p>Click the button below to proceed with your payment.</p>
-                                    <button  class="btn btn-primary my-4" onclick="makePayment()">Pay Now</button>
+                                    <p>Account Balance: ₹@ViewBag.UserBalance :: Cart Value: ₹@ViewBag.TotalCartValue</p>
+                                    
+                                    <p>Select a payment method:</p>
+
+                                    <!-- Pay with UPI -->
+                                    <button class="btn btn-primary my-4" onclick="makePayment()">Pay With UPI</button>
+
+                                    <!-- Pay with Account Balance -->
+                                    <form id="balancePaymentForm" method="post" action="@Url.Action("Pay", "Cart")">
+                                        <input type="hidden" name="Username" value="@Context.Session.GetString("Username")">
+
+
+                                        @if (ViewBag.UserBalance > 0 && ViewBag.UserBalance >= ViewBag.Total)
+                                        {
+                                            <button  type="submit" class="btn btn-success my-4">Pay with Account Balance</button>
+                                        }
+                                        
+                                            
+                                        
+                                    </form>
                                 </div>
 
                                 <script>
                                     function makePayment() {
                                         if (confirm("Proceed to payment?")) {
-                                            window.location.href = "https://payments.cashfree.com/links?code=q850nmqlou00";
+                                            window.location.href = "https://payments.cashfree.com/forms/Nithinn";
                                         }
                                     }
+                                </script>
 
-                                    // Uncomment this line if you want auto-redirect when the page loads
-                                    // window.onload = function() { window.location.href = "https://payments.cashfree.com/links?code=q850nmqlou00"; };
-                                </script> *@
-                            <body>
-                                <div id="container" class="padding-after"></div>
-                            </body>
 
-                            
-
-                           
-
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 </body>
 </html>

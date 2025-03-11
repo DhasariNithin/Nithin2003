@@ -20,7 +20,8 @@ namespace Nithin2003.Controllers
             try
             {
                 string _username = HttpContext.Session.GetString("Username");
-                var _userObject = _db.Users.Find(_username);
+                var _userObject = _db.Users.Find(_username);                
+
                 return View(_userObject);
             }
             catch (Exception ex)

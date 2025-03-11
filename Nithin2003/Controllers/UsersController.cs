@@ -307,6 +307,7 @@ namespace Nithin2003.Controllers
                             HttpContext.Session.SetString("Username", _user.Username);
                             HttpContext.Session.SetString("SignIn", "True");
 
+
                             UserHistory history = new UserHistory();
                             if (HttpContext.Session.GetString("SignIn") == "True")
                             {
@@ -383,12 +384,12 @@ namespace Nithin2003.Controllers
                     return View();
                 }
 
-            }
+        }
             catch (Exception ex)
             {
                 return RedirectToAction("Errors", "Home");
-            }
-        }
+    }
+}
 
         // User sign-out amd remove seesions
         public IActionResult SignOut()

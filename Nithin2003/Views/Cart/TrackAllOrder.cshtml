@@ -1,18 +1,14 @@
-﻿@model IEnumerable<UserHistory>
+﻿@model IEnumerable<Payment>
 @{
-    ViewData["Title"] = "UsersLoginDetails";
-    Layout = "~/Views/Shared/_Dashboard.cshtml";
-
+    ViewData["Title"] = "TrackAllOrder";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
-
-
 
 <!DOCTYPE html>
 <html>
 
-
 <body>
-    <!-- ======= Sidebar ======= -->
+    <!-- Sidenav -->
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
@@ -64,7 +60,7 @@
                                 <span class="nav-link-text">All User Login History</span>
                             </a>
                         </li>
-
+                       
                         <li class="nav-item">
                             <a class="nav-link active" asp-controller="Dashboard" asp-action="Index">
                                 <i class="ni ni-tv-2 text-primary"></i>
@@ -82,6 +78,7 @@
                             <a class="nav-link active" asp-controller="Users" asp-action="EditDetails" asp-route-Username="@Context.Session.GetString("Username")">
                                 <i class="ni ni-circle-08"></i>
                                 <span class="nav-link-text">Edit My Profile</span>
+
                             </a>
                         </li>
 
@@ -91,90 +88,91 @@
                                 <span class="nav-link-text">Sign Out</span>
                             </a>
                         </li>
-                       
+
                     </ul>
+
+
                 </div>
             </div>
         </div>
-
     </nav>
-    <!-- Main content -->
     <div class="main-content" id="panel">
-
-        <!-- Header -->
-        <!-- Header -->
         <div class="header bg-primary pb-6">
             <div class="container-fluid">
                 <div class="header-body">
                     <div class="row align-items-center py-4">
                         <div class="col-lg-6 col-7">
-                            <h6 class="h2 text-white d-inline-block mb-0">Login Details</h6>
-                            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="#">Table</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Table</li>
-                                </ol>
-                            </nav>
+                            <h6 class="h2 text-white d-inline-block mb-0">Orders</h6>
                         </div>
-                       
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Page content -->
         <div class="container-fluid mt--6">
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Users Ligin History</h3>
+                            <h3 class="mb-0">Order Table</h3>
                         </div>
+
                         <!-- Light table -->
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-
-                                        <th>User name</th>
-                                        <th> User Action</th>
-                                        <th>Time</th>
-                                        <th>User IP Address</th>
-
+                                        <th>Payment Id</th>
+                                        <th>User Name</th>
+                                        <th>Payment Date</th>
+                                        <th>Order Status</th>
                                     </tr>
                                 </thead>
-                                @foreach (var users in Model)
-                                {
-
-
-
-
-                                    <tbody class="list">
+                                <tbody class="list">
+                                    @foreach (var users in Model)
+                                    {
                                         <tr>
+                                            <th scope="row">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body">
+                                                        <span class="name mb-0 text-sm">@users.PaymentId</span>
+                                                    </div>
+                                                </div>
+                                            </th>
                                             <td>
-                                                <span class="name mb-0 text-sm">@users.UserName</span>
-                                            </td>
-                                            <td>
-                                                <span>
-
-                                                    <span class="status">@users.Action</span>
+                                                <span class="badge badge-dot mr-4">
+                                                    <i class="bg-warning"></i>
+                                                    <span class="status">@users.Username</span>
                                                 </span>
                                             </td>
                                             <td>
-                                                <div>
-
-                                                    @users.Time
-                                                </div>
+                                                <span class="">@users.PaymentDate</span>
                                             </td>
                                             <td>
-                                                <span>@users.IPAddress</span>
+                                                <select class="form-control status-dropdown" data-paymentid="@users.PaymentId" data-currentstatus="@users.OrderStatus">
+                                                    <option value="@users.OrderStatus" selected>@users.OrderStatus</option> <!-- Show current status at the top -->
+                                                    @if (users.OrderStatus == "Order Placed")
+                                                    {
+                                                        <option value="Order is in shipping">Order is in shipping</option>
+                                                        <option value="Order Delivered">Order Delivered</option>
+                                                        <option value="Order Returned">Order Returned</option>
+                                                    }
+                                                    else if (users.OrderStatus == "Order is in shipping")
+                                                    {
+                                                        <option value="Order Delivered">Order Delivered</option>
+                                                        <option value="Order Returned">Order Returned</option>
+                                                    }
+                                                    else if (users.OrderStatus == "Order Delivered")
+                                                    {
+                                                        <option value="Order Returned">Order Returned</option>
+                                                    }
+                                                </select>
                                             </td>
 
                                         </tr>
-
-                                    </tbody>
-                                }
+                                    }
+                                </tbody>
                             </table>
                         </div>
 
@@ -182,33 +180,92 @@
                 </div>
             </div>
 
-
+            <!-- Footer -->
             <footer class="footer pt-0">
                 <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6">
-                    </div>
+                    <div class="col-lg-6"></div>
                     <div class="col-lg-6">
                         <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-
                             <li>
                                 <a class="nav-link scrollto" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
                             </li>
-
                         </ul>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+
     <!-- Argon Scripts -->
-    <!-- Core -->
     <script src="~/Argon-assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="~/Argon-assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Argon-assets/vendor/js-cookie/js.cookie.js"></script>
-    <script src="~/Argon-assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="~/Argon-assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-    <!-- Argon JS -->
     <script src="~/Argon-assets/js/argon.js?v=1.2.0"></script>
+
+    <script>
+                               $(document).ready(function () {
+            $(".status-dropdown").each(function () {
+                var currentStatus = $(this).data("currentstatus");
+
+                // Mapping of allowed next statuses
+                var optionsMap = {
+                    "Order Placed": ["Order is in shipping", "Order Delivered", "Order Returned"],
+                    "Order is in shipping": ["Order Delivered", "Order Returned"],
+                    "Order Delivered": ["Order Returned"]
+                };
+
+                var allowedOptions = optionsMap[currentStatus] || [];
+
+                // Store the original status
+                var currentOption = $(this).find("option[value='" + currentStatus + "']").detach();
+
+                // Remove all options
+                $(this).empty();
+
+                // Add the current status at the top
+                $(this).append(currentOption);
+
+                // Add only the allowed next statuses
+                allowedOptions.forEach(status => {
+                    $(this).append(new Option(status, status));
+                });
+            });
+
+            $(".status-dropdown").change(function () {
+                var dropdown = $(this);
+                var paymentId = dropdown.data("paymentid");
+                var newStatus = dropdown.val();
+
+                $.ajax({
+                    url: "/Cart/UpdateOrderStatus",
+                    type: "POST",
+                    data: { PaymentId: paymentId, OrderStatus: newStatus },
+                    success: function () {
+                        dropdown.data("currentstatus", newStatus); // Update current status
+                        dropdown.find("option").remove(); // Clear old options
+
+                        // Refresh dropdown with new allowed options
+                        var optionsMap = {
+                            "Order Placed": ["Order is in shipping", "Order Delivered", "Order Returned"],
+                            "Order is in shipping": ["Order Delivered", "Order Returned"],
+                            "Order Delivered": ["Order Returned"]
+                        };
+
+                        var allowedOptions = optionsMap[newStatus] || [];
+                        dropdown.append(new Option(newStatus, newStatus, true, true)); // Set new selected option
+
+                        allowedOptions.forEach(status => {
+                            dropdown.append(new Option(status, status));
+                        });
+
+                        alert("Order status updated successfully!");
+                    },
+                    error: function () {
+                        alert("Failed to update order status.");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

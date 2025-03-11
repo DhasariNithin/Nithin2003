@@ -14,6 +14,10 @@ namespace Nithin2003.Database
         public DbSet<UserEmailVerification> EmailVerification { get; set; }
         public DbSet<UserHistory> LoginHistory { get; set; }
         public DbSet<Payment> PaymentRecords { get; set; }
+        public DbSet<TrackAllOrders> OrderStatus { get; set; }
+        public DbSet<CartItem> Cart { get; set; }
+        public DbSet<ShippingDetails> shippingDetails { get; set; }
+        public DbSet<Track> trackOrder { get; set; }
 
     }
 }

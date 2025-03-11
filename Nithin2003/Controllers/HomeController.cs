@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Nithin2003.Database;
 using Nithin2003.Models;
 using System.Diagnostics;
 using System.Net;
@@ -12,6 +13,7 @@ namespace Nithin2003.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private IConfiguration Configuration;
+        
 
         public HomeController(ILogger<HomeController> logger, IConfiguration _configuration)
         {
@@ -20,6 +22,10 @@ namespace Nithin2003.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult TrackOrders()
         {
             return View();
         }
