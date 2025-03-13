@@ -552,7 +552,14 @@ namespace Nithin2003.Controllers
                     return View(new List<Track>()); // Return empty list initially
                 }
 
-                IEnumerable<Track> _track = _db.trackOrder.OrderBy(t => t.Date).ToList();
+                
+                IEnumerable<Track> _track = _db.trackOrder
+                .AsNoTracking() // This disables change tracking and could resolve duplicate fetching
+                .Where(t => t.OrderId.Equals(orderId))
+                .OrderByDescending(t => t.Date)
+                .ToList();
+
+
 
                 if (!_track.Any())
                 {
