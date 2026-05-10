@@ -47,8 +47,6 @@ namespace Nithin2003.Controllers
             {
                 IEnumerable<MyLoanRequest> myloanrequest = _db.LoanRequest;
                 return View(myloanrequest);
-
-
             }
 
             catch (Exception ex)
